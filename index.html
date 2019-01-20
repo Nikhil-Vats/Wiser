@@ -7,6 +7,7 @@
     <link href="css/style.css" type="text/css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Amatic+SC:400,700|Lato:100,400,700|Open+Sans:300,400,700" rel="stylesheet">
     <script defer src="https://use.fontawesome.com/releases/v5.6.3/js/all.js" integrity="sha384-EIHISlAOj4zgYieurP0SdoiBYfGJKkgWedPHH4jCzpCXLmzVsw1ouK59MuUtP4a1" crossorigin="anonymous"></script>
+    <script src="https://apis.google.com/js/api:client.js"></script>
     <title>Wiser</title>
 </head>
 <body>
@@ -44,7 +45,7 @@
                 <li><div class="hexagon">QMIN</div></li>
             </ul>
         </div>
-        <button>Proceed</button>
+        <button id="proceed-btn" class="customGPlusSignIn">Proceed</button>
         <div class="footer">
             <p>&COPY; 2019, Nikhil Vats.</p>
         </div>
@@ -52,5 +53,6 @@
     </div>
     <script src="js/index.js" type="text/javascript"></script>
     <script src="./js/snowstorm.js"></script>
+    <script>startApp();</script>
 </body>
 </html>
