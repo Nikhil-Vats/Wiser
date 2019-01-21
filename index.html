@@ -8,11 +8,20 @@
     <link href="https://fonts.googleapis.com/css?family=Amatic+SC:400,700|Lato:100,400,700|Open+Sans:300,400,700" rel="stylesheet">
     <script defer src="https://use.fontawesome.com/releases/v5.6.3/js/all.js" integrity="sha384-EIHISlAOj4zgYieurP0SdoiBYfGJKkgWedPHH4jCzpCXLmzVsw1ouK59MuUtP4a1" crossorigin="anonymous"></script>
     <script src="https://apis.google.com/js/api:client.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.4.2/lottie.min.js"></script>
     <title>Wiser</title>
 </head>
 <body>
     <div class="loading">
         <div class="loader"></div>
+    </div>
+    <div class="open-btn"></div>
+    <div id="sidenav-content">
+        <ul>
+            <li><img class="list-icons" src="./assets/telephone.svg" >Contact Us</li>
+            <li onclick="GoFullScreen()"><img class="list-icons" src="./assets/full-screen.svg">Go Full Screen</li>
+            <li><img class="list-icons" src="./assets/coding.svg">Developers</li>
+        </ul>
     </div>
     <div class="container">
         <h1 class="title">WISE<sup>R</sup></h1>
@@ -70,6 +79,7 @@
             </ul>
         </div>
         <button id="proceed-btn" class="customGPlusSignIn">Proceed</button>
+        <button id="full-screen-btn" onclick="GoFullScreen()">Go full screen</button>
         <img src="assets/bits_logo.png" id="bits-logo">
     </div>
     <script src="js/index.js" type="text/javascript"></script>

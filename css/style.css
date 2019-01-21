@@ -14,7 +14,7 @@ html, body {
     position: fixed;
     width: 100vw;
     height: 100vh;
-    z-index: 10;
+    z-index: 20;
     top: 0;
     left: 0;
     display: flex;
@@ -61,6 +61,18 @@ html, body {
     }
 }
 
+.open-btn {
+    display: block;
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    z-index: 18;
+    width: 45px;
+    height: 45px;
+    color: #000;
+    cursor: pointer;
+}
+
 .container {
     position: fixed;
     top: 0;
@@ -79,7 +91,6 @@ html, body {
     top: 0px;
     width: 100vw;
     text-align: center;
-    background: #211D70;
     color: #eceff1;
     padding: 3px;
     margin: 0;
@@ -129,7 +140,7 @@ html, body {
     align-items: center;
     justify-content: flex-start;
     position: fixed;
-    z-index: 5;
+    z-index: 15;
     background: rgba(0, 0, 0, 0.95);
     color: #eceff1;
     top: 0;
@@ -174,6 +185,50 @@ html, body {
     transform: rotate(-45deg);
 }
 
+#sidenav-content {
+    display: block;
+    z-index: 16;
+    height: 100vh;
+    width: 100vw;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: #000;
+    transform: translateX(-100vw);
+    transition: 0.2s ease-in-out;
+}
+
+#sidenav-content ul {
+    position: relative;
+    margin: 80px 0 0 20px;
+    padding: 0;
+    width: 100%;
+    list-style-type: none;
+}
+
+#sidenav-content li {
+    display: flex;
+    flex-flow: row;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    width: 90%;
+    font-family: inherit;
+    height: 7vh;
+    color: whitesmoke;
+    font-size: 20px;
+    border-bottom: 1px solid whitesmoke;
+    transition: 0.2s ease-in-out;
+    cursor: pointer;
+}
+
+.list-icons {
+    position: absolute;
+    left: 7vw;
+    width: 30px;
+    height: 30px;
+}
+
 #panda {
     display: block;
     position: absolute;
@@ -195,11 +250,11 @@ html, body {
         transform: rotateY(0deg);
     }
     45% {
-        left: 90vw;
+        left: 77vw;
         transform: rotateY(0deg);
     }
     50% {
-        left: 98vw;
+        left: 82vw;
         transform: rotateY(180deg);
     }
     95% {
@@ -315,12 +370,10 @@ button {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 15px;
-    height: 8vh;
+    padding: 0 8px;
+    height: 6vh;
     font-size: 25px;
     position: absolute;
-    bottom: 10vh;
-    left: 50%;
     transform: translateX(-50%);
     background-color: #000;
     color: #1565c0;
@@ -337,6 +390,15 @@ button:hover {
     background-color: #212121;
 }
 
+#proceed-btn {
+    bottom: 10vh;
+    left: 50%;
+}
+
+#full-screen-btn {
+    display: none;
+}
+
 .footer {
     display: flex;
     align-items: center;
@@ -346,16 +408,19 @@ button:hover {
     left: 0;
     width: 100vw;
     height: 7vh;
-    /* background-color: #FACA2C; */
     color: whitesmoke;
     font-size: 25px;
     font-family: 'Open Sans', sans-serif;
 }
 
 @media (min-width: 800px) {
+    .open-btn {
+        display: none;
+    }
     .title {
         letter-spacing: 3px;
         top: 50px;
+        background-color: #211D70;
         font-size: 50px;
         margin: auto;
         width: unset;
@@ -363,23 +428,17 @@ button:hover {
         animation-iteration-count: 1;
         animation-fill-mode: forwards;
     }
-    button {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 12vw;
-        height: 8vh;
-        font-size: 25px;
-        padding: 0;
-        position: absolute;
-        bottom: 10vh;
-        left: 10vw;
-    }
     #info-btn img {
         top: 5px;
         z-index: unset;
         width: 50px;
         height: 50px;
+    }
+    #info-text {
+        padding: 10px;
+        margin-top: 80px;
+        margin-bottom: 100px;
+        line-height: 30px;
     }
     .center-logo {
         position: absolute;
@@ -434,11 +493,26 @@ button:hover {
             z-index: 0;
         }
     }
-    #info-text {
-        padding: 10px;
-        margin-top: 80px;
-        margin-bottom: 100px;
-        line-height: 30px;
+    button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: unset;
+        height: 8vh;
+        font-size: 25px;
+        padding: 0 10px;
+        position: absolute;
+        cursor: pointer;
+        z-index: 10;
+    }
+    #proceed-btn {
+        bottom: 10vh;
+        left: 10vw;
+    }
+    #full-screen-btn {
+        bottom: 10vh;
+        left: 30vw;
+        display: block;
     }
 }
 
