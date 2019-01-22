@@ -9,6 +9,7 @@ window.onload = function() {
 function showInfo() {
     var infoElement = document.getElementById('info');
     infoElement.style.transform = 'translateX(0) translateY(0) scale(1)';
+    document.getElementById('info-btn').style.display = 'none';
 }
 
 //Close info
@@ -16,6 +17,7 @@ function showInfo() {
 function closeInfo() {
     var infoElement = document.getElementById('info');
     infoElement.style.transform = 'translateX(100vw) translateY(-100vh) scale(0)';
+    document.getElementById('info-btn').style.display = 'block';
 }
 
 // Google Sign In User Info
@@ -94,5 +96,6 @@ icon.addEventListener('click', (e) => {
     left = '-100vw)';
   }
   document.getElementById('sidenav-content').style.transform = 'translateX(' + left;
+  document.getElementById('sidenav-bg').style.transform = 'translateX(' + left;
   direction = -direction;
 });
