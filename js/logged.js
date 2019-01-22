@@ -42,37 +42,45 @@ window.onload = function() {
   });
   
 // Google Sign In User Info
-var googleUser = {};
-var startApp = function() {
-gapi.load('auth2', function(){
-  // Retrieve the singleton for the GoogleAuth library and set up the client.
-  auth2 = gapi.auth2.init({
-  client_id: '1026579868783-ft78qs6p4d6e6og3ofr2clfufi7bgsuc.apps.googleusercontent.com',
-  cookiepolicy: 'single_host_origin',
-  // Request scopes in addition to 'profile' and 'email'
-  //scope: 'additional_scope'
-  });
-  });
-};
+// var googleUser = {};
+// var startApp = function() {
+// gapi.load('auth2', function(){
+//   // Retrieve the singleton for the GoogleAuth library and set up the client.
+//   auth2 = gapi.auth2.init({
+//   client_id: '1026579868783-ft78qs6p4d6e6og3ofr2clfufi7bgsuc.apps.googleusercontent.com',
+//   cookiepolicy: 'single_host_origin',
+//   // Request scopes in addition to 'profile' and 'email'
+//   //scope: 'additional_scope'
+//   });
+//   });
+// };
 
-var auth2 = gapi.auth2.init({
-client_id: '1026579868783-ft78qs6p4d6e6og3ofr2clfufi7bgsuc.apps.googleusercontent.com',
-cookiepolicy: 'single_host_origin',
-// Request scopes in addition to 'profile' and 'email'
-//scope: 'additional_scope'
-});
+// var auth2 = gapi.auth2.init({
+// client_id: '1026579868783-ft78qs6p4d6e6og3ofr2clfufi7bgsuc.apps.googleusercontent.com',
+// cookiepolicy: 'single_host_origin',
+// // Request scopes in addition to 'profile' and 'email'
+// //scope: 'additional_scope'
+// });
 
-if (auth2.isSignedIn.get()) {
-var profile = auth2.currentUser.get().getBasicProfile();
-document.getElementById('name').innerHTML = profile.getName();
-console.log('ID: ' + profile.getId());
-console.log('Full Name: ' + profile.getName());
-console.log('Given Name: ' + profile.getGivenName());
-console.log('Family Name: ' + profile.getFamilyName());
-console.log('Image URL: ' + profile.getImageUrl());
-console.log('Email: ' + profile.getEmail());
-} else {
-  console.log('User not signed in');
+// if (auth2.isSignedIn.get()) {
+// var profile = auth2.currentUser.get().getBasicProfile();
+// document.getElementById('name').innerHTML = profile.getName();
+// console.log('ID: ' + profile.getId());
+// console.log('Full Name: ' + profile.getName());
+// console.log('Given Name: ' + profile.getGivenName());
+// console.log('Family Name: ' + profile.getFamilyName());
+// console.log('Image URL: ' + profile.getImageUrl());
+// console.log('Email: ' + profile.getEmail());
+// } else {
+//   console.log('User not signed in');
+// }
+
+function onSignIn(googleUser) {
+  var profile = googleUser.getBasicProfile();
+  console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+  console.log('Name: ' + profile.getName());
+  console.log('Image URL: ' + profile.getImageUrl());
+  console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
 }
 
 function logout() {
@@ -86,4 +94,88 @@ console.log('User signed out.');
 
 function GetBasicInfo() {
   console.log('Hey!');
+}
+
+var auth2; // The Sign-In object.
+var googleUser; // The current user.
+
+/**
+ * Calls startAuth after Sign in V2 finishes setting up.
+ */
+var appStart = function() {
+  gapi.load('auth2', initSigninV2);
+};
+
+/**
+ * Initializes Signin v2 and sets up listeners.
+ */
+var initSigninV2 = function() {
+  auth2 = gapi.auth2.init({
+      client_id: '1026579868783-ft78qs6p4d6e6og3ofr2clfufi7bgsuc.apps.googleusercontent.com',
+      scope: 'profile'
+  });
+
+  // Listen for sign-in state changes.
+  auth2.isSignedIn.listen(signinChanged);
+
+  // Listen for changes to current user.
+  auth2.currentUser.listen(userChanged);
+
+  // Sign in the user if they are currently signed in.
+  if (auth2.isSignedIn.get() == true) {
+    auth2.signIn();
+  }
+
+  // Start with the current live values.
+  refreshValues();
+};
+
+/**
+ * Listener method for sign-out live value.
+ *
+ * @param {boolean} val the updated signed out state.
+ */
+var signinChanged = function (val) {
+  console.log('Signin state changed to ', val);
+};
+
+/**
+ * Listener method for when the user changes.
+ *
+ * @param {GoogleUser} user the updated user.
+ */
+var userChanged = function (user) {
+  console.log('User now: ', user);
+  googleUser = user;
+  updateGoogleUser();
+  console.log(JSON.stringify(user, undefined, 2));
+};
+
+/**
+ * Updates the properties in the Google User table using the current user.
+ */
+var updateGoogleUser = function () {
+  if (googleUser) {
+      console.log(JSON.stringify(googleUser.getAuthResponse(), undefined, 2));
+  } else {
+    console.log('---');
+  }
+};
+
+/**
+ * Retrieves the current user and signed in states from the GoogleAuth
+ * object.
+ */
+var refreshValues = function() {
+  if (auth2){
+    console.log('Refreshing values...');
+
+    googleUser = auth2.currentUser.get();
+
+    
+      console.log(JSON.stringify(googleUser, undefined, 2));
+      console.log(auth2.isSignedIn.get());
+
+    updateGoogleUser();
+  }
 }
