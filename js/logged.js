@@ -59,6 +59,8 @@ console.log('Given Name: ' + profile.getGivenName());
 console.log('Family Name: ' + profile.getFamilyName());
 console.log('Image URL: ' + profile.getImageUrl());
 console.log('Email: ' + profile.getEmail());
+} else {
+  console.log('User not signed in');
 }
 
 function logout() {
