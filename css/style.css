@@ -232,7 +232,7 @@ html, body {
     height: 10vh;
     color: whitesmoke;
     font-size: 20px;
-    border-bottom: 1px solid whitesmoke;
+    border-bottom: 0.6px solid whitesmoke;
     transition: 0.2s ease-in-out;
     cursor: pointer;
 }
