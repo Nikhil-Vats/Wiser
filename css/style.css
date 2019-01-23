@@ -101,7 +101,10 @@ html, body {
     left: 0;
     width: 100vw;
     height: 100vh;
-    background-color: #000;
+    background-image: url('../assets/WithoutClockTower.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 .title {
@@ -211,7 +214,7 @@ html, body {
 }
 
 #sidenav-bg {
-    background-image: url('../assets/starry-sky-background.jpg');
+    background-image: url('../assets/WithoutClockTower.png');
     filter: blur(5px);
     -webkit-filter: blur(5px);
     position: absolute;
@@ -362,7 +365,7 @@ html, body {
     font-weight: 700;
     font-size: 20px;
     letter-spacing: 3px;
-    background: #000;
+    background: rgba(0, 0, 0, 0.8);
     border: 1px solid #211D70;
     width: 100%;
     height: 100%;
@@ -531,7 +534,7 @@ button:hover {
         position: absolute;
         top: 50%;
         z-index: 1;
-        left: 50%;
+        left: 60%;
         transform: translate(-50%, -50%);
         width: 70vw;
         height: unset;
@@ -542,11 +545,11 @@ button:hover {
     #grid {
         position: relative;
         z-index: 1;
-        width: 70%;
+        width: 60%;
         height: unset;
         margin: 0 auto;
         font-size: 30px;
-        left: 50px;
+        left: 170px;
         padding: 0; /* Clears unordered list default of 40px */
     }
     #panda {

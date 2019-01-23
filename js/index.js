@@ -61,7 +61,7 @@ function closeInfo() {
 setInterval(() => {
   var hexagons = document.getElementsByClassName('hexagon');
   for(let hex of hexagons) {
-    hex.style.backgroundColor = 'black';
+    hex.style.backgroundColor = 'rgba(0,0,0,0.8)';
   }
   hexagons[Math.floor(Math.random()*9)].style.backgroundColor = '#211D70';
   hexagons[Math.floor(Math.random()*9)].style.backgroundColor = '#211D70';
