@@ -211,7 +211,7 @@ html, body {
 }
 
 #sidenav-bg {
-    background-image: url('../assets/WithoutClockTower.png');
+    background-image: url('../assets/starry-sky-background.jpg');
     filter: blur(5px);
     -webkit-filter: blur(5px);
     position: absolute;
