@@ -84,12 +84,11 @@ gapi.load('auth2', function(){
 };
 
 function attachSignin(element) {
-  console.log(element.id);
   auth2.attachClickHandler(element, {},
   function(googleUser) {
   console.log("Signed in: " + googleUser.getBasicProfile().getName());
   console.log("Signed in: " + googleUser.getBasicProfile().getEmail());
-  window.location.href = 'https://nikhilphalange.github.io/Wiser/TnC.html';
+  window.location.href = 'https://nikhilphalange.github.io/Wiser/loggedIn.html';
   }, function(error) {
   alert(JSON.stringify(error, undefined, 2));
   });
