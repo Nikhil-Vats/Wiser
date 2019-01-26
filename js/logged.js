@@ -1,7 +1,8 @@
 // Hide Loader after page is loaded
 
 window.onload = function() { 
-  document.getElementsByClassName("loading")[0].style.transform = 'scale(0)'; 
+  document.getElementsByClassName("loading")[0].style.transform = 'scale(0)';
+  document.documentElement.webkitRequestFullScreen(); 
 }
   
   // Full screen
