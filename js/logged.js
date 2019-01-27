@@ -2,7 +2,6 @@
 
 window.onload = function() { 
   document.getElementsByClassName("loading")[0].style.transform = 'scale(0)';
-  document.documentElement.webkitRequestFullScreen(); 
 }
   
   // Full screen
@@ -73,12 +72,31 @@ function GetBasicInfo() {
 // Pre Assessment
 
 function goToPreAssess() {
-  var preAssess = document.getElementById('pre-assessment-template');
-  var profileDiv = document.getElementById('profile');
-  var container = document.getElementsByClassName('container')[0];
-  container.style.background = 'whitesmoke';
-  container.removeChild(profileDiv);
-  container.appendChild(preAssess.content.cloneNode(true));
+  var data = {
+    name: document.getElementById('username').value,
+    age: document.getElementById('age').value,
+    year: document.getElementById('year').value
+  };
+  var proceed = Validate(data);
+  console.log(data);
+  if(proceed) {
+    // submitData(data);
+    var preAssess = document.getElementById('pre-assessment-template');
+    var profileDiv = document.getElementById('profile');
+    var container = document.getElementsByClassName('container')[0];
+    container.style.background = 'whitesmoke';
+    container.removeChild(profileDiv);
+    container.appendChild(preAssess.content.cloneNode(true));
+  }
+}
+
+function submitExpData() {
+  var value;
+  for(let opt in document.querySelectorAll('.q1'))
+  var data = {
+    id: 'new_exp_data',
+    value: value
+  }
 }
 
 function goToLevel(element, group , code) {
@@ -135,6 +153,40 @@ function increaseProgress() {
   }
 }
 
+function Validate(data) {
+  console.log('validating...');
+  for(let field in data) {
+    if(data[field] === "") {
+      var temp = document.getElementById('validation-template');
+      var modal = temp.content.cloneNode(true);
+      if(document.getElementsByClassName('modal')[0]) {
+        document.body.removeChild(document.getElementsByClassName('modal')[0]);
+      }
+      
+      document.body.appendChild(modal);
+      var bodyModal = document.getElementsByClassName('modal')[0];
+      bodyModal.style.animation = 'toast 3s ease-in-out';
+      return false;
+    }
+    else {
+      continue;
+    }
+  }
+  return true;
+}
+
+function submitData(data) {
+  var xhttp = new XMLHttpRequest();
+  var url = '';
+  xhttp.open('POST', url, true);
+  xhttp.setRequestHeader("Content-type", "application/json");
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      alert('Data sent!');
+    }
+  };
+  xhttp.send(data);
+}
 
 
 
