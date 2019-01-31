@@ -92,7 +92,9 @@ function goToPreAssess() {
 
 function submitExpData() {
   var value;
-  for(let opt in document.querySelectorAll('.q1'))
+  // for(let opt in document.querySelectorAll('.q1')) {
+  //   if(opt )
+  // }
   var data = {
     id: 'new_exp_data',
     value: value
@@ -105,7 +107,7 @@ function goToLevel(element, group , code) {
   var container = document.getElementsByClassName('container')[0];
   var clonedCrown = crown.cloneNode(true);
   if(code === 1) {
-
+    document.getElementById('info-btn').style.display = 'none';
     if(group === 'placebo') {
       var questions = document.getElementById('placebo');
       container.removeChild(preAssess);

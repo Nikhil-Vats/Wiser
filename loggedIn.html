@@ -89,11 +89,10 @@
         <div id="pre-assessment">
             <h1 class="heading">Pre Assessment</h1>
             <div class="levels-container">
-                <div class="level" style="background: #f44336;" onclick="goToLevel(this, 'placebo', 1)"><img class="icons" src="./assets/letter-p.svg"></div>
-                <div class="level" style="background: #4caf50;" onclick="goToLevel(this, 'control', 1)"><img class="icons" src="./assets/letter-c.svg"></div>
-                <div class="level" style="background: #ffc107;" onclick="goToLevel(this, 'experiment', 1)"><img class="icons" src="./assets/letter-e.svg"></div>
-                <div class="level" onclick="goToLevel(this, 2)"><img class="icons" src="./assets/letter-i.svg"></div>
-                <div class="level" style="background: #aaa;" onclick="goToLevel(this, 2)"><img class="icons" src="./assets/letter-i.svg"></div>
+                <div class="level" onclick="goToLevel(this, 'placebo', 1)"><p class="icons">1</p></div>
+                <div class="level" onclick="goToLevel(this, 'control', 1)"><p class="icons">2</p></div>
+                <div class="level" onclick="goToLevel(this, 'experiment', 1)"><p class="icons">3</p></div>
+                <div class="level" onclick="goToLevel(this, 2)"><p class="icons">4</p></div>
             </div>
         </div>
     </template>
@@ -169,7 +168,7 @@
                 <div class="end"></div>
             </div>
             <h1 class="question">What do you like the most?</h1>
-            <textarea name="food"></textarea>
+            <textarea name="food" placeholder="Start typing...." autofocus></textarea>
             <button onclick="increaseProgress()">Submit</button>
         </div>
     </template>

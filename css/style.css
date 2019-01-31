@@ -223,7 +223,6 @@ html, body {
 }
 
 #sidenav-bg {
-    background-image: linear-gradient(-20deg, #2b5876 0%, #4e4376 100%);    -webkit-filter: blur(5px);
     position: absolute;
     top: 0;
     left: 0;
@@ -231,9 +230,10 @@ html, body {
     width: 100vw;
     transform: translateX(-103vw); 
     z-index: 29;
+    background-color: #22124d;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'%3E%3Cpolygon fill='%23000' fill-opacity='.1' points='120 0 120 60 90 30 60 0 0 0 0 0 60 60 0 120 60 120 90 90 120 60 120 0'/%3E%3C/svg%3E");
+    background-size: auto auto;
     background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
 }
 
 #sidenav-content {
@@ -484,11 +484,11 @@ button:focus {
 }
 
 #termsAndConditions h1 {
-    color: #000;
+    color: #fff;
 }
 
 #tnc li {
-    color: #000;
+    color: #fff;
     font-size: 15px;
     margin: 20px 0 20px 1em;
     text-align: left;
@@ -498,7 +498,7 @@ button:focus {
 
 #tnc li::before {
     content: "•";  /* Add content: \2022 is the CSS Code/unicode for a bullet */
-    color: #000; /* Change the color */
+    color: #fff; /* Change the color */
     font-weight: bold; /* If you want it to be bold */
     display: inline-block; /* Needed to add space between the bullet and the text */ 
     width: 1em; /* Also needed for space (tweak if needed) */
@@ -512,16 +512,17 @@ button:focus {
     height: 7vh;
     padding: 0 20px;
     display: flex;
-    background: #fff;
+    background: #000;
     align-items: center;
     justify-content: center;
 }
 
-#basic-info-btn:hover {
-    background: #fff;
-}
-
 #termsAndConditions {
+    background-color: #18022a;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1600 900'%3E%3Cpolygon fill='%2324041e' points='957 450 539 900 1396 900'/%3E%3Cpolygon fill='%23340624' points='957 450 872.9 900 1396 900'/%3E%3Cpolygon fill='%23260125' points='-60 900 398 662 816 900'/%3E%3Cpolygon fill='%23391030' points='337 900 398 662 816 900'/%3E%3Cpolygon fill='%2326002d' points='1203 546 1552 900 876 900'/%3E%3Cpolygon fill='%233c193d' points='1203 546 1552 900 1162 900'/%3E%3Cpolygon fill='%23220037' points='641 695 886 900 367 900'/%3E%3Cpolygon fill='%233e2349' points='587 900 641 695 886 900'/%3E%3Cpolygon fill='%231a0041' points='1710 900 1401 632 1096 900'/%3E%3Cpolygon fill='%233f2c56' points='1710 900 1401 632 1365 900'/%3E%3Cpolygon fill='%2301024d' points='1210 900 971 687 725 900'/%3E%3Cpolygon fill='%233e3662' points='943 900 1210 900 971 687'/%3E%3C/svg%3E");
+    background-attachment: fixed;
+    background-size: cover;
+    background-position: center;
     width: 100%;
     height: 100%;
     margin: 0;
@@ -532,11 +533,17 @@ button:focus {
 
 #profile {
     height: 100%;
+    background-color: #000000;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100%25' height='100%25' viewBox='0 0 1600 800'%3E%3Cg %3E%3Cpolygon fill='%230b0323' points='800 100 0 200 0 800 1600 800 1600 200'/%3E%3Cpolygon fill='%23150547' points='800 200 0 400 0 800 1600 800 1600 400'/%3E%3Cpolygon fill='%2320086a' points='800 300 0 600 0 800 1600 800 1600 600'/%3E%3Cpolygon fill='%232a0b8d' points='1600 800 800 400 0 800'/%3E%3Cpolygon fill='%23350db1' points='1280 800 800 500 320 800'/%3E%3Cpolygon fill='%234010d4' points='533.3 800 1066.7 800 800 600'/%3E%3Cpolygon fill='%234f1cee' points='684.1 800 914.3 800 800 700'/%3E%3C/g%3E%3C/svg%3E");
+    background-attachment: fixed;
+    background-size: cover;
+    background-position: center;
 }
 
 #profile h1 {
+    font-size: 20px;
     font-weight: normal;
-    color: #000;
+    color: whitesmoke;
 }
 
 #form-bg {
@@ -603,21 +610,22 @@ option:hover {
     position: relative;
     left: 50%;
     top: 5vh;
-    background: #fff;
+    background: #000;
     transform: translateX(-50%);
-}
-
-#profile button {
-    background: #fff;
 }
 
 #pre-assessment {
     width: 100%;
     height: 100%;
+    background-color: #000000;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100%25' height='100%25' viewBox='0 0 800 800'%3E%3Cg %3E%3Ccircle fill='%23000000' cx='400' cy='400' r='600'/%3E%3Ccircle fill='%23180d1c' cx='400' cy='400' r='500'/%3E%3Ccircle fill='%23261431' cx='400' cy='400' r='400'/%3E%3Ccircle fill='%23351947' cx='400' cy='400' r='300'/%3E%3Ccircle fill='%23451e5e' cx='400' cy='400' r='200'/%3E%3Ccircle fill='%23552277' cx='400' cy='400' r='100'/%3E%3C/g%3E%3C/svg%3E");
+    background-attachment: fixed;
+    background-size: cover;
+    background-position: center;
 }
 
 #pre-assessment h1 {
-    color: #000;
+    color: #fff;
     font-weight: normal;
 }
 
@@ -636,7 +644,7 @@ option:hover {
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #1a237e;
+    background-color: #527;
     width: 70px;
     height: 70px;
     margin: 30px 30px;
@@ -651,8 +659,8 @@ option:hover {
 
 .level .icons {
     position: fixed;
-    width: 45px;
-    height: 45px;
+    color: #fff;
+    font-weight: 600;
 }
 
 .crown {
@@ -729,7 +737,7 @@ option:hover {
     color: #0dff92;
 }
 
-ul li .check{
+ul li .check {
     display: block;
     position: absolute;
     border: 5px solid #AAAAAA;
@@ -944,7 +952,7 @@ textarea {
         height: unset;
         margin: 0 auto;
         font-size: 30px;
-        left: 170px;
+        left: 100px;
         padding: 0; /* Clears unordered list default of 40px */
     }
     #panda {
@@ -1031,6 +1039,10 @@ textarea {
         width: 65%;
     }
 
+    #profile h1 {
+        font-size: 30px;
+    }
+
     #profile form {
         width: 60%;   
     }
@@ -1044,7 +1056,7 @@ textarea {
 
     #pre-assessment h1 {
         font-size: 35px;
-        color: #000;
+        color: #FFF;
     }
 
     .levels-container {
@@ -1059,30 +1071,21 @@ textarea {
     }
 
     .level {
-        width: 23vw;
-        height: 25vh;
-        border-radius: 40px;
-        border: none;
+        float: left;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 30vw;
+        height: 32vh;
+        background: rgb(116, 33, 171);
+        box-shadow: 7px 7px 30px 2px #150303;
+        border-radius: 5px;
+        border: 0.1px solid whitesmoke;
     }
 
-    .level:nth-child(1) {
-        box-shadow: 7px 7px 20px #d50000;
-    }
-
-    .level:nth-child(2) {
-        box-shadow: 7px 7px 20px #64dd17;
-    }
-
-    .level:nth-child(3) {
-        box-shadow: 7px 7px 20px #ffeb3b;
-    }
-
-    .level:nth-child(4) {
-        box-shadow: 7px 7px 20px #3f51b5;
-    }
-
-    .level:nth-child(5) {
-        box-shadow: 7px 7px 20px #555;
+    .level .icons {
+        font-size: 25px;
+        font-weight: 600;
     }
 
     /* Questions */
