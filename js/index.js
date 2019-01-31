@@ -95,5 +95,5 @@ setInterval(() => {
 // }
 
 function onSignIn() {
-  window.location.href = 'https://nikhilphalange.github.io/loggedIn.html';
+  window.location.href = 'https://nikhilphalange.github.io//Wiser/loggedIn.html';
 }
