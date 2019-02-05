@@ -16,6 +16,29 @@ window.onload = function() {
         container.removeChild(TnC);
         container.appendChild(preAssess.content.cloneNode(true));
       }
+      else if(jsonData.stage == 2) {
+        var TnC = document.getElementById('termsAndConditions');
+        var preAssess = document.getElementById('pre-assessment-template');
+        var container = document.getElementsByClassName('container')[0];
+        container.removeChild(TnC);
+        container.appendChild(preAssess.content.cloneNode(true));
+        document.getElementById('pre-assess-heading').innerHTML = 'Weekly Continuous Evaluation';
+      }
+      else if(jsonData.stage == 3) {
+        var TnC = document.getElementById('termsAndConditions');
+        var preAssess = document.getElementById('placebo');
+        var container = document.getElementsByClassName('container')[0];
+        container.removeChild(TnC);
+        container.appendChild(preAssess.content.cloneNode(true));
+        document.getElementById('pre-assess-heading').innerHTML = 'Weekly Continuous Evaluation';
+      }
+      else if(jsonData.stage == 4) {
+        var TnC = document.getElementById('termsAndConditions');
+        var control = document.getElementById('control');
+        var container = document.getElementsByClassName('container')[0];
+        container.removeChild(TnC);
+        container.appendChild(control.content.cloneNode(true));
+      }
       document.getElementsByClassName("loading")[0].style.transform = 'scale(0)';
       }
     };
@@ -174,7 +197,7 @@ function goToLevel(category) {
   };
   xhttp.send(JSON.stringify(data)); 
 }
-
+var pk;
 function getQuestion() {
   var data = {
     "csrftoken": []
@@ -192,9 +215,57 @@ function getQuestion() {
     if (this.readyState == 4 && this.status == 200) {
       var jsonData = JSON.parse(xhttp.responseText);
       console.log(jsonData);
+      var pre_assess_form = document.getElementById('experiment');
+      var temp = pre_assess_form.content.cloneNode(true);
+      var container = document.getElementsByClassName('container')[0];
+      var preAssess = document.getElementById('pre-assessment');
+      container.appendChild(temp);
+      document.getElementById('exp_ques').innerHTML = jsonData.data.text;
+      document.getElementById('f-label').innerHTML = jsonData.data.choice1;
+      document.getElementById('s-label').innerHTML = jsonData.data.choice2;
+      document.getElementById('t-label').innerHTML = jsonData.data.choice3;
+      document.getElementById('fo-label').innerHTML = jsonData.data.choice4;
+      document.getElementById('1-option').value = jsonData.data.choice1;
+      document.getElementById('2-option').value = jsonData.data.choice2;
+      document.getElementById('3-option').value = jsonData.data.choice3;
+      document.getElementById('4-option').value = jsonData.data.choice4;
+      pk = jsonData.data.pk;
+      container.removeChild(preAssess);
     }
   };
   xhttp.send(JSON.stringify(data)); 
+}
+
+function submitAns() {
+  var answer;
+  for(let i=1; i<=4; i++) {
+    if(document.getElementById(i+'-option').checked) {
+      answer = document.getElementById(i+'-option').value;
+    }
+  }
+  var data = {
+    "pk": pk,
+    "ans": answer,
+    "csrftoken": []
+  };
+  var csrf_token = getCookie('csrftoken');
+  data["csrftoken"].push({
+    "csrfmiddlewaretoken": csrf_token
+  });
+  console.log(csrf_token);
+  console.log(data);
+  var xhttp = new XMLHttpRequest();
+  var url = '/ans_ques/';
+  xhttp.open('POST', url, true);
+  xhttp.setRequestHeader("Content-type", "application/json");
+  xhttp.setRequestHeader("X-CSRFToken", csrf_token);
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      var jsonData = JSON.parse(xhttp.responseText);
+      console.log(jsonData);
+    }
+  };
+  xhttp.send(JSON.stringify(data));
 }
 
 function goBack() {
