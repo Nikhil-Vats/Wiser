@@ -3,18 +3,16 @@ from django.contrib.auth.models import User
 from datetime import date
 
 QUESTION_TYPES = (
-    ('preassessment','PRE ASSESSMENT'),
-    ('postassessment', 'PRE ASSESSMENT'),
+    ('prepos','PREPOS'),
     ('experiment','EXPERIMENT'),
     ('placebo','PLACEBO'),
-    ('none','NONE')
+    ('control','CONTROL')
 )
 
 QUESTION_FORMAT = (
     ('mcq','MCQ'),
     ('openended', 'OPENENDED'),
 )
-
 
 
 class Userdata(models.Model):
@@ -28,6 +26,8 @@ class Userdata(models.Model):
     category=models.IntegerField(default=-1)
     status=models.IntegerField(default=1)
     email_date= models.DateField(default=date.today())
+    post_date = models.DateField(default=date.today())
+    q_no = models.IntegerField(default=1)
 
     def __str__(self):
             return str(self.name)
@@ -35,7 +35,6 @@ class Userdata(models.Model):
 
 class Question(models.Model):
     text = models.CharField(max_length=45000)
-    q_no=models.IntegerField()
     q_type=models.CharField(max_length=450,choices=QUESTION_TYPES,null=True)
     q_format=models.CharField(max_length=450,choices=QUESTION_FORMAT,null=True)
     q_category = models.IntegerField(null=True)

@@ -29,7 +29,6 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'main',
-    'mailqueue',
     'django.contrib.sites',
     'allauth',
     'allauth.account',

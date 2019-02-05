@@ -5,6 +5,7 @@ from django.http import JsonResponse
 from main.models import Userdata,Question,Answer
 import json
 from django.contrib.auth.models import User
+import datetime as dt
 
 
 def main(request):
@@ -31,16 +32,6 @@ def pre_cat(request):
     ud = Userdata.objects.get(user_id = request.user)
     ud.category = data_get['category']
     ud.save()
-    iid = ud.pk%10
-
-    if iid>0 and iid<5:
-        ud.group="experiment"
-    elif iid>4 and iid<8:
-        ud.group="placebo"
-    else:
-        obj.group="none"
-
-    ud.save()
     return JsonResponse({"success":1})    
 
 
@@ -61,10 +52,14 @@ def prepos_details(request):
     if request.method=='POST':
         ud = Userdata.objects.get(user_id = request.user)
 
-        if ud.status == 2: 
-            qlist = Question.objects.filter(q_category=ud.category,question_type='preassessment')
+        qlist = Question.objects.none()
+
+        if ud.status == 1 || ud.status == 5: 
+            qlist = Question.objects.filter(q_category=ud.category,question_type='prepos')
+        elif ud.status == 2 and ud.email_date<=dt.date.today():
+            qlist = Question.objects.filter(q_category=ud.category,question_type='experiment')
         elif ud.status == 3:
-            qlist = Question.objects.filter(q_category=ud.category,question_type='postassessment')
+            qlist = Question.objects.filter(question_type='placebo')
         
         dat = []
         for q in qlist:
@@ -73,11 +68,60 @@ def prepos_details(request):
             else:
                 dat.append({"format":"openended","pk":q.pk,"text":q.text})
 
-        return JsonResponse(dat)
+        return JsonResponse({"data":dat})
 
 
 def ans_ques(request):
     if request.method=='POST':
+        ud = Userdata.objects.get(user_id=request.user)
+        ud.q_no+=1
+        ud.save()
+
         data = json.loads(request.body.decode('utf-8'))
-        Answer.objects.create(q_no=data['pk'],userdata_id=request.user,ans=data['ans'])
+        Answer.objects.create(q_no=data['pk'],userdata_id=,ans=data['ans'])
+
+        if ud.status == 1:
+            if ud.q_no == Question.objects.filter(q_category=ud.category,question_type='prepos').count()
+                ud.category+=1
+                ud.q_no = 0
+                ud.save()
+
+            if ud.category == 5:
+                iid = ud.pk%10
+                if iid>0 and iid<5:
+                    ud.status = 2  #experiment
+                elif iid>4 and iid<8:
+                    ud.status = 3  #placebo
+                else:
+                    ud.status = 4  #control
+                ud.post_date = dt.date.today()+dt.timedelta(days=30)
+                ud.category = 1
+                ud.save()
+
+        if ud.status == 2:
+            if ud.q_no == Question.objects.filter(q_category=ud.category,question_type='experiment').count()
+                ud.category+=1
+                ud.q_no = 0
+                ud.save()
+
+            if ud.category == 5:
+                ud.status = 5
+                ud.category = 1
+                ud.save()
+
+        if ud.status == 3:
+            if ud.q_no == Question.objects.filter(question_type='placebo').count()
+                ud.status = 5
+                ud.save()
+
+        if ud.status == 5:
+            if ud.q_no == Question.objects.filter(q_category=ud.category,question_type='prepos').count()
+                ud.category+=1
+                ud.q_no = 0
+                ud.save()
+
+            if ud.category == 5:
+                ud.status = 6
+                ud.save()
+
         return JsonResponse({"success":1})
