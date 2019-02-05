@@ -73,10 +73,11 @@ function GetBasicInfo() {
 
 function goToPreAssess() {
   var data = {
-    name: document.getElementById('username').value,
-    age: document.getElementById('age').value,
-    phone: document.getElementById('phone').value,
-    year: document.getElementById('year').value
+    "name": document.getElementById('username').value,
+    "age": document.getElementById('age').value,
+    "phone": document.getElementById('phone').value,
+    "year": document.getElementById('year').value,
+    "csrftoken": []
   };
 
   var gender_val = null;
@@ -91,24 +92,31 @@ function goToPreAssess() {
   var proceed = Validate(data);
   console.log(data, proceed);
   console.log(proceed);
+
+  var csrf_token = getCookie('csrftoken');
+  data["csrftoken"].push({
+    "csrfmiddlewaretoken": csrf_token
+  });
+
   if(proceed) {
-    // submitData(JSON.stringify(data));
+    console.log("Sucess");
+    submitData(JSON.stringify(data));
   }
 }
 
 function getCookie(name) {
   var v = document.cookie.match('(^|;) ?' + name + '=([^;]*)(;|$)');
-  return v ? v[2] : 'w9s99s';
+  return v ? v[2] : null;
 }
 
 function submitData(data) {
-  var xhttp = new XMLHttpRequest();
-  var url = '/prequesdetails/';
-  xhttp.open('POST', url, true);
   var csrf_token = getCookie('csrftoken');
   console.log(csrf_token);
+  var xhttp = new XMLHttpRequest();
+  var url = '/formdata/';
+  xhttp.open('POST', url, true);
   xhttp.setRequestHeader("Content-type", "application/json");
-  xhttp.setRequestHeader('X-CSRF-Token',csrf_token);
+  xhttp.setRequestHeader("X-CSRFToken", csrf_token);
   xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
       alert('Data sent!');

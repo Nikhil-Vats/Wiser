@@ -13,23 +13,27 @@ Including another URLconf
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
-from django.conf.urls import url
+from django.conf.urls import url, include
 from django.contrib import admin
 from django.conf.urls.static import static
 from django.conf import settings
-from newres import views
+from main import views
+from django.contrib.auth import views as auth_views
+
 urlpatterns = [
+
     url(r'^$',views.main,name='main'),
     url(r'^proceed/',views.proceed,name='proceed'),
-    #url(r'^/accounts/google/login/?process=login/',views.logged,name='logged'),
+    url(r'^accounts/', include('allauth.urls')),
     url(r'^admin/', admin.site.urls),
-    url(r'^prequesdetails/', views.pre_question_details,name='prequestiondetails'),
-    url(r'^postquesdetails/', views.post_question_details,name='postquestiondetails'),
-    url(r'^expquesdetails/', views.exp_question_details,name='expquestiondetails'),
-    url(r'^placeboquesdetails/', views.placebo_question_details,name='placeboquestiondetails'),
+
+    url(r'^pre_cat/', views.pre_cat,name='pre_cat'),
+    url(r'^status/', views.status,name='status'),
+    url(r'^prepos_details/', views.prepos_details,name='prepos_details'),
+    url(r'^ans_ques/', views.ans_ques,name='ans_ques'),
+    
     url(r'^formdata/', views.formdata,name='formdata'),
     url(r'^status/', views.status,name='status'),
-    url(r'^grpdiv/', views.grp_div,name='grpdiv'),
 
 
 ]+static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

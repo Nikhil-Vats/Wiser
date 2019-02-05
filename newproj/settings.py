@@ -27,22 +27,9 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
-# Application definition
-
-# INSTALLED_APPS = [
-#     'django.contrib.admin',
-#     'allauth.socialaccount.providers.google',
-#     'django.contrib.auth',
-#     'django.contrib.contenttypes',
-#     'django.contrib.sessions',
-#     'django.contrib.messages',
-#     'django.contrib.staticfiles',
-#     'newres',
-    
-# ]
 INSTALLED_APPS = [
-    'newres',
+    'main',
+    'mailqueue',
     'django.contrib.sites',
     'allauth',
     'allauth.account',
@@ -158,23 +145,27 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(REPOSITORY_ROOT, 'media/')
 
 SITE_ID = 1
-# AUTHENTICATION_BACKENDS = [ 'django.contrib.auth.backends.ModelBackend',
-
-#                            'allauth.account.auth_backends.AuthenticationBackend']
-
-SOCIALACCOUNT_PROVIDERS = { 'google': 
-                             { 'SCOPE': ['email'],
-                               'AUTH_PARAMS': { 'access_type': 'online' }
-                             }
-                          }
 
 
-SOCIAL_AUTH_GOOGLE_OAUTH2_KEY="504459446204-v1jtm0h04mgv7ajnipa48d2g6ijp4f68.apps.googleusercontent.com"
-                               
-SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = "p-GO-1YXrMWWD5AmYFZPH29A"
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
+)
+
+LOGIN_REDIRECT_URL = 'proceed'
+ACCOUNT_EMAIL_REQUIRED = True
+
+BROKER_URL = 'redis://localhost:6379'
+CELERY_RESULT_BACKEND = 'redis://localhost:6379'
+CELERY_ACCEPT_CONTENT = ['application/json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_TIMEZONE = 'Asia/Kolkata'
 
 
-
-LOGIN_REDIRECT_URL= "{url '/proceed/'}"
-
-SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'register@bits-bosm.org'
+EMAIL_HOST_PASSWORD = 'reguser8615@bosm2018'
+EMAIL_PORT = 587
