@@ -38,7 +38,7 @@ def pre_cat(request):
     elif iid>4 and iid<8:
         ud.group="placebo"
     else:
-        obj.group="none"
+        ud.group="none"
 
     ud.save()
     return JsonResponse({"success":1})    
@@ -60,7 +60,7 @@ def status(request):
 def prepos_details(request):
     if request.method=='POST':
         ud = Userdata.objects.get(user_id = request.user)
-
+        qlist = []
         if ud.status == 2: 
             qlist = Question.objects.filter(q_category=ud.category,question_type='preassessment')
         elif ud.status == 3:
@@ -73,7 +73,7 @@ def prepos_details(request):
             else:
                 dat.append({"format":"openended","pk":q.pk,"text":q.text})
 
-        return JsonResponse(dat)
+        return JsonResponse({"data":dat})
 
 
 def ans_ques(request):

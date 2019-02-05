@@ -68,32 +68,6 @@ setInterval(() => {
   hexagons[Math.floor(Math.random()*9)].style.backgroundColor = '#211D70';
 }, 3000);
 
-// Google Sign In
-// var googleUser = {};
-// var startApp = function() {
-// gapi.load('auth2', function(){
-//   // Retrieve the singleton for the GoogleAuth library and set up the client.
-//   auth2 = gapi.auth2.init({
-//   client_id: '1026579868783-ft78qs6p4d6e6og3ofr2clfufi7bgsuc.apps.googleusercontent.com',
-//   cookiepolicy: 'single_host_origin',
-//   // Request scopes in addition to 'profile' and 'email'
-//   //scope: 'additional_scope'
-//   });
-//   attachSignin(document.getElementById('proceed-btn'));
-//   });
-// };
-
-// function attachSignin(element) {
-//   auth2.attachClickHandler(element, {},
-//   function(googleUser) {
-//   console.log("Signed in: " + googleUser.getBasicProfile().getName());
-//   console.log("Signed in: " + googleUser.getBasicProfile().getEmail());
-//   window.location.href = 'https://nikhilphalange.github.io/Wiser/loggedIn.html';
-//   }, function(error) {
-//   alert(JSON.stringify(error, undefined, 2));
-//   });
-// }
-
 function onSignIn() {
   window.location.href = "/accounts/google/login/?process=login";  
 }

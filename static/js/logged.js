@@ -1,9 +1,26 @@
 // Hide Loader after page is loaded
 
-window.onload = function() { 
-  document.getElementsByClassName("loading")[0].style.transform = 'scale(0)';
-}
-  
+window.onload = function() {
+  console.log('getting user status!');
+  var xhttp = new XMLHttpRequest();
+  var url = '/status/';
+  xhttp.open('GET', url, true);
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      var jsonData = JSON.parse(xhttp.responseText);
+      console.log(jsonData);
+      if(jsonData.stage == 1) {
+        var preAssess = document.getElementById('pre-assessment-template');
+        var TnC = document.getElementById('termsAndConditions');
+        var container = document.getElementsByClassName('container')[0];
+        container.removeChild(TnC);
+        container.appendChild(preAssess.content.cloneNode(true));
+      }
+      document.getElementsByClassName("loading")[0].style.transform = 'scale(0)';
+      }
+    };
+  xhttp.send();   
+}  
   // Full screen
   
 function GoFullScreen() {
@@ -111,7 +128,6 @@ function getCookie(name) {
 
 function submitData(data) {
   var csrf_token = getCookie('csrftoken');
-  console.log(csrf_token);
   var xhttp = new XMLHttpRequest();
   var url = '/formdata/';
   xhttp.open('POST', url, true);
@@ -119,7 +135,6 @@ function submitData(data) {
   xhttp.setRequestHeader("X-CSRFToken", csrf_token);
   xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
-      alert('Data sent!');
       var preAssess = document.getElementById('pre-assessment-template');
       var profileDiv = document.getElementById('profile');
       var container = document.getElementsByClassName('container')[0];
@@ -131,30 +146,55 @@ function submitData(data) {
   xhttp.send(data);
 }
 
-function goToLevel(element, group , code) {
-  var crown = document.getElementsByClassName('crown')[0];
-  var preAssess = document.getElementById('pre-assessment');
-  var container = document.getElementsByClassName('container')[0];
-  var clonedCrown = crown.cloneNode(true);
-  if(code === 1) {
-    document.getElementById('info-btn').style.display = 'none';
-    if(group === 'placebo') {
-      var questions = document.getElementById('placebo');
-      container.removeChild(preAssess);
-      container.appendChild(questions.content.cloneNode(true));
-    } else if(group === 'control') {
-      var questions = document.getElementById('control');
-      container.removeChild(preAssess);
-      container.appendChild(questions.content.cloneNode(true));
-    } else if(group === 'experiment') {
-      var questions = document.getElementById('experiment');
-      container.removeChild(preAssess);
-      container.appendChild(questions.content.cloneNode(true));
+function goToLevel(category) {
+  // var crown = document.getElementsByClassName('crown')[0];
+  // var preAssess = document.getElementById('pre-assessment');
+  // var container = document.getElementsByClassName('container')[0];
+  // var clonedCrown = crown.cloneNode(true);
+  var data = {
+    "category": category,
+    "csrftoken": []
+  };
+  var csrf_token = getCookie('csrftoken');
+  data["csrftoken"].push({
+    "csrfmiddlewaretoken": csrf_token
+  });
+  var xhttp = new XMLHttpRequest();
+  var url = '/pre_cat/';
+  xhttp.open('POST', url, true);
+  xhttp.setRequestHeader("Content-type", "application/json");
+  xhttp.setRequestHeader("X-CSRFToken", csrf_token);
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      var jsonData = JSON.parse(xhttp.responseText);
+      console.log('sending req for getting ques of category' + category);
+      console.log(jsonData);
+      getQuestion();
     }
-  } else {
-    clonedCrown.style.display = 'block';
-    element.appendChild(clonedCrown);
-  }
+  };
+  xhttp.send(JSON.stringify(data)); 
+}
+
+function getQuestion() {
+  var data = {
+    "csrftoken": []
+  };
+  var csrf_token = getCookie('csrftoken');
+  data["csrftoken"].push({
+    "csrfmiddlewaretoken": csrf_token
+  });
+  var xhttp = new XMLHttpRequest();
+  var url = '/prepos_details/';
+  xhttp.open('POST', url, true);
+  xhttp.setRequestHeader("Content-type", "application/json");
+  xhttp.setRequestHeader("X-CSRFToken", csrf_token);
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      var jsonData = JSON.parse(xhttp.responseText);
+      console.log(jsonData);
+    }
+  };
+  xhttp.send(JSON.stringify(data)); 
 }
 
 function goBack() {
