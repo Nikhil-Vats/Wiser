@@ -219,6 +219,10 @@ function getQuestion() {
       var temp = pre_assess_form.content.cloneNode(true);
       var container = document.getElementsByClassName('container')[0];
       var preAssess = document.getElementById('pre-assessment');
+      if (document.getElementsByClassName('container')[0].getElementsByClassName('questions')[0]) {
+        document.getElementsByClassName('container')[0].removeChild(document.getElementsByClassName('container')[0].getElementsByClassName('questions')[0]);
+        document.getElementsByClassName('container')[0].removeChild(document.getElementsByClassName('container')[0].getElementsByClassName('back')[0]);
+      }
       container.appendChild(temp);
       document.getElementById('exp_ques').innerHTML = jsonData.data.text;
       document.getElementById('f-label').innerHTML = jsonData.data.choice1;
@@ -263,6 +267,7 @@ function submitAns() {
     if (this.readyState == 4 && this.status == 200) {
       var jsonData = JSON.parse(xhttp.responseText);
       console.log(jsonData);
+      getQuestion();
     }
   };
   xhttp.send(JSON.stringify(data));

@@ -1132,9 +1132,6 @@ textarea {
         font-size: 30px;
     }
 }
-
-
-
-
-
-
+form {
+    overflow: auto;
+}
