@@ -30,7 +30,8 @@ window.onload = function() {
         var container = document.getElementsByClassName('container')[0];
         container.removeChild(TnC);
         container.appendChild(preAssess.content.cloneNode(true));
-        document.getElementById('pre-assess-heading').innerHTML = 'Weekly Continuous Evaluation';
+        getPlaceboQuestion();
+        // document.getElementById('pre-assess-heading').innerHTML = 'Weekly Continuous Evaluation';
       }
       else if(jsonData.stage == 4) {
         var TnC = document.getElementById('termsAndConditions');
@@ -39,7 +40,9 @@ window.onload = function() {
         container.removeChild(TnC);
         container.appendChild(control.content.cloneNode(true));
       }
-      document.getElementsByClassName("loading")[0].style.transform = 'scale(0)';
+      document.getElementsByClassName("loading")[0].classList.add('fade-out');
+      // Hide Loader after 1s
+      setTimeout(function(){document.getElementsByClassName('loading')[0].style.display='none';},1000);
       }
     };
   xhttp.send();   
@@ -56,6 +59,7 @@ function showInfo() {
   var infoElement = document.getElementById('info');
   infoElement.style.transform = 'translateX(0) translateY(0) scale(1)';
   document.getElementById('info-btn').style.display = 'none';
+  document.getElementsByClassName('menu')[0].style.zIndex='-1';
 }
 
 //Close info
@@ -64,6 +68,7 @@ function closeInfo() {
   var infoElement = document.getElementById('info');
   infoElement.style.transform = 'translateX(100vw) translateY(-100vh) scale(0)';
   document.getElementById('info-btn').style.display = 'block';
+  document.getElementsByClassName('menu')[0].style.zIndex='1';
 }
 
 // Sidenav(mobile)
@@ -182,6 +187,8 @@ function goToLevel(category) {
   data["csrftoken"].push({
     "csrfmiddlewaretoken": csrf_token
   });
+  // Display Loading Screen
+  document.getElementsByClassName('ques-loading')[0].style.display='flex';
   var xhttp = new XMLHttpRequest();
   var url = '/pre_cat/';
   xhttp.open('POST', url, true);
@@ -193,9 +200,10 @@ function goToLevel(category) {
       console.log('sending req for getting ques of category' + category);
       console.log(jsonData);
       getQuestion();
+      document.getElementsByClassName('menu')[0].style.zIndex='-1';
     }
   };
-  xhttp.send(JSON.stringify(data)); 
+  xhttp.send(JSON.stringify(data));
 }
 var pk;
 function getQuestion() {
@@ -206,6 +214,8 @@ function getQuestion() {
   data["csrftoken"].push({
     "csrfmiddlewaretoken": csrf_token
   });
+  // Display Loading Screen
+  document.getElementsByClassName('ques-loading')[0].style.display='flex';
   var xhttp = new XMLHttpRequest();
   var url = '/prepos_details/';
   xhttp.open('POST', url, true);
@@ -234,7 +244,10 @@ function getQuestion() {
       document.getElementById('3-option').value = jsonData.data.choice3;
       document.getElementById('4-option').value = jsonData.data.choice4;
       pk = jsonData.data.pk;
-      container.removeChild(preAssess);
+      // Hide Loader Screen after 2s
+      setTimeout(function(){document.getElementsByClassName('ques-loading')[0].style.display='none';},2000);
+      if (preAssess)
+        container.removeChild(preAssess);
     }
   };
   xhttp.send(JSON.stringify(data)); 
@@ -258,6 +271,8 @@ function submitAns() {
   });
   console.log(csrf_token);
   console.log(data);
+  // Display Loading Screen
+  document.getElementsByClassName('ques-loading')[0].style.display='flex';
   var xhttp = new XMLHttpRequest();
   var url = '/ans_ques/';
   xhttp.open('POST', url, true);
@@ -267,15 +282,91 @@ function submitAns() {
     if (this.readyState == 4 && this.status == 200) {
       var jsonData = JSON.parse(xhttp.responseText);
       console.log(jsonData);
-      getQuestion();
+      if (jsonData.next) {
+        // Close this category and lock it
+        location.reload();
+      } else {
+        setTimeout(function(){increaseProgress();},2500);
+        getQuestion();
+      }
+    }
+  };
+  xhttp.send(JSON.stringify(data));
+}
+
+function getPlaceboQuestion() {
+  var data = {
+    "csrftoken": []
+  };
+  var csrf_token = getCookie('csrftoken');
+  data["csrftoken"].push({
+    "csrfmiddlewaretoken": csrf_token
+  });
+  // Display Loading Screen
+  document.getElementsByClassName('ques-loading')[0].style.display='flex';
+  var xhttp = new XMLHttpRequest();
+  var url = '/placebo_details/';
+  xhttp.open('POST', url, true);
+  xhttp.setRequestHeader("Content-type", "application/json");
+  xhttp.setRequestHeader("X-CSRFToken", csrf_token);
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      var jsonData = JSON.parse(xhttp.responseText);
+      console.log(jsonData);
+      var preAssess = document.getElementById('placebo');
+      var container = document.getElementsByClassName('container')[0];
+      container.appendChild(preAssess.content.cloneNode(true));
+      if (document.getElementsByClassName('container')[0].getElementsByClassName('questions')[0]) {
+        document.getElementsByClassName('container')[0].removeChild(document.getElementsByClassName('container')[0].getElementsByClassName('questions')[0]);
+        document.getElementsByClassName('container')[0].removeChild(document.getElementsByClassName('container')[0].getElementsByClassName('back')[0]);
+      }
+      // Hide Loader Screen after 2s
+      setTimeout(function(){document.getElementsByClassName('ques-loading')[0].style.display='none';},2000);
+    }
+  };
+  xhttp.send(JSON.stringify(data));
+}
+
+function submitPlaceboAns() {
+  var answer;
+  var answer = document.getElementById('placebo-ans').value;
+  var data = {
+    "pk": pk,
+    "ans": answer,
+    "csrftoken": []
+  };
+  var csrf_token = getCookie('csrftoken');
+  data["csrftoken"].push({
+    "csrfmiddlewaretoken": csrf_token
+  });
+  console.log(csrf_token);
+  console.log(data);
+  // Display Loading Screen
+  document.getElementsByClassName('ques-loading')[0].style.display='flex';
+  var xhttp = new XMLHttpRequest();
+  var url = '/ans_placebo_ques/';
+  xhttp.open('POST', url, true);
+  xhttp.setRequestHeader("Content-type", "application/json");
+  xhttp.setRequestHeader("X-CSRFToken", csrf_token);
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      var jsonData = JSON.parse(xhttp.responseText);
+      console.log(jsonData);
+      // Check if complete or not
+      if (jsonData.complete == 1) {
+        location.reload();
+      } else {
+        increasePlaceboProgress();
+        getPlaceboQuestion();
+      }
     }
   };
   xhttp.send(JSON.stringify(data));
 }
 
 function goBack() {
-  var preAssess = document.getElementById('pre-assessment-template');
   var container = document.getElementsByClassName('container')[0];
+  var preAssess = document.getElementById('pre-assessment-template');
   if(container.contains(document.getElementsByClassName('questions')[0])) {
     container.removeChild(document.getElementsByClassName('questions')[0]);
     container.appendChild(preAssess.content.cloneNode(true));
@@ -283,21 +374,51 @@ function goBack() {
     container.removeChild(document.getElementsByClassName('center')[0]);
     container.appendChild(preAssess.content.cloneNode(true));
   }
+  if (container.getElementsByClassName('back')[0])
+    container.removeChild(container.getElementsByClassName('back')[0]);
+  // Hide Loader Screen after 2s
+  setTimeout(function(){document.getElementsByClassName('ques-loading')[0].style.display='none';},2000);
+  document.getElementsByClassName('menu')[0].style.zIndex='1';
 }
-
+var initialWidth;
+var barWidth = 0;
 function increaseProgress() {
+  var num_ques = 10;
+  console.log("Increased Progress");
   var progress = document.getElementsByClassName('progress')[0];
   var progressBar = document.getElementsByClassName('progress-bar')[0];
-  var initialWidth = parseFloat(progress.clientWidth);
-  var barWidth = progressBar.clientWidth;
+  initialWidth = parseFloat(progress.clientWidth);
   console.log(initialWidth, barWidth);
-  if(barWidth === 0 && initialWidth !== barWidth) {
+  if(initialWidth > barWidth) {
     console.log(1);
-    progressBar.style.width = initialWidth%10 + initialWidth*1.00/10 + 'px';
+    console.log(barWidth + (initialWidth*1.00/num_ques) + 'px');
+    progressBar.style.width = barWidth + (initialWidth*1.00/num_ques) + 'px';
+    barWidth = barWidth + (initialWidth*1.00/num_ques);
   }
-  else if(barWidth !== 0 && initialWidth > barWidth) {
+  else {
     console.log(2);
-    progressBar.style.width = progressBar.clientWidth + initialWidth*1.00/10 + 'px';
+    progressBar.style.width = initialWidth + 'px';
+    barWidth = initialWidth;
+  }
+}
+var placeboBarWidth=0;
+function increasePlaceboProgress() {
+  var num_ques = 10;
+  console.log("Increased Progress");
+  var progress = document.getElementsByClassName('progress')[0];
+  var progressBar = document.getElementsByClassName('progress-bar')[0];
+  initialWidth = parseFloat(progress.clientWidth);
+  console.log(initialWidth, placeboBarWidth);
+  if(initialWidth > placeboBarWidth) {
+    console.log(1);
+    console.log(placeboBarWidth + (initialWidth*1.00/num_ques) + 'px');
+    progressBar.style.width = placeboBarWidth + (initialWidth*1.00/num_ques) + 'px';
+    placeboBarWidth = placeboBarWidth + (initialWidth*1.00/num_ques);
+  }
+  else {
+    console.log(2);
+    progressBar.style.width = initialWidth + 'px';
+    placeboBarWidth = initialWidth;
   }
 }
 
@@ -322,3 +443,50 @@ function Validate(data) {
   }
   return true;
 }
+// Animation Code
+anime.timeline({loop: true})
+  .add({
+    targets: '.ml8 .circle-white',
+    scale: [0, 3],
+    opacity: [1, 0],
+    easing: "easeInOutExpo",
+    rotateZ: 360,
+    duration: 1100
+  }).add({
+    targets: '.ml8 .circle-container',
+    scale: [0, 1],
+    duration: 1100,
+    easing: "easeInOutExpo",
+    offset: '-=1000'
+  }).add({
+    targets: '.ml8 .circle-dark',
+    scale: [0, 1],
+    duration: 1100,
+    easing: "easeOutExpo",
+    offset: '-=600'
+  }).add({
+    targets: '.ml8 .letters-left',
+    scale: [0, 1],
+    duration: 1200,
+    offset: '-=550'
+  }).add({
+    targets: '.ml8 .bang',
+    scale: [0, 1],
+    rotateZ: [45, 15],
+    duration: 1200,
+    offset: '-=1000'
+  }).add({
+    targets: '.ml8',
+    opacity: 0,
+    duration: 1000,
+    easing: "easeOutExpo",
+    delay: 1400
+  });
+
+anime({
+  targets: '.ml8 .circle-dark-dashed',
+  rotateZ: 360,
+  duration: 8000,
+  easing: "linear",
+  loop: true
+});

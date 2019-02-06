@@ -70,6 +70,8 @@ def prepos_details(request):
             else:
                 dat.append({"format":"openended","pk":q.pk,"text":q.text})
 
+        print(dat)
+        print(ud.q_no)
         return JsonResponse({"data":dat[ud.q_no-1],"q_no":ud.q_no})
 
 @login_required
