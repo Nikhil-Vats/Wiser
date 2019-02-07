@@ -115,6 +115,8 @@
         <a href="#" class="menu-item"> <i class="fa fa-users-cog"></i> </a>
         <a href="#" class="menu-item"> <i class="fa fa-sign-out-alt"></i> </a>
     </nav>
+    <!-- Ofline Week Contents -->
+    <div class="offline-content"></div>
 
     <!-- filters -->
     <svg xmlns="http://www.w3.org/2000/svg" version="1.1">
@@ -165,6 +167,40 @@
                         <a onclick="goToLevel(4)">
                         <h2>Category #4</h2>
                         <p>Text Content #4</p>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </template>
+    <template id="experiment-assessment-template">
+        <div id="experiment-assessment">
+            <div id="top-margin"></div>
+            <h1 class="heading" id="experiment-assess-heading">Pre Assessment</h1>
+            <div class="levels-container">
+                <ul>
+                    <li>
+                        <a onclick="goToWeek(1, this)">
+                        <h2>Week #1</h2>
+                        <p>Text Content #1</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a onclick="goToWeek(2, this)">
+                        <h2>Week #2</h2>
+                        <p class="locked"><i class="fa fa-lock"></i></p>
+                        </a>
+                    </li>
+                    <li>
+                        <a onclick="goToWeek(3, this)">
+                        <h2>Week #3</h2>
+                        <p class="locked"><i class="fa fa-lock"></i></p>
+                        </a>
+                    </li>
+                    <li>
+                        <a onclick="goToWeek(4, this)">
+                        <h2>Week #4</h2>
+                        <p class="locked"><i class="fa fa-lock"></i></p>
                         </a>
                     </li>
                 </ul>
@@ -266,6 +302,65 @@
             <button type="button" form="exp-form" onclick="submitAns()">Submit</button>
         </div>
     </template>
+    <template id="exp">
+        <div class="back" onclick="goBack()"><img src="{% static '/images/back.svg' %}"></div>
+        <div class="questions">
+            <div class="progress">
+                <div class="start"></div>
+                <div class="progress-bar"></div>
+                <div class="end"></div>
+            </div>
+            <h1 class="question" id="exp_ques">What do you like the most?</h1>
+            <form method="post" id="exp-form">
+                <div class="inputGroup">
+                    <input id="1-option" name="selector" type="radio" required/>
+                    <label for="1-option" id="f-label">Option 1</label>
+                </div>
+                <div class="inputGroup">
+                    <input id="2-option" name="selector" type="radio" required/>
+                    <label for="2-option" id="s-label">Option 2</label>
+                </div>
+                <div class="inputGroup">
+                    <input id="3-option" name="selector" type="radio" required/>
+                    <label for="3-option" id="t-label">Option 3</label>
+                </div>
+                <div class="inputGroup">
+                    <input id="4-option" name="selector" type="radio" required/>
+                    <label for="4-option" id="fo-label">Option 4</label>
+                </div>
+                <!-- <ul>
+                    <li>
+                    <input type="radio" id="1-option" name="selector" required>
+                    <label for="1-option" id="f-label">Pizza</label>
+                    
+                    <div class="check"></div>
+                    </li>
+                    
+                    <li>
+                    <input type="radio" id="2-option" name="selector" required>
+                    <label for="2-option" id="s-label">Bacon</label>
+                    
+                    <div class="check"><div class="inside"></div></div>
+                    </li>
+                    
+                    <li>
+                    <input type="radio" id="3-option" name="selector" required>
+                    <label for="3-option" id="t-label">Dogs</label>
+                    
+                    <div class="check"><div class="inside"></div></div>
+                    </li>
+
+                    <li>
+                    <input type="radio" id="4-option" name="selector" required>
+                    <label for="4-option" id="fo-label">Dog</label>
+                    
+                    <div class="check"><div class="inside"></div></div>
+                    </li>
+                </ul> -->
+            </form>
+            <button type="button" form="exp-form" onclick="submitExpAns()">Submit</button>
+        </div>
+    </template>
     <template id="placebo">
         <div class="questions">
             <div class="progress">
@@ -279,7 +374,7 @@
         </div>
     </template>
     <template id="control">
-        <div class="back" onclick="goBack()"><img src="{% static '/images/back.svg' %}"></div>
+        <!-- <div class="back" onclick="goBack()"><img src="{% static '/images/back.svg' %}"></div> -->
         <div class="center"><span>We will get back to you soon!</span><img src="{% static '/images/emoji.png' %}"></div>
     </template>
     <template id="validation-template">
@@ -294,25 +389,25 @@
             <div class="levels-container">
                 <ul>
                     <li>
-                        <a onclick="goToLevel(1)">
+                        <a onclick="goToPostLevel(1)">
                         <h2>Category #1</h2>
                         <p>Text Content #1</p>
                         </a>
                     </li>
                     <li>
-                        <a onclick="goToLevel(2)">
+                        <a onclick="goToPostLevel(2)">
                         <h2>Category #2</h2>
                         <p>Text Content #2</p>
                         </a>
                     </li>
                     <li>
-                        <a onclick="goToLevel(3)">
+                        <a onclick="goToPostLevel(3)">
                         <h2>Category #3</h2>
                         <p>Text Content #3</p>
                         </a>
                     </li>
                     <li>
-                        <a onclick="goToLevel(4)">
+                        <a onclick="goToPostLevel(4)">
                         <h2>Category #4</h2>
                         <p>Text Content #4</p>
                         </a>
@@ -321,6 +416,22 @@
             </div>
         </div>
     </template>
+    <!-- Offline Week Contents -->
+    <template id="offline-content-1">
+        <a class="button" href="#popup">Open Offline Tasks</a>
+        <div class="popup" id="popup">
+            <div class="popup-inner">
+                <div class="popup__photo"><a title="Parutakupiu, Tomtheman5, JBarta [Public domain], via Wikimedia Commons" href="https://commons.wikimedia.org/wiki/File:Olympic_pictogram_Athletics_-_colored.svg"><img alt="Olympic pictogram Athletics - colored" src="https://upload.wikimedia.org/wikipedia/commons/f/f6/Olympic_pictogram_Athletics_-_colored.svg"></a></div>
+                <div class="popup__text">
+                    <h1>Week 1 Tasks</h1>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer ex velit, viverra non vulputate vitae, blandit vitae nisl. Nullam fermentum orci et erat viverra bibendum. Aliquam sed varius nibh, vitae mattis purus. Mauris elementum sapien non
+                    ullamcorper vulputate. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Sed eget felis sit amet eros viverra pulvinar.</p>
+                </div>
+                <a class="popup__close" href="#" onclick="location.reload();">X</a>
+            </div>
+        </div>
+    </template>
+    <script src="{% static '/js/jquery.min.js' %}" type="text/javascript"></script>
     <script src="{% static '/js/logged.js' %}" type="text/javascript"></script>
 </body>
 </html>
