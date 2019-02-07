@@ -9,14 +9,16 @@ window.onload = function() {
     if (this.readyState == 4 && this.status == 200) {
       var jsonData = JSON.parse(xhttp.responseText);
       console.log(jsonData);
-      if(jsonData.stage == 1) {
+      if (jsonData.stage == 0) {
+        // Set z-index to 2 for hiding the nav menu and then reset after profile filled
+        document.getElementsByClassName('container')[0].style.zIndex = '2';
+      } else if (jsonData.stage == 1) {
         var preAssess = document.getElementById('pre-assessment-template');
         var TnC = document.getElementById('termsAndConditions');
         var container = document.getElementsByClassName('container')[0];
         container.removeChild(TnC);
         container.appendChild(preAssess.content.cloneNode(true));
-      }
-      else if(jsonData.stage == 2) {
+      } else if (jsonData.stage == 2) {
         var TnC = document.getElementById('termsAndConditions');
         var expAssess = document.getElementById('experiment-assessment-template');
         var container = document.getElementsByClassName('container')[0];
@@ -50,8 +52,7 @@ window.onload = function() {
         } else {
           lockAllWeeks();
         }
-      }
-      else if(jsonData.stage == 3) {
+      } else if (jsonData.stage == 3) {
         var TnC = document.getElementById('termsAndConditions');
         var preAssess = document.getElementById('placebo');
         var container = document.getElementsByClassName('container')[0];
@@ -59,8 +60,7 @@ window.onload = function() {
         container.appendChild(preAssess.content.cloneNode(true));
         getPlaceboQuestion();
         // document.getElementById('pre-assess-heading').innerHTML = 'Weekly Continuous Evaluation';
-      }
-      else if(jsonData.stage == 4) {
+      } else if(jsonData.stage == 4) {
         var TnC = document.getElementById('termsAndConditions');
         var control = document.getElementById('control');
         var container = document.getElementsByClassName('container')[0];
@@ -212,6 +212,7 @@ function submitData(data) {
       container.style.background = 'whitesmoke';
       container.removeChild(profileDiv);
       container.appendChild(preAssess.content.cloneNode(true));
+      document.getElementsByClassName('container')[0].style.zIndex = '';
     }
   };
   xhttp.send(data);
@@ -345,7 +346,7 @@ function getQuestion() {
         document.getElementsByClassName('container')[0].removeChild(document.getElementsByClassName('container')[0].getElementsByClassName('back')[0]);
       }
       container.appendChild(temp);
-      document.getElementsByClassName('container')[0].removeChild(document.getElementsByClassName('container')[0].getElementsByClassName('back')[0].setAttribute('onclick', 'goBack()'));
+      document.getElementsByClassName('container')[0].getElementsByClassName('back')[0].setAttribute('onclick', 'goBack()');
       document.getElementById('exp_ques').innerHTML = jsonData.data.text;
       document.getElementById('f-label').innerHTML = jsonData.data.choice1;
       document.getElementById('s-label').innerHTML = jsonData.data.choice2;
@@ -433,7 +434,7 @@ function getExpQuestion() {
         document.getElementsByClassName('container')[0].removeChild(document.getElementsByClassName('container')[0].getElementsByClassName('back')[0]);
       }
       container.appendChild(temp);
-      document.getElementsByClassName('container')[0].removeChild(document.getElementsByClassName('container')[0].getElementsByClassName('back')[0].setAttribute('onclick', 'goExpBack()'));
+      document.getElementsByClassName('container')[0].getElementsByClassName('back')[0].setAttribute('onclick', 'goExpBack()');
       document.getElementById('exp_ques').innerHTML = jsonData.data.text;
       document.getElementById('f-label').innerHTML = jsonData.data.choice1;
       document.getElementById('s-label').innerHTML = jsonData.data.choice2;
@@ -593,7 +594,7 @@ function getPostQuestion() {
         document.getElementsByClassName('container')[0].removeChild(document.getElementsByClassName('container')[0].getElementsByClassName('back')[0]);
       }
       container.appendChild(temp);
-      document.getElementsByClassName('container')[0].removeChild(document.getElementsByClassName('container')[0].getElementsByClassName('back')[0].setAttribute('onclick', 'goPostBack()'));
+      document.getElementsByClassName('container')[0].getElementsByClassName('back')[0].setAttribute('onclick', 'goPostBack()');
       document.getElementById('exp_ques').innerHTML = jsonData.data.text;
       document.getElementById('f-label').innerHTML = jsonData.data.choice1;
       document.getElementById('s-label').innerHTML = jsonData.data.choice2;
@@ -840,3 +841,17 @@ anime({
   easing: "linear",
   loop: true
 });
+// Contact Section
+function openContact() {
+  document.getElementById('contact-us').style.display = 'block';
+}
+function closeContact() {
+  document.getElementById('contact-us').style.display = 'none';
+}
+// Devs Section
+function openDevs() {
+  document.getElementById('devs').style.display = 'block';
+}
+function closeDevs() {
+  document.getElementById('devs').style.display = 'none';
+}

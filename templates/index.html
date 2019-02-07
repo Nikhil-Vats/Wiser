@@ -12,7 +12,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.4.2/lottie.min.js"></script>
     <title>Wiser</title>
 </head>
-<body>
+<body class="home-content">
     <div class="loading">
         <div class="loader"></div>
     </div>
@@ -21,9 +21,9 @@
     <div id="sidenav-content">
         <h1 class="title">WISE<sup>R</sup></h1>
         <ul>
-            <li><img class="list-icons" src="{% static '/images/telephone.svg' %}" >Contact Us</li>
+            <li onclick="openContact()"><img class="list-icons" src="{% static '/images/telephone.svg' %}">Contact Us</li>
             <li onclick="GoFullScreen()"><img class="list-icons" src="{% static '/images/full-screen.svg' %}">Go Full Screen</li>
-            <li><img class="list-icons" src="{% static '/images/coding.svg' %}">Developers</li>
+            <li onclick="openDevs()"><img class="list-icons" src="{% static '/images/coding.svg' %}">Developers</li>
         </ul>
     </div>
     <div class="container" style="background:url('{% static '/images/FINAL3-min.png' %}'); background-size:cover; background-position:center;">
@@ -63,18 +63,15 @@
                 remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets 
                 containing Lorem Ipsum passages, 
                 and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
-                <div class="footer">
-                    <p>&COPY; 2019, Nikhil Vats.</p>
-                </div>
         </div>
         <div class="center-logo">
             <ul id="grid" class="clear">
                 <li><div class="hexagon" style="visibility:hidden;"></div></li>
-                <li><div class="hexagon">IM</div></li>
-                <li><div class="hexagon">SM</div></li>
-                <li><div class="hexagon">TM</div></li>
+                <li><div class="hexagon"><a class="button" href="#IM">IM</a></div></li>
+                <li><div class="hexagon"><a class="button" href="#SM">SM</a></div></li>
+                <li><div class="hexagon"><a class="button" href="#TM">TM</a></div></li>
                 <li><div class="hexagon">Welcome</div></li>
-                <li><div class="hexagon">SEM</div></li>
+                <li><div class="hexagon"><a class="button" href="#SEM">SEM</a></div></li>
                 <li><div class="hexagon" style="visibility:hidden;"></div></li>
                 <li><div class="hexagon" style="display:none;">EMIN</div></li>
                 <li><div class="hexagon" style="display:none;">QMIN</div></li>
@@ -91,10 +88,110 @@
             <span class="hamburger hamburger-2"></span>
             <span class="hamburger hamburger-3"></span>
         </label>
-        <a href="#" class="menu-item"> <i class="fa fa-envelope"></i> </a>
-        <a href="#" class="menu-item"> <i class="fa fa-users-cog"></i> </a>
+        <a href="#" class="menu-item" onclick="openContact()"> <i class="fa fa-envelope"></i> </a>
+        <a href="#" class="menu-item" onclick="openDevs()"> <i class="fa fa-users-cog"></i> </a>
         <a href="#" class="menu-item"> <i class="fa fa-sign-out-alt"></i> </a>
     </nav>
+    <!-- 4 Pillars Modals -->
+    <div class="popup" id="IM">
+        <div class="popup-inner">
+            <div class="popup__photo"><a title="Parutakupiu, Tomtheman5, JBarta [Public domain], via Wikimedia Commons" href="https://commons.wikimedia.org/wiki/File:Olympic_pictogram_Athletics_-_colored.svg"><img alt="Olympic pictogram Athletics - colored" src="https://upload.wikimedia.org/wikipedia/commons/f/f6/Olympic_pictogram_Athletics_-_colored.svg"></a></div>
+            <div class="popup__text">
+                <h1>IM</h1>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer ex velit, viverra non vulputate vitae, blandit vitae nisl. Nullam fermentum orci et erat viverra bibendum. Aliquam sed varius nibh, vitae mattis purus. Mauris elementum sapien non
+                ullamcorper vulputate. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Sed eget felis sit amet eros viverra pulvinar.</p>
+            </div>
+            <a class="popup__close" href="#">X</a>
+        </div>
+    </div>
+    <div class="popup" id="SM">
+        <div class="popup-inner">
+            <div class="popup__photo"><a title="Parutakupiu, Tomtheman5, JBarta [Public domain], via Wikimedia Commons" href="https://commons.wikimedia.org/wiki/File:Olympic_pictogram_Athletics_-_colored.svg"><img alt="Olympic pictogram Athletics - colored" src="https://upload.wikimedia.org/wikipedia/commons/f/f6/Olympic_pictogram_Athletics_-_colored.svg"></a></div>
+            <div class="popup__text">
+                <h1>SM</h1>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer ex velit, viverra non vulputate vitae, blandit vitae nisl. Nullam fermentum orci et erat viverra bibendum. Aliquam sed varius nibh, vitae mattis purus. Mauris elementum sapien non
+                ullamcorper vulputate. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Sed eget felis sit amet eros viverra pulvinar.</p>
+            </div>
+            <a class="popup__close" href="#">X</a>
+        </div>
+    </div>
+    <div class="popup" id="TM">
+        <div class="popup-inner">
+            <div class="popup__photo"><a title="Parutakupiu, Tomtheman5, JBarta [Public domain], via Wikimedia Commons" href="https://commons.wikimedia.org/wiki/File:Olympic_pictogram_Athletics_-_colored.svg"><img alt="Olympic pictogram Athletics - colored" src="https://upload.wikimedia.org/wikipedia/commons/f/f6/Olympic_pictogram_Athletics_-_colored.svg"></a></div>
+            <div class="popup__text">
+                <h1>TM</h1>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer ex velit, viverra non vulputate vitae, blandit vitae nisl. Nullam fermentum orci et erat viverra bibendum. Aliquam sed varius nibh, vitae mattis purus. Mauris elementum sapien non
+                ullamcorper vulputate. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Sed eget felis sit amet eros viverra pulvinar.</p>
+            </div>
+            <a class="popup__close" href="#">X</a>
+        </div>
+    </div>
+    <div class="popup" id="SEM">
+        <div class="popup-inner">
+            <div class="popup__photo"><a title="Parutakupiu, Tomtheman5, JBarta [Public domain], via Wikimedia Commons" href="https://commons.wikimedia.org/wiki/File:Olympic_pictogram_Athletics_-_colored.svg"><img alt="Olympic pictogram Athletics - colored" src="https://upload.wikimedia.org/wikipedia/commons/f/f6/Olympic_pictogram_Athletics_-_colored.svg"></a></div>
+            <div class="popup__text">
+                <h1>SEM</h1>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer ex velit, viverra non vulputate vitae, blandit vitae nisl. Nullam fermentum orci et erat viverra bibendum. Aliquam sed varius nibh, vitae mattis purus. Mauris elementum sapien non
+                ullamcorper vulputate. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Sed eget felis sit amet eros viverra pulvinar.</p>
+            </div>
+            <a class="popup__close" href="#">X</a>
+        </div>
+    </div>
+    <div id="contact-us">
+        <div class="contact-img-div">
+            <img src="{% static '/images/contact_img.jpg' %}" class="contact-img">
+        </div>
+        <div class="contact-div">
+            <div class="contact-close-btn" onclick="closeContact()">&times;</div>
+            <div class="details">
+                <div class="infoWrap">
+                    <div class="title-text">Meet us</div>
+                    <ul>
+                        <li class="phone"><span></span><a href="tel:+40728303133">+99-9999999999</a></li>
+                        <li class="mail"><span></span><a href="mailto:contact@gmail.com">contact@gmail.com</a></li>
+                        <li class="adr"><span></span><a href="https://goo.gl/maps/D2DT4xbtEhp" target="_blank">BITS Pilani, Pilani Campus</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="contact-map">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3511.000946217572!2d75.58583171455324!3d28.358821003168!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39131964f43e4575%3A0x1fbad30854cf884d!2z4KSs4KS_4KSw4KSy4KS-IOCkh-CkguCkuOCljeCkn-Ckv-Ckn-CljeCkr-ClguCknyDgpJHgpKvgpLwg4KSf4KWH4KSV4KWN4KSo4KWL4KSy4KWJ4KSc4KWAIOCklOCksCDgpLjgpL7gpIfgpILgpLg!5e0!3m2!1sen!2sin!4v1549551271937" width="400" height="300" frameborder="0" style="border:0" allowfullscreen id="map"></iframe>
+            </div>
+        </div>
+    </div>
+    <div id="devs">
+        <div class="devs-close-btn" onclick="closeDevs()">&times;</div>
+        <div class="devs-loading">
+            <h1 class="ml8">
+                <span class="letters-container">
+                    <span class="letters letters-left">Wise<sup>&reg;</sup></span>
+                    <span class="letters bang">!</span>
+                </span>
+                <span class="circle circle-white"></span>
+                <span class="circle circle-dark"></span>
+                <span class="circle circle-container"><span class="circle circle-dark-dashed"></span></span>
+            </h1>
+            <svg class="pulse" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                <circle id="Oval" cx="512" cy="512" r="512"></circle>
+                <circle id="Oval" cx="512" cy="512" r="512"></circle>
+                <circle id="Oval" cx="512" cy="512" r="512"></circle>
+            </svg>
+        </div>
+        <div class="dev-1 dev">
+            <img src="{% static '/images/contact_img.jpg' %}">
+            <div class="name">Nikhil Khandelwal</div>
+            <div class="work">Backend Developer</div>
+        </div>
+        <div class="dev-2 dev">
+            <img src="{% static '/images/contact_img.jpg' %}">
+            <div class="name">Arpit Anshuman</div>
+            <div class="work">Frontend Developer</div>
+        </div>
+        <div class="dev-3 dev">
+            <img src="{% static '/images/contact_img.jpg' %}">
+            <div class="name">Nikhil Vats</div>
+            <div class="work">Frontend Developer</div>
+        </div>
+    </div>
 
     <!-- filters -->
     <svg xmlns="http://www.w3.org/2000/svg" version="1.1">

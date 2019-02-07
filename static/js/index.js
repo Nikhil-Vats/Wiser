@@ -47,6 +47,7 @@ function showInfo() {
     var infoElement = document.getElementById('info');
     infoElement.style.transform = 'translateX(0) translateY(0) scale(1)';
     document.getElementById('info-btn').style.display = 'none';
+    document.getElementsByClassName('menu')[0].style.zIndex='-1';
 }
 
 //Close info
@@ -55,6 +56,7 @@ function closeInfo() {
     var infoElement = document.getElementById('info');
     infoElement.style.transform = 'translateX(100vw) translateY(-100vh) scale(0)';
     document.getElementById('info-btn').style.display = 'block';
+    document.getElementsByClassName('menu')[0].style.zIndex='1';
 }
   
 // Colour animation of hexagons 
