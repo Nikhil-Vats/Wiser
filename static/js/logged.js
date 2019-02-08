@@ -856,3 +856,7 @@ function openDevs() {
 function closeDevs() {
   document.getElementById('devs').style.display = 'none';
 }
+var animationOnterval = setInterval(function() {
+  // Changes Position of Panda every 10s
+  document.getElementById('panda').style.left = (Math.random() * 90) + 'vw';
+}, 10000);
