@@ -347,7 +347,7 @@ function getQuestion() {
       }
       container.appendChild(temp);
       document.getElementsByClassName('container')[0].getElementsByClassName('back')[0].setAttribute('onclick', 'goBack()');
-      document.getElementById('exp_ques').innerHTML = jsonData.data.text;
+      document.getElementById('exp_ques').innerHTML = jsonData.qno + ') ' + jsonData.data.text;
       document.getElementById('f-label').innerHTML = jsonData.data.choice1;
       document.getElementById('s-label').innerHTML = jsonData.data.choice2;
       document.getElementById('t-label').innerHTML = jsonData.data.choice3;
@@ -435,7 +435,7 @@ function getExpQuestion() {
       }
       container.appendChild(temp);
       document.getElementsByClassName('container')[0].getElementsByClassName('back')[0].setAttribute('onclick', 'goExpBack()');
-      document.getElementById('exp_ques').innerHTML = jsonData.data.text;
+      document.getElementById('exp_ques').innerHTML = jsonData.qno + ') ' + jsonData.data.text;
       document.getElementById('f-label').innerHTML = jsonData.data.choice1;
       document.getElementById('s-label').innerHTML = jsonData.data.choice2;
       document.getElementById('t-label').innerHTML = jsonData.data.choice3;
@@ -523,6 +523,7 @@ function getPlaceboQuestion() {
       if (document.getElementsByClassName('container')[0].getElementsByClassName('back')[0]) {
         document.getElementsByClassName('container')[0].removeChild(document.getElementsByClassName('container')[0].getElementsByClassName('back')[0]);
       }
+      document.getElementsByClassName('container')[0].getElementsByClassName('question')[0].innerHTML = jsonData.qno + ') ' + jsonData.data.text;
       // Hide Loader Screen after 2s
       setTimeout(function(){document.getElementsByClassName('ques-loading')[0].style.display='none';},2000);
     }
@@ -595,7 +596,7 @@ function getPostQuestion() {
       }
       container.appendChild(temp);
       document.getElementsByClassName('container')[0].getElementsByClassName('back')[0].setAttribute('onclick', 'goPostBack()');
-      document.getElementById('exp_ques').innerHTML = jsonData.data.text;
+      document.getElementById('exp_ques').innerHTML = jsonData.qno + ') ' + jsonData.data.text;
       document.getElementById('f-label').innerHTML = jsonData.data.choice1;
       document.getElementById('s-label').innerHTML = jsonData.data.choice2;
       document.getElementById('t-label').innerHTML = jsonData.data.choice3;
