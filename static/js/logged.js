@@ -80,6 +80,7 @@ window.onload = function() {
       }
     };
   xhttp.send();
+  displayOffline(1);
 }
 
 function lockAllWeeks(weeks) {
@@ -863,5 +864,5 @@ var animationOnterval = setInterval(function() {
 
 function logout() {
   // Logout Function
-  window.location.href = '/logout_view/';
+  window.location.href='/logout_view/';
 }
