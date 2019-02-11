@@ -18,6 +18,32 @@ window.onload = function() {
         var container = document.getElementsByClassName('container')[0];
         container.removeChild(TnC);
         container.appendChild(preAssess.content.cloneNode(true));
+        var weeks = document.getElementsByClassName('container')[0].getElementsByClassName('levels-container')[0].getElementsByTagName('li');
+        if (jsonData.category == 0) {
+          lockAllWeeks();
+        } else if (jsonData.category == 1 || jsonData.category == -1) {
+          // Lock everything then unlock Category 1
+          lockAllWeeks();
+          weeks[0].getElementsByTagName('p')[0].classList = [''];
+          weeks[0].getElementsByTagName('p')[0].innerHTML = 'Please Complete Category #1';
+        } else if (jsonData.category == 2) {
+          // Lock everything then unlock week 1
+          lockAllWeeks();
+          weeks[1].getElementsByTagName('p')[0].classList = [''];
+          weeks[1].getElementsByTagName('p')[0].innerHTML = 'Please Complete Category #2';
+        } else if (jsonData.category == 3) {
+          // Lock everything then unlock week 1
+          lockAllWeeks();
+          weeks[2].getElementsByTagName('p')[0].classList = [''];
+          weeks[2].getElementsByTagName('p')[0].innerHTML = 'Please Complete Category #3';
+        } else if (jsonData.category == 4) {
+          // Lock everything then unlock week 1
+          lockAllWeeks();
+          weeks[3].getElementsByTagName('p')[0].classList = [''];
+          weeks[3].getElementsByTagName('p')[0].innerHTML = 'Please Complete Category #4';
+        } else {
+          lockAllWeeks();
+        }
       } else if (jsonData.stage == 2) {
         var TnC = document.getElementById('termsAndConditions');
         var expAssess = document.getElementById('experiment-assessment-template');
@@ -26,33 +52,34 @@ window.onload = function() {
         container.appendChild(expAssess.content.cloneNode(true));
         document.getElementById('experiment-assess-heading').innerHTML = 'Weekly Continuous Evaluation';
         var weeks = document.getElementsByClassName('container')[0].getElementsByClassName('levels-container')[0].getElementsByTagName('li');
-        if (jsonData.week == 0) {
+        if (jsonData.category == 0) {
           // Lock Everything
           lockAllWeeks();
-        } else if (jsonData.week == 1) {
+        } else if (jsonData.category == 1) {
           // Lock everything then unlock week 1
           lockAllWeeks();
           weeks[0].getElementsByTagName('p')[0].classList = [''];
           weeks[0].getElementsByTagName('p')[0].innerHTML = 'Please Complete Week #1';
-        } else if (jsonData.week == 2) {
+        } else if (jsonData.category == 2) {
           // Lock everything then unlock week 1
           lockAllWeeks();
-          weeks[0].getElementsByTagName('p')[1].classList = [''];
-          weeks[0].getElementsByTagName('p')[1].innerHTML = 'There will be a short review of Week #1 followed by Questions for Week #2';
-        } else if (jsonData.week == 3) {
+          weeks[1].getElementsByTagName('p')[0].classList = [''];
+          weeks[1].getElementsByTagName('p')[0].innerHTML = 'There will be a short review of Week #1 followed by Questions for Week #2';
+        } else if (jsonData.category == 3) {
           // Lock everything then unlock week 1
           lockAllWeeks();
-          weeks[0].getElementsByTagName('p')[2].classList = [''];
-          weeks[0].getElementsByTagName('p')[2].innerHTML = 'There will be a short review of Week #2 followed by Questions for Week #3';
-        } else if (jsonData.week == 4) {
+          weeks[2].getElementsByTagName('p')[0].classList = [''];
+          weeks[2].getElementsByTagName('p')[0].innerHTML = 'There will be a short review of Week #2 followed by Questions for Week #3';
+        } else if (jsonData.category == 4) {
           // Lock everything then unlock week 1
           lockAllWeeks();
-          weeks[0].getElementsByTagName('p')[3].classList = [''];
-          weeks[0].getElementsByTagName('p')[3].innerHTML = 'There will be a short review of Week #3 followed by Questions for Week #4';
+          weeks[3].getElementsByTagName('p')[0].classList = [''];
+          weeks[3].getElementsByTagName('p')[0].innerHTML = 'There will be a short review of Week #3 followed by Questions for Week #4';
         } else {
           lockAllWeeks();
         }
       } else if (jsonData.stage == 3) {
+        document.getElementsByClassName('menu')[0].style.zIndex='-1';
         var TnC = document.getElementById('termsAndConditions');
         var preAssess = document.getElementById('placebo');
         var container = document.getElementsByClassName('container')[0];
@@ -77,13 +104,12 @@ window.onload = function() {
       document.getElementsByClassName("loading")[0].classList.add('fade-out');
       // Hide Loader after 1s
       setTimeout(function(){document.getElementsByClassName('loading')[0].style.display='none';},1000);
-      }
-    };
+    }
+  };
   xhttp.send();
-  displayOffline(1);
 }
 
-function lockAllWeeks(weeks) {
+function lockAllWeeks() {
   var weeks = document.getElementsByClassName('container')[0].getElementsByClassName('levels-container')[0].getElementsByTagName('li');
   for (var i=0; i<4; i++) {
     weeks[i].getElementsByTagName('p')[0].classList = ['locked'];
@@ -156,6 +182,8 @@ function GetBasicInfo() {
   var profileDiv = document.getElementById('profile-template');
   container.removeChild(TnC);
   container.appendChild(profileDiv.content.cloneNode(true));
+  // Initializes the States
+  print_state("states");
 }
 
 // Pre Assessment
@@ -199,6 +227,8 @@ function getCookie(name) {
 }
 
 function submitData(data) {
+  // Display Loading Screen
+  document.getElementsByClassName('ques-loading')[0].style.display='flex';
   var csrf_token = getCookie('csrftoken');
   var xhttp = new XMLHttpRequest();
   var url = '/formdata/';
@@ -214,12 +244,15 @@ function submitData(data) {
       container.removeChild(profileDiv);
       container.appendChild(preAssess.content.cloneNode(true));
       document.getElementsByClassName('container')[0].style.zIndex = '';
+      // Hide Loader Screen after 2s
+      setTimeout(function(){document.getElementsByClassName('ques-loading')[0].style.display='none';},2000);
+      location.reload();
     }
   };
   xhttp.send(data);
 }
 
-function goToLevel(category) {
+function goToLevel(category, context) {
   // var crown = document.getElementsByClassName('crown')[0];
   // var preAssess = document.getElementById('pre-assessment');
   // var container = document.getElementsByClassName('container')[0];
@@ -232,46 +265,14 @@ function goToLevel(category) {
   data["csrftoken"].push({
     "csrfmiddlewaretoken": csrf_token
   });
-  // Display Loading Screen
-  document.getElementsByClassName('ques-loading')[0].style.display='flex';
-  var xhttp = new XMLHttpRequest();
-  var url = '/pre_cat/';
-  xhttp.open('POST', url, true);
-  xhttp.setRequestHeader("Content-type", "application/json");
-  xhttp.setRequestHeader("X-CSRFToken", csrf_token);
-  xhttp.onreadystatechange = function() {
-    if (this.readyState == 4 && this.status == 200) {
-      var jsonData = JSON.parse(xhttp.responseText);
-      console.log('sending req for getting ques of category' + category);
-      console.log(jsonData);
-      getQuestion();
-      document.getElementsByClassName('menu')[0].style.zIndex='-1';
-    }
-  };
-  xhttp.send(JSON.stringify(data));
-}
-var week = 1;;
-function goToWeek(week_num, context) {
-  // var crown = document.getElementsByClassName('crown')[0];
-  // var preAssess = document.getElementById('pre-assessment');
-  // var container = document.getElementsByClassName('container')[0];
-  // var clonedCrown = crown.cloneNode(true);
-  var data = {
-    "week": week_num,
-    "csrftoken": []
-  };
-  var csrf_token = getCookie('csrftoken');
-  data["csrftoken"].push({
-    "csrfmiddlewaretoken": csrf_token
-  });
   if (context.parentElement.getElementsByTagName('p')[0].classList.contains('locked')) {
     // Do Nothing
   } else {
-    week = week_num;
     // Display Loading Screen
     document.getElementsByClassName('ques-loading')[0].style.display='flex';
+    document.getElementById('info-btn').setAttribute('onclick', 'showInfo('+category+')');
     var xhttp = new XMLHttpRequest();
-    var url = '/exp_cat/';
+    var url = '/pre_cat/';
     xhttp.open('POST', url, true);
     xhttp.setRequestHeader("Content-type", "application/json");
     xhttp.setRequestHeader("X-CSRFToken", csrf_token);
@@ -287,7 +288,45 @@ function goToWeek(week_num, context) {
     xhttp.send(JSON.stringify(data));
   }
 }
-function goToPostLevel(category) {
+var week = 1;;
+function goToWeek(week_num, context) {
+  // var crown = document.getElementsByClassName('crown')[0];
+  // var preAssess = document.getElementById('pre-assessment');
+  // var container = document.getElementsByClassName('container')[0];
+  // var clonedCrown = crown.cloneNode(true);
+  var data = {
+    "category": week_num,
+    "csrftoken": []
+  };
+  var csrf_token = getCookie('csrftoken');
+  data["csrftoken"].push({
+    "csrfmiddlewaretoken": csrf_token
+  });
+  if (context.parentElement.getElementsByTagName('p')[0].classList.contains('locked')) {
+    // Do Nothing
+  } else {
+    week = week_num;
+    document.getElementById('info-btn').setAttribute('onclick', 'showInfo('+week+')');
+    // Display Loading Screen
+    document.getElementsByClassName('ques-loading')[0].style.display='flex';
+    var xhttp = new XMLHttpRequest();
+    var url = '/pre_cat/';
+    xhttp.open('POST', url, true);
+    xhttp.setRequestHeader("Content-type", "application/json");
+    xhttp.setRequestHeader("X-CSRFToken", csrf_token);
+    xhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+        var jsonData = JSON.parse(xhttp.responseText);
+        console.log('sending req for getting ques of category' + week_num);
+        console.log(jsonData);
+        getQuestion();
+        document.getElementsByClassName('menu')[0].style.zIndex='-1';
+      }
+    };
+    xhttp.send(JSON.stringify(data));
+  }
+}
+function goToPostLevel(category, context) {
   // var crown = document.getElementsByClassName('crown')[0];
   // var preAssess = document.getElementById('pre-assessment');
   // var container = document.getElementsByClassName('container')[0];
@@ -300,23 +339,28 @@ function goToPostLevel(category) {
   data["csrftoken"].push({
     "csrfmiddlewaretoken": csrf_token
   });
-  // Display Loading Screen
-  document.getElementsByClassName('ques-loading')[0].style.display='flex';
-  var xhttp = new XMLHttpRequest();
-  var url = '/post_cat/';
-  xhttp.open('POST', url, true);
-  xhttp.setRequestHeader("Content-type", "application/json");
-  xhttp.setRequestHeader("X-CSRFToken", csrf_token);
-  xhttp.onreadystatechange = function() {
-    if (this.readyState == 4 && this.status == 200) {
-      var jsonData = JSON.parse(xhttp.responseText);
-      console.log('sending req for getting ques of category' + category);
-      console.log(jsonData);
-      getPostQuestion();
-      document.getElementsByClassName('menu')[0].style.zIndex='-1';
-    }
-  };
-  xhttp.send(JSON.stringify(data));
+  if (context.parentElement.getElementsByTagName('p')[0].classList.contains('locked')) {
+    // Do Nothing
+  } else {
+    document.getElementById('info-btn').setAttribute('onclick', 'showInfo('+category+')');
+    // Display Loading Screen
+    document.getElementsByClassName('ques-loading')[0].style.display='flex';
+    var xhttp = new XMLHttpRequest();
+    var url = '/pre_cat/';
+    xhttp.open('POST', url, true);
+    xhttp.setRequestHeader("Content-type", "application/json");
+    xhttp.setRequestHeader("X-CSRFToken", csrf_token);
+    xhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+        var jsonData = JSON.parse(xhttp.responseText);
+        console.log('sending req for getting ques of category' + category);
+        console.log(jsonData);
+        getPostQuestion();
+        document.getElementsByClassName('menu')[0].style.zIndex='-1';
+      }
+    };
+    xhttp.send(JSON.stringify(data));
+  }
 }
 var pk;
 function getQuestion() {
@@ -338,6 +382,7 @@ function getQuestion() {
     if (this.readyState == 4 && this.status == 200) {
       var jsonData = JSON.parse(xhttp.responseText);
       console.log(jsonData);
+      num_ques_pre = jsonData.totq;
       var pre_assess_form = document.getElementById('experiment');
       var temp = pre_assess_form.content.cloneNode(true);
       var container = document.getElementsByClassName('container')[0];
@@ -353,13 +398,46 @@ function getQuestion() {
       document.getElementById('s-label').innerHTML = jsonData.data.choice2;
       document.getElementById('t-label').innerHTML = jsonData.data.choice3;
       document.getElementById('fo-label').innerHTML = jsonData.data.choice4;
+      document.getElementById('fi-label').innerHTML = jsonData.data.choice5;
+      document.getElementById('si-label').innerHTML = jsonData.data.choice6;
+      document.getElementById('se-label').innerHTML = jsonData.data.choice7;
       document.getElementById('1-option').value = jsonData.data.choice1;
       document.getElementById('2-option').value = jsonData.data.choice2;
       document.getElementById('3-option').value = jsonData.data.choice3;
       document.getElementById('4-option').value = jsonData.data.choice4;
+      document.getElementById('5-option').value = jsonData.data.choice5;
+      document.getElementById('6-option').value = jsonData.data.choice6;
+      document.getElementById('7-option').value = jsonData.data.choice7;
+      if (jsonData.data.choice1 == 'wsr') {
+        document.getElementById('1-option').parentElement.style.display = 'none';
+      }
+      if (jsonData.data.choice2 == 'wsr') {
+        document.getElementById('2-option').parentElement.style.display = 'none';
+      }
+      if (jsonData.data.choice3 == 'wsr') {
+        document.getElementById('3-option').parentElement.style.display = 'none';
+      }
+      if (jsonData.data.choice4 == 'wsr') {
+        document.getElementById('4-option').parentElement.style.display = 'none';
+      }
+      if (jsonData.data.choice5 == 'wsr') {
+        document.getElementById('5-option').parentElement.style.display = 'none';
+      }
+      if (jsonData.data.choice6 == 'wsr') {
+        document.getElementById('6-option').parentElement.style.display = 'none';
+      }
+      if (jsonData.data.choice7 == 'wsr') {
+        document.getElementById('7-option').parentElement.style.display = 'none';
+      }
       pk = jsonData.data.pk;
       // Hide Loader Screen after 2s
       setTimeout(function(){document.getElementsByClassName('ques-loading')[0].style.display='none';},2000);
+      // Reset Progress Bar
+      barWidth = 0;
+      document.getElementsByClassName('progress-bar')[0].style.width = 0;
+      for (var i = 1; i < jsonData.qno; i++) {
+        increaseProgress();
+      }
       if (preAssess)
         container.removeChild(preAssess);
     }
@@ -369,7 +447,7 @@ function getQuestion() {
 
 function submitAns() {
   var answer;
-  for(let i=1; i<=4; i++) {
+  for(let i=1; i<=7; i++) {
     if(document.getElementById(i+'-option').checked) {
       answer = document.getElementById(i+'-option').value;
     }
@@ -396,11 +474,11 @@ function submitAns() {
     if (this.readyState == 4 && this.status == 200) {
       var jsonData = JSON.parse(xhttp.responseText);
       console.log(jsonData);
-      if (jsonData.next) {
+      if (jsonData.next == 1) {
         // Close this category and lock it
         location.reload();
       } else {
-        setTimeout(function(){increaseProgress();},2500);
+        // setTimeout(function(){increaseProgress();},2500);
         getQuestion();
       }
     }
@@ -426,28 +504,69 @@ function getExpQuestion() {
     if (this.readyState == 4 && this.status == 200) {
       var jsonData = JSON.parse(xhttp.responseText);
       console.log(jsonData);
-      var pre_assess_form = document.getElementById('exp');
-      var temp = pre_assess_form.content.cloneNode(true);
+      num_ques_exp = jsonData.totq;
       var container = document.getElementsByClassName('container')[0];
       var preAssess = document.getElementById('experiment-assessment');
       if (document.getElementsByClassName('container')[0].getElementsByClassName('questions')[0]) {
         document.getElementsByClassName('container')[0].removeChild(document.getElementsByClassName('container')[0].getElementsByClassName('questions')[0]);
         document.getElementsByClassName('container')[0].removeChild(document.getElementsByClassName('container')[0].getElementsByClassName('back')[0]);
       }
-      container.appendChild(temp);
-      document.getElementsByClassName('container')[0].getElementsByClassName('back')[0].setAttribute('onclick', 'goExpBack()');
-      document.getElementById('exp_ques').innerHTML = jsonData.qno + ') ' + jsonData.data.text;
-      document.getElementById('f-label').innerHTML = jsonData.data.choice1;
-      document.getElementById('s-label').innerHTML = jsonData.data.choice2;
-      document.getElementById('t-label').innerHTML = jsonData.data.choice3;
-      document.getElementById('fo-label').innerHTML = jsonData.data.choice4;
-      document.getElementById('1-option').value = jsonData.data.choice1;
-      document.getElementById('2-option').value = jsonData.data.choice2;
-      document.getElementById('3-option').value = jsonData.data.choice3;
-      document.getElementById('4-option').value = jsonData.data.choice4;
+      if (jsonData.format == "mcq") {
+        var pre_assess_form = document.getElementById('exp');
+        var temp = pre_assess_form.content.cloneNode(true);
+        container.appendChild(temp);
+        document.getElementsByClassName('container')[0].getElementsByClassName('back')[0].setAttribute('onclick', 'goExpBack()');
+        document.getElementById('exp_ques').innerHTML = jsonData.qno + ') ' + jsonData.data.text;
+        document.getElementById('f-label').innerHTML = jsonData.data.choice1;
+        document.getElementById('s-label').innerHTML = jsonData.data.choice2;
+        document.getElementById('t-label').innerHTML = jsonData.data.choice3;
+        document.getElementById('fo-label').innerHTML = jsonData.data.choice4;
+        document.getElementById('fi-label').innerHTML = jsonData.data.choice5;
+        document.getElementById('si-label').innerHTML = jsonData.data.choice6;
+        document.getElementById('se-label').innerHTML = jsonData.data.choice7;
+        document.getElementById('1-option').value = jsonData.data.choice1;
+        document.getElementById('2-option').value = jsonData.data.choice2;
+        document.getElementById('3-option').value = jsonData.data.choice3;
+        document.getElementById('4-option').value = jsonData.data.choice4;
+        document.getElementById('5-option').value = jsonData.data.choice5;
+        document.getElementById('6-option').value = jsonData.data.choice6;
+        document.getElementById('7-option').value = jsonData.data.choice7;
+        if (jsonData.data.choice1 == 'wsr') {
+          document.getElementById('1-option').parentElement.style.display = 'none';
+        }
+        if (jsonData.data.choice2 == 'wsr') {
+          document.getElementById('2-option').parentElement.style.display = 'none';
+        }
+        if (jsonData.data.choice3 == 'wsr') {
+          document.getElementById('3-option').parentElement.style.display = 'none';
+        }
+        if (jsonData.data.choice4 == 'wsr') {
+          document.getElementById('4-option').parentElement.style.display = 'none';
+        }
+        if (jsonData.data.choice5 == 'wsr') {
+          document.getElementById('5-option').parentElement.style.display = 'none';
+        }
+        if (jsonData.data.choice6 == 'wsr') {
+          document.getElementById('6-option').parentElement.style.display = 'none';
+        }
+        if (jsonData.data.choice7 == 'wsr') {
+          document.getElementById('7-option').parentElement.style.display = 'none';
+        }
+      } else {
+        var preAssess = document.getElementById('placebo');
+        container.appendChild(preAssess.content.cloneNode(true));
+        document.getElementsByClassName('container')[0].getElementsByClassName('hint-text')[0].setAttribute('value',jsonData.hint);
+        document.getElementsByClassName('container')[0].getElementsByClassName('question')[0].innerHTML = jsonData.qno + ') ' + jsonData.data.text;
+      }
       pk = jsonData.data.pk;
       // Hide Loader Screen after 2s
       setTimeout(function(){document.getElementsByClassName('ques-loading')[0].style.display='none';},2000);
+      // Reset Progress Bar
+      expBarWidth = 0;
+      document.getElementsByClassName('progress-bar')[0].style.width = 0;
+      for (var i = 1; i < jsonData.qno; i++) {
+        increaseExpProgress();
+      }
       if (preAssess)
         container.removeChild(preAssess);
     }
@@ -457,10 +576,14 @@ function getExpQuestion() {
 
 function submitExpAns() {
   var answer;
-  for(let i=1; i<=4; i++) {
-    if(document.getElementById(i+'-option').checked) {
-      answer = document.getElementById(i+'-option').value;
+  if (document.getElementById('1-checked')) {
+    for(let i=1; i<=7; i++) {
+      if(document.getElementById(i+'-option').checked) {
+        answer = document.getElementById(i+'-option').value;
+      }
     }
+  } else {
+    answer = document.getElementById('placebo-ans').value;
   }
   var data = {
     "pk": pk,
@@ -484,12 +607,12 @@ function submitExpAns() {
     if (this.readyState == 4 && this.status == 200) {
       var jsonData = JSON.parse(xhttp.responseText);
       console.log(jsonData);
-      if (jsonData.next) {
+      if (jsonData.next == 1) {
         // Close this Week and lock it
         // Display Offline Tasks
         displayOffline(week);
       } else {
-        setTimeout(function(){increaseExpProgress();},2500);
+        // setTimeout(function(){increaseExpProgress();},2500);
         getExpQuestion();
       }
     }
@@ -507,7 +630,7 @@ function getPlaceboQuestion() {
   // Display Loading Screen
   document.getElementsByClassName('ques-loading')[0].style.display='flex';
   var xhttp = new XMLHttpRequest();
-  var url = '/placebo_details/';
+  var url = '/prepos_details/';
   xhttp.open('POST', url, true);
   xhttp.setRequestHeader("Content-type", "application/json");
   xhttp.setRequestHeader("X-CSRFToken", csrf_token);
@@ -515,6 +638,7 @@ function getPlaceboQuestion() {
     if (this.readyState == 4 && this.status == 200) {
       var jsonData = JSON.parse(xhttp.responseText);
       console.log(jsonData);
+      num_ques_placebo = jsonData.totq;
       var preAssess = document.getElementById('placebo');
       var container = document.getElementsByClassName('container')[0];
       container.appendChild(preAssess.content.cloneNode(true));
@@ -524,9 +648,16 @@ function getPlaceboQuestion() {
       if (document.getElementsByClassName('container')[0].getElementsByClassName('back')[0]) {
         document.getElementsByClassName('container')[0].removeChild(document.getElementsByClassName('container')[0].getElementsByClassName('back')[0]);
       }
+      document.getElementsByClassName('container')[0].getElementsByClassName('hint-text')[0].setAttribute('value',jsonData.hint);
       document.getElementsByClassName('container')[0].getElementsByClassName('question')[0].innerHTML = jsonData.qno + ') ' + jsonData.data.text;
       // Hide Loader Screen after 2s
       setTimeout(function(){document.getElementsByClassName('ques-loading')[0].style.display='none';},2000);
+      // Reset Progress Bar
+      placeboBarWidth = 0;
+      document.getElementsByClassName('progress-bar')[0].style.width = 0;
+      for (var i = 1; i < jsonData.qno; i++) {
+        increasePlaceboProgress();
+      }
     }
   };
   xhttp.send(JSON.stringify(data));
@@ -549,7 +680,7 @@ function submitPlaceboAns() {
   // Display Loading Screen
   document.getElementsByClassName('ques-loading')[0].style.display='flex';
   var xhttp = new XMLHttpRequest();
-  var url = '/ans_placebo_ques/';
+  var url = '/ans_ques/';
   xhttp.open('POST', url, true);
   xhttp.setRequestHeader("Content-type", "application/json");
   xhttp.setRequestHeader("X-CSRFToken", csrf_token);
@@ -587,6 +718,7 @@ function getPostQuestion() {
     if (this.readyState == 4 && this.status == 200) {
       var jsonData = JSON.parse(xhttp.responseText);
       console.log(jsonData);
+      num_ques_post = jsonData.totq;
       var pre_assess_form = document.getElementById('experiment');
       var temp = pre_assess_form.content.cloneNode(true);
       var container = document.getElementsByClassName('container')[0];
@@ -602,13 +734,46 @@ function getPostQuestion() {
       document.getElementById('s-label').innerHTML = jsonData.data.choice2;
       document.getElementById('t-label').innerHTML = jsonData.data.choice3;
       document.getElementById('fo-label').innerHTML = jsonData.data.choice4;
+      document.getElementById('fi-label').innerHTML = jsonData.data.choice5;
+      document.getElementById('si-label').innerHTML = jsonData.data.choice6;
+      document.getElementById('se-label').innerHTML = jsonData.data.choice7;
       document.getElementById('1-option').value = jsonData.data.choice1;
       document.getElementById('2-option').value = jsonData.data.choice2;
       document.getElementById('3-option').value = jsonData.data.choice3;
       document.getElementById('4-option').value = jsonData.data.choice4;
+      document.getElementById('5-option').value = jsonData.data.choice5;
+      document.getElementById('6-option').value = jsonData.data.choice6;
+      document.getElementById('7-option').value = jsonData.data.choice7;
+      if (jsonData.data.choice1 == 'wsr') {
+        document.getElementById('1-option').parentElement.style.display = 'none';
+      }
+      if (jsonData.data.choice2 == 'wsr') {
+        document.getElementById('2-option').parentElement.style.display = 'none';
+      }
+      if (jsonData.data.choice3 == 'wsr') {
+        document.getElementById('3-option').parentElement.style.display = 'none';
+      }
+      if (jsonData.data.choice4 == 'wsr') {
+        document.getElementById('4-option').parentElement.style.display = 'none';
+      }
+      if (jsonData.data.choice5 == 'wsr') {
+        document.getElementById('5-option').parentElement.style.display = 'none';
+      }
+      if (jsonData.data.choice6 == 'wsr') {
+        document.getElementById('6-option').parentElement.style.display = 'none';
+      }
+      if (jsonData.data.choice7 == 'wsr') {
+        document.getElementById('7-option').parentElement.style.display = 'none';
+      }
       pk = jsonData.data.pk;
       // Hide Loader Screen after 2s
       setTimeout(function(){document.getElementsByClassName('ques-loading')[0].style.display='none';},2000);
+      // Reset Progress Bar
+      postBarWidth = 0;
+      document.getElementsByClassName('progress-bar')[0].style.width = 0;
+      for (var i = 1; i < jsonData.qno; i++) {
+        increasePostProgress();
+      }
       if (preAssess)
         container.removeChild(preAssess);
     }
@@ -618,7 +783,7 @@ function getPostQuestion() {
 
 function submitPostAns() {
   var answer;
-  for(let i=1; i<=4; i++) {
+  for(let i=1; i<=7; i++) {
     if(document.getElementById(i+'-option').checked) {
       answer = document.getElementById(i+'-option').value;
     }
@@ -637,7 +802,7 @@ function submitPostAns() {
   // Display Loading Screen
   document.getElementsByClassName('ques-loading')[0].style.display='flex';
   var xhttp = new XMLHttpRequest();
-  var url = '/post_ans_ques/';
+  var url = '/ans_ques/';
   xhttp.open('POST', url, true);
   xhttp.setRequestHeader("Content-type", "application/json");
   xhttp.setRequestHeader("X-CSRFToken", csrf_token);
@@ -645,11 +810,11 @@ function submitPostAns() {
     if (this.readyState == 4 && this.status == 200) {
       var jsonData = JSON.parse(xhttp.responseText);
       console.log(jsonData);
-      if (jsonData.next) {
+      if (jsonData.next == 1) {
         // Close this category and lock it
         location.reload();
       } else {
-        setTimeout(function(){increasePostProgress();},2500);
+        // setTimeout(function(){increasePostProgress();},2500);
         getPostQuestion();
       }
     }
@@ -658,57 +823,60 @@ function submitPostAns() {
 }
 
 function goBack() {
-  var container = document.getElementsByClassName('container')[0];
-  var preAssess = document.getElementById('pre-assessment-template');
-  if(container.contains(document.getElementsByClassName('questions')[0])) {
-    container.removeChild(document.getElementsByClassName('questions')[0]);
-    container.appendChild(preAssess.content.cloneNode(true));
-  } else if (container.contains(document.getElementsByClassName('center')[0])) {
-    container.removeChild(document.getElementsByClassName('center')[0]);
-    container.appendChild(preAssess.content.cloneNode(true));
-  }
-  if (container.getElementsByClassName('back')[0])
-    container.removeChild(container.getElementsByClassName('back')[0]);
-  // Hide Loader Screen after 2s
-  setTimeout(function(){document.getElementsByClassName('ques-loading')[0].style.display='none';},2000);
-  document.getElementsByClassName('menu')[0].style.zIndex='1';
+  // var container = document.getElementsByClassName('container')[0];
+  // var preAssess = document.getElementById('pre-assessment-template');
+  // if(container.contains(document.getElementsByClassName('questions')[0])) {
+  //   container.removeChild(document.getElementsByClassName('questions')[0]);
+  //   container.appendChild(preAssess.content.cloneNode(true));
+  // } else if (container.contains(document.getElementsByClassName('center')[0])) {
+  //   container.removeChild(document.getElementsByClassName('center')[0]);
+  //   container.appendChild(preAssess.content.cloneNode(true));
+  // }
+  // if (container.getElementsByClassName('back')[0])
+  //   container.removeChild(container.getElementsByClassName('back')[0]);
+  // // Hide Loader Screen after 2s
+  // setTimeout(function(){document.getElementsByClassName('ques-loading')[0].style.display='none';},2000);
+  // document.getElementsByClassName('menu')[0].style.zIndex='1';
+  location.reload();
 }
 function goExpBack() {
-  var container = document.getElementsByClassName('container')[0];
-  var preAssess = document.getElementById('experiment-assessment-template');
-  if(container.contains(document.getElementsByClassName('questions')[0])) {
-    container.removeChild(document.getElementsByClassName('questions')[0]);
-    container.appendChild(preAssess.content.cloneNode(true));
-  } else if (container.contains(document.getElementsByClassName('center')[0])) {
-    container.removeChild(document.getElementsByClassName('center')[0]);
-    container.appendChild(preAssess.content.cloneNode(true));
-  }
-  if (container.getElementsByClassName('back')[0])
-    container.removeChild(container.getElementsByClassName('back')[0]);
-  // Hide Loader Screen after 2s
-  setTimeout(function(){document.getElementsByClassName('ques-loading')[0].style.display='none';},2000);
-  document.getElementsByClassName('menu')[0].style.zIndex='1';
+  // var container = document.getElementsByClassName('container')[0];
+  // var preAssess = document.getElementById('experiment-assessment-template');
+  // if(container.contains(document.getElementsByClassName('questions')[0])) {
+  //   container.removeChild(document.getElementsByClassName('questions')[0]);
+  //   container.appendChild(preAssess.content.cloneNode(true));
+  // } else if (container.contains(document.getElementsByClassName('center')[0])) {
+  //   container.removeChild(document.getElementsByClassName('center')[0]);
+  //   container.appendChild(preAssess.content.cloneNode(true));
+  // }
+  // if (container.getElementsByClassName('back')[0])
+  //   container.removeChild(container.getElementsByClassName('back')[0]);
+  // // Hide Loader Screen after 2s
+  // setTimeout(function(){document.getElementsByClassName('ques-loading')[0].style.display='none';},2000);
+  // document.getElementsByClassName('menu')[0].style.zIndex='1';
+  location.reload();
 }
 function goPostBack() {
-  var container = document.getElementsByClassName('container')[0];
-  var preAssess = document.getElementById('post-assessment-template');
-  if(container.contains(document.getElementsByClassName('questions')[0])) {
-    container.removeChild(document.getElementsByClassName('questions')[0]);
-    container.appendChild(preAssess.content.cloneNode(true));
-  } else if (container.contains(document.getElementsByClassName('center')[0])) {
-    container.removeChild(document.getElementsByClassName('center')[0]);
-    container.appendChild(preAssess.content.cloneNode(true));
-  }
-  if (container.getElementsByClassName('back')[0])
-    container.removeChild(container.getElementsByClassName('back')[0]);
-  // Hide Loader Screen after 2s
-  setTimeout(function(){document.getElementsByClassName('ques-loading')[0].style.display='none';},2000);
-  document.getElementsByClassName('menu')[0].style.zIndex='1';
+  // var container = document.getElementsByClassName('container')[0];
+  // var preAssess = document.getElementById('post-assessment-template');
+  // if(container.contains(document.getElementsByClassName('questions')[0])) {
+  //   container.removeChild(document.getElementsByClassName('questions')[0]);
+  //   container.appendChild(preAssess.content.cloneNode(true));
+  // } else if (container.contains(document.getElementsByClassName('center')[0])) {
+  //   container.removeChild(document.getElementsByClassName('center')[0]);
+  //   container.appendChild(preAssess.content.cloneNode(true));
+  // }
+  // if (container.getElementsByClassName('back')[0])
+  //   container.removeChild(container.getElementsByClassName('back')[0]);
+  // // Hide Loader Screen after 2s
+  // setTimeout(function(){document.getElementsByClassName('ques-loading')[0].style.display='none';},2000);
+  // document.getElementsByClassName('menu')[0].style.zIndex='1';
+  location.reload();
 }
 var initialWidth;
 var barWidth = 0;
+var num_ques_pre;
 function increaseProgress() {
-  var num_ques = 10;
   console.log("Increased Progress");
   var progress = document.getElementsByClassName('progress')[0];
   var progressBar = document.getElementsByClassName('progress-bar')[0];
@@ -716,9 +884,9 @@ function increaseProgress() {
   console.log(initialWidth, barWidth);
   if(initialWidth > barWidth) {
     console.log(1);
-    console.log(barWidth + (initialWidth*1.00/num_ques) + 'px');
-    progressBar.style.width = barWidth + (initialWidth*1.00/num_ques) + 'px';
-    barWidth = barWidth + (initialWidth*1.00/num_ques);
+    console.log(barWidth + (initialWidth*1.00/num_ques_pre) + 'px');
+    progressBar.style.width = barWidth + (initialWidth*1.00/num_ques_pre) + 'px';
+    barWidth = barWidth + (initialWidth*1.00/num_ques_pre);
   }
   else {
     console.log(2);
@@ -727,8 +895,8 @@ function increaseProgress() {
   }
 }
 var placeboBarWidth=0;
+var num_ques_placebo;
 function increasePlaceboProgress() {
-  var num_ques = 10;
   console.log("Increased Progress");
   var progress = document.getElementsByClassName('progress')[0];
   var progressBar = document.getElementsByClassName('progress-bar')[0];
@@ -736,9 +904,9 @@ function increasePlaceboProgress() {
   console.log(initialWidth, placeboBarWidth);
   if(initialWidth > placeboBarWidth) {
     console.log(1);
-    console.log(placeboBarWidth + (initialWidth*1.00/num_ques) + 'px');
-    progressBar.style.width = placeboBarWidth + (initialWidth*1.00/num_ques) + 'px';
-    placeboBarWidth = placeboBarWidth + (initialWidth*1.00/num_ques);
+    console.log(placeboBarWidth + (initialWidth*1.00/num_ques_placebo) + 'px');
+    progressBar.style.width = placeboBarWidth + (initialWidth*1.00/num_ques_placebo) + 'px';
+    placeboBarWidth = placeboBarWidth + (initialWidth*1.00/num_ques_placebo);
   }
   else {
     console.log(2);
@@ -747,8 +915,8 @@ function increasePlaceboProgress() {
   }
 }
 var expBarWidth = 0;
+var num_ques_exp;
 function increaseExpProgress() {
-  var num_ques = 10;
   console.log("Increased Progress");
   var progress = document.getElementsByClassName('progress')[0];
   var progressBar = document.getElementsByClassName('progress-bar')[0];
@@ -756,14 +924,34 @@ function increaseExpProgress() {
   console.log(initialWidth, expBarWidth);
   if(initialWidth > expBarWidth) {
     console.log(1);
-    console.log(expBarWidth + (initialWidth*1.00/num_ques) + 'px');
-    progressBar.style.width = expBarWidth + (initialWidth*1.00/num_ques) + 'px';
-    expBarWidth = expBarWidth + (initialWidth*1.00/num_ques);
+    console.log(expBarWidth + (initialWidth*1.00/num_ques_exp) + 'px');
+    progressBar.style.width = expBarWidth + (initialWidth*1.00/num_ques_exp) + 'px';
+    expBarWidth = expBarWidth + (initialWidth*1.00/num_ques_exp);
   }
   else {
     console.log(2);
     progressBar.style.width = initialWidth + 'px';
     expBarWidth = initialWidth;
+  }
+}
+var postBarWidth = 0;
+var num_ques_post;
+function increaseExpProgress() {
+  console.log("Increased Progress");
+  var progress = document.getElementsByClassName('progress')[0];
+  var progressBar = document.getElementsByClassName('progress-bar')[0];
+  initialWidth = parseFloat(progress.clientWidth);
+  console.log(initialWidth, postBarWidth);
+  if(initialWidth > postBarWidth) {
+    console.log(1);
+    console.log(postBarWidth + (initialWidth*1.00/num_ques_post) + 'px');
+    progressBar.style.width = postBarWidth + (initialWidth*1.00/num_ques_post) + 'px';
+    postBarWidth = postBarWidth + (initialWidth*1.00/num_ques_post);
+  }
+  else {
+    console.log(2);
+    progressBar.style.width = initialWidth + 'px';
+    postBarWidth = initialWidth;
   }
 }
 function Validate(data) {
@@ -864,5 +1052,23 @@ var animationOnterval = setInterval(function() {
 
 function logout() {
   // Logout Function
-  window.location.href='/logout_view/';
+  window.location.href = '/logout_view/';
+}
+
+//Show info
+
+function showInfo(num) {
+  var infoElement = document.getElementById('info-'+num);
+  infoElement.style.transform = 'translateX(0) translateY(0) scale(1)';
+  document.getElementById('info-btn').style.display = 'none';
+  document.getElementsByClassName('menu')[0].style.zIndex='-1';
+}
+
+//Close info
+
+function closeInfo(num) {
+  var infoElement = document.getElementById('info-'+num);
+  infoElement.style.transform = 'translateX(100vw) translateY(-100vh) scale(0)';
+  document.getElementById('info-btn').style.display = 'block';
+  document.getElementsByClassName('menu')[0].style.zIndex='-1';
 }

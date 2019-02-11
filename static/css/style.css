@@ -154,8 +154,8 @@ html, body {
     position: absolute;
     bottom: 10px;
     right: 10px;
-    width: 80px;
-    height: 80px;
+    width: 60px;
+    height: 60px;
 }
 
 #info-btn img {
@@ -168,7 +168,7 @@ html, body {
     cursor: pointer;
 }
 
-#info {
+#info, #info-1, #info-2, #info-3, #info-4 {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -554,6 +554,7 @@ button:focus {
     background-attachment: fixed;
     background-size: cover;
     background-position: center;
+    overflow: auto;
 }
 
 #profile h1 {
@@ -719,13 +720,17 @@ option:hover {
     left: 0;
     color: white;
     font-family: inherit;
-    overflow: visible;
+    overflow: auto;
 }
 
 .question {
     width: 90%;
     color: #777;
     overflow: visible;
+}
+
+.hint-text {
+    padding: 10px;
 }
 
 .questions ul {
@@ -831,7 +836,7 @@ input[type=radio]:checked ~ label{
     position: fixed;
     width: 70%;
     margin: 10px auto;
-    border-top: 3px solid #888;
+    border-top: 6px solid #888;
     height: 0.5px;
     overflow: visible;
     top: 4vh;
@@ -839,10 +844,10 @@ input[type=radio]:checked ~ label{
 
 .progress-bar {
     position: absolute;
-    top: -3px;
+    top: -6px;
     left: 0;
     background: #2cce85;
-    height: 3px;
+    height: 6px;
     width: 0px;
     filter: blur(0.4px);
     transition: 0.2s ease-in-out;
@@ -852,7 +857,7 @@ input[type=radio]:checked ~ label{
     position: absolute;
     width: 20px;
     height: 20px;
-    top: -10px;
+    top: -13px;
     border-radius: 50%;
     background: #2cce85;
     filter: blur(0.6px);
@@ -1502,6 +1507,7 @@ h1.ml8 {
 @import url("https://fonts.googleapis.com/css?family=Raleway:300,400,600&subset=latin-ext");
 .offline-content * {
   box-sizing: border-box;
+  overflow: visible;
 }
 
 .offline-content {
@@ -1528,6 +1534,7 @@ h1.ml8 {
   width: 100vw;
   height: 100vh;
   display: none;
+  flex-direction: column;
 }
 
 .offline-content .button {

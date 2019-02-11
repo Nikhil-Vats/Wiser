@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>WiseR</title>
+	<style type="text/css">
+		html, body {
+			margin: 0;
+			padding: 0;
+			width: 100%;
+		}
+		body * {
+			margin: 0;
+			padding: 0;
+			width: 99%;
+		}
+		body {
+			padding-left: 0.5%;
+		}
+	</style>
+</head>
+<body>
+	<!-- Admin Page -->
+	<form id="ques_form">
+		<input type="text" name="text" id="q_text" placeholder="Enter Question" required><br>
+		<select id="q_type" name="q_type">
+			<option value="PREPOS">PREPOS</option>
+			<option value="EXPERIMENT">EXPERIMENT</option>
+			<option value="PLACEBO">PLACEBO</option>
+		</select><br>
+		<select id="q_format" name="q_format">
+			<option value="mcq">MCQ</option>
+			<option value="openended">Open Ended</option>
+		</select><br>
+		<select id="q_category" name="q_category">
+			<option value="1">Category 1</option>
+			<option value="2">Category 2</option>
+			<option value="3">Category 3</option>
+			<option value="4">Category 4</option>
+		</select><br>
+		<input type="text" name="choice1" id="choice1" placeholder="Option 1 if MCQ and Hint Text if Open Ended Question"><br>
+		<input type="text" name="choice2" id="choice2" placeholder="Option 2 if MCQ"><br>
+		<input type="text" name="choice3" id="choice3" placeholder="Option 3 if MCQ"><br>
+		<input type="text" name="choice4" id="choice4" placeholder="Option 4 if MCQ"><br>
+		<input type="text" name="choice5" id="choice5" placeholder="Option 5 if MCQ"><br>
+		<input type="text" name="choice6" id="choice6" placeholder="Option 6 if MCQ"><br>
+		<input type="text" name="choice7" id="choice7" placeholder="Option 7 if MCQ"><br>
+		<button type="button" onclick="submitQuestion()" id="submit_btn">Submit</button>
+	</form>
+	<br><br><br>
+	<a href="" target="_blank">Download Pre Stats</a><br><br>
+	<a href="" target="_blank">Download Experiment Stats</a><br><br>
+	<a href="" target="_blank">Download Pacebo Stats</a><br><br>
+	<a href="" target="_blank">Download Control Stats</a><br><br>
+	<a href="" target="_blank">Download Post Stats</a><br><br>
+	<a href="" target="_blank">Download Everything</a>
+</body>
+<script type="text/javascript">
+	function submitQuestion() {
+		var data = {
+			"text": document.getElementById('q_text').value,
+			"q_type": document.getElementById('q_type').value,
+			"q_format": document.getElementById('q_format').value,
+			"q_category": document.getElementById('q_category').value,
+			"choice1": document.getElementById('choice1').value,
+			"choice2": document.getElementById('choice2').value,
+			"choice3": document.getElementById('choice3').value,
+			"choice4": document.getElementById('choice4').value,
+			"choice5": document.getElementById('choice5').value,
+			"choice6": document.getElementById('choice6').value,
+			"choice7": document.getElementById('choice7').value,
+			"csrftoken": []
+		};
+		if (data.choice1 == "") {
+			data.choice1 = 'wsr';
+		}
+		if (data.choice2 == "") {
+			data.choice2 = 'wsr';
+		}
+		if (data.choice3 == "") {
+			data.choice3 = 'wsr';
+		}
+		if (data.choice4 == "") {
+			data.choice4 = 'wsr';
+		}
+		if (data.choice5 == "") {
+			data.choice5 = 'wsr';
+		}
+		if (data.choice6 == "") {
+			data.choice6 = 'wsr';
+		}
+		if (data.choice7 == "") {
+			data.choice7 = 'wsr';
+		}
+		submitData(JSON.stringify(data));
+	}
+
+	function getCookie(name) {
+		var v = document.cookie.match('(^|;) ?' + name + '=([^;]*)(;|$)');
+		return v ? v[2] : null;
+	}
+
+	function submitData(data) {
+		// Hide Submit Button
+		document.getElementById('submit_btn').style.display = 'none';
+		var csrf_token = getCookie('csrftoken');
+		var xhttp = new XMLHttpRequest();
+		var url = '/admin_page_details/';
+		xhttp.open('POST', url, true);
+		xhttp.setRequestHeader("Content-type", "application/json");
+		xhttp.setRequestHeader("X-CSRFToken", csrf_token);
+		xhttp.onreadystatechange = function() {
+			if (this.readyState == 4 && this.status == 200) {
+				location.reload();
+			}
+		};
+		xhttp.send(data);
+	}
+</script>
+</html>

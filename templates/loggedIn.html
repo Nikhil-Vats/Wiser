@@ -8,11 +8,11 @@
     <link href="{% static '/css/style.css' %}" type="text/css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Lato:100,400,700|Open+Sans:300,400,700" rel="stylesheet">
     <!-- <script defer src="https://use.fontawesome.com/releases/v5.6.3/js/all.js" integrity="sha384-EIHISlAOj4zgYieurP0SdoiBYfGJKkgWedPHH4jCzpCXLmzVsw1ouK59MuUtP4a1" crossorigin="anonymous"></script> -->
-    <script src="https://apis.google.com/js/api:client.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.4.2/lottie.min.js"></script>
+    <!-- <script src="https://apis.google.com/js/api:client.js"></script> -->
+    <script src="{% static '/js/lottie.min.js' %}"></script>
     <link  href="http://fonts.googleapis.com/css?family=Reenie+Beanie:regular" rel="stylesheet" type="text/css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.0.2/anime.min.js"></script>
-    <script defer src="https://use.fontawesome.com/releases/v5.6.3/js/all.js" integrity="sha384-EIHISlAOj4zgYieurP0SdoiBYfGJKkgWedPHH4jCzpCXLmzVsw1ouK59MuUtP4a1" crossorigin="anonymous"></script>
+    <script src="{% static '/js/anime.min.js' %}"></script>
+    <script src="{% static '/js/fontawesome.min.js' %}"></script>
     <title>WiseR</title>
 </head>
 <body>
@@ -34,6 +34,58 @@
         <div id="info-btn" onclick="showInfo()"><img src="{% static '/images/info-circle-solid.svg' %}"></div>
         <div id="info">
             <div onclick="closeInfo()" style="cursor:pointer;">
+                <div class="close-btn"></div>
+                <div class="close-btn"></div>
+            </div>
+            <h1 class="heading">About Us</h1>
+            <p id="info-text">This is a research funded by Indian Council of Medical Research (New Delhi). The team comprises of a renowned figure in the field of positive psychology, currently serving as an Assistant professor of psychology in Birla Institute of Technology and Science, a clinical psychologist, interested in the area of psychotherapy, currently serving as a senior research fellow in  Birla Institute of Technology and Science, and two immensely talented and budding computer professionals devoted their effort in the technical part of the website. With all the diversities and expertise in their respective field, this team is dedicated to answer the pertaining question of this study which revolves around the enhancement of wellbeing among youths. With careful selection of four domains (self management, stress management, emotional intelligence and time management) this would be a novel effort to combine the individual factors of wellbeing under one roof.<br><br>
+
+            Lastly we thank you immensely for your participation in this study. We need your support and cooperation to make this research happen.<br><br>
+
+            Regards<br>
+            Research Team-WiseR</p>
+        </div>
+        <div id="info-1">
+            <div onclick="closeInfo(1)" style="cursor:pointer;">
+                <div class="close-btn"></div>
+                <div class="close-btn"></div>
+            </div>
+            <h1 class="heading">Self Management</h1>
+            <p id="info-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+            consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+            cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+            proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+        </div>
+        <div id="info-2">
+            <div onclick="closeInfo(2)" style="cursor:pointer;">
+                <div class="close-btn"></div>
+                <div class="close-btn"></div>
+            </div>
+            <h1 class="heading">About Us</h1>
+            <p id="info-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+            consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+            cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+            proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+        </div>
+        <div id="info-3">
+            <div onclick="closeInfo(3)" style="cursor:pointer;">
+                <div class="close-btn"></div>
+                <div class="close-btn"></div>
+            </div>
+            <h1 class="heading">About Us</h1>
+            <p id="info-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+            consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+            cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+            proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+        </div>
+        <div id="info-4">
+            <div onclick="closeInfo(4)" style="cursor:pointer;">
                 <div class="close-btn"></div>
                 <div class="close-btn"></div>
             </div>
@@ -204,25 +256,25 @@
             <div class="levels-container">
                 <ul>
                     <li>
-                        <a onclick="goToLevel(1)">
-                        <h2>Category #1</h2>
+                        <a onclick="goToLevel(1, this)">
+                        <h2>Category Self Management</h2>
                         <p>Text Content #1</p>
                         </a>
                     </li>
                     <li>
-                        <a onclick="goToLevel(2)">
+                        <a onclick="goToLevel(2, this)">
                         <h2>Category #2</h2>
                         <p>Text Content #2</p>
                         </a>
                     </li>
                     <li>
-                        <a onclick="goToLevel(3)">
+                        <a onclick="goToLevel(3, this)">
                         <h2>Category #3</h2>
                         <p>Text Content #3</p>
                         </a>
                     </li>
                     <li>
-                        <a onclick="goToLevel(4)">
+                        <a onclick="goToLevel(4, this)">
                         <h2>Category #4</h2>
                         <p>Text Content #4</p>
                         </a>
@@ -297,6 +349,12 @@
                         <option value="First Year">First Year</option>
                     </select>
                 </fieldset>
+                <fieldset required>
+                    <select onchange="print_city('city', this.selectedIndex);" id="states" name ="state" class="form-control" required></select>
+                </fieldset>
+                <fieldset>
+                    <select id="city" class="form-control"></select>
+                </fieldset>
             </form>
             <button form="profile-form" type="button" onclick="goToPreAssess()">Submit</button>
         </div>
@@ -326,6 +384,18 @@
                 <div class="inputGroup">
                     <input id="4-option" name="selector" type="radio" required/>
                     <label for="4-option" id="fo-label">Option 4</label>
+                </div>
+                <div class="inputGroup">
+                    <input id="5-option" name="selector" type="radio" required/>
+                    <label for="5-option" id="fi-label">Option 5</label>
+                </div>
+                <div class="inputGroup">
+                    <input id="6-option" name="selector" type="radio" required/>
+                    <label for="6-option" id="si-label">Option 6</label>
+                </div>
+                <div class="inputGroup">
+                    <input id="7-option" name="selector" type="radio" required/>
+                    <label for="7-option" id="se-label">Option 7</label>
                 </div>
                 <!-- <ul>
                     <li>
@@ -427,13 +497,14 @@
                 <div class="end"></div>
             </div>
             <h1 class="question">What do you like the most?</h1>
+            <input type="text" name="hint" class="hint-text" disabled="disabled" value="Hint Text Here...">
             <textarea name="food" placeholder="Start typing...." autofocus id="placebo-ans"></textarea>
             <button type="button" onclick="submitPlaceboAns()">Submit</button>
         </div>
     </template>
     <template id="control">
         <!-- <div class="back" onclick="goBack()"><img src="{% static '/images/back.svg' %}"></div> -->
-        <div class="center"><span>We will get back to you soon!</span><img src="{% static '/images/emoji.png' %}"></div>
+        <div class="center"><span>Thank you for filling, an email will be sent for further questions, Please check back later!</span><img src="{% static '/images/emoji.png' %}"></div>
     </template>
     <template id="validation-template">
         <div class="modal">
@@ -447,25 +518,25 @@
             <div class="levels-container">
                 <ul>
                     <li>
-                        <a onclick="goToPostLevel(1)">
-                        <h2>Category #1</h2>
+                        <a onclick="goToPostLevel(1, this)">
+                        <h2>Category Self Management</h2>
                         <p>Text Content #1</p>
                         </a>
                     </li>
                     <li>
-                        <a onclick="goToPostLevel(2)">
+                        <a onclick="goToPostLevel(2, this)">
                         <h2>Category #2</h2>
                         <p>Text Content #2</p>
                         </a>
                     </li>
                     <li>
-                        <a onclick="goToPostLevel(3)">
+                        <a onclick="goToPostLevel(3, this)">
                         <h2>Category #3</h2>
                         <p>Text Content #3</p>
                         </a>
                     </li>
                     <li>
-                        <a onclick="goToPostLevel(4)">
+                        <a onclick="goToPostLevel(4, this)">
                         <h2>Category #4</h2>
                         <p>Text Content #4</p>
                         </a>
@@ -481,19 +552,19 @@
             <li>Think about your goals for the day and act upon them by taking initiative. Commit yourself on the task schedule.<br><br>
 
             Think about your goals for the next week and write your plan of action to achieve them. Positively follow the schedule in a timely manner.
-            </li>
+            </li><br>
             <li>Always set priorities before starting your regime and optimally use all the available resources to reach your desired goals.<br><br>
 
             Write about the resources you will be using to achieve your desired goals?
-            </li>
+            </li><br>
             <li>Always have a good positive attitude towards the tasks you have thought for yourself to be done and check your progress by asking yourself whether you are on right path or not.<br><br>
 
             Write down the tasks that will be accomplished without any difficulty
-            </li>
+            </li><br>
             <li>Live in present and try to reward/praise yourself each time you finish a task as scheduled<br><br>
 
             Write about the rewards have you thought of giving to yourselves
-            </li>
+            </li><br>
             <li>Take time to be quiet and reflective for a few minutes each day.<br><br>
 
             Introspect yourselves and write how it would have been better?
@@ -505,7 +576,7 @@
                 <div class="popup__photo"><a title="Parutakupiu, Tomtheman5, JBarta [Public domain], via Wikimedia Commons" href="https://commons.wikimedia.org/wiki/File:Olympic_pictogram_Athletics_-_colored.svg"><img alt="Olympic pictogram Athletics - colored" src="https://upload.wikimedia.org/wikipedia/commons/f/f6/Olympic_pictogram_Athletics_-_colored.svg"></a></div>
                 <div class="popup__text">
                     <h1>Welcome to the offline activity of Session 1</h1>
-                    <p>self-management is an ongoing process and the more you practice the more you will be effective in managing your priorities. so you have to do the following activities for the rest of the week</p>
+                    <p>Self-management is an ongoing process and the more you practice the more you will be effective in managing your priorities. so you have to do the following activities for the rest of the week</p>
                     <ul>
                         <li>Engage yourself in positive self-talk.</li>
                         <li>Try to plan out and organize your daily schedule.</li>
@@ -518,47 +589,126 @@
         </div>
     </template>
     <template id="offline-content-2">
+        <h3>Welcome to Session 2</h3>
+        <ol>
+            <li>Think for about 2 minutes about the varieties of emotions you feel most of the time (Try to  Develop &amp; maintain an emotional journal for yourself and label your emotions as good or bad).<br><br>
+
+            Write down five emotions which occur most of the time.
+            </li><br>
+            <li>Think again from the list you have mentioned and segregate good and bad emotions.<br><br>
+
+            Write the good ones you have listed previously and take responsibility for them.
+            </li><br>
+            <li>Always try to focus on good emotions and try to convert neutral/bad into good ones with each passing thought.<br><br>
+
+            Write about few bad emotions and how will you convert them into good one’s
+            </li><br>
+            <li>Try to analyse other’s emotions by putting yourselves into their shoes (Stop, Calm Down and think before you act)<br><br>
+
+            Write down what you will do if you fall into an argument with someone over an issue
+            </li><br>
+            <li>Use your Social and emotional skills in a manner so that it might not harm others and benefit you at the same time.<br><br>
+
+            Write down your plan of action over an imaginary issue and introspect it
+            </li>
+        </ol>
         <a class="button" href="#popup">Open Offline Tasks</a>
         <div class="popup" id="popup">
             <div class="popup-inner">
                 <div class="popup__photo"><a title="Parutakupiu, Tomtheman5, JBarta [Public domain], via Wikimedia Commons" href="https://commons.wikimedia.org/wiki/File:Olympic_pictogram_Athletics_-_colored.svg"><img alt="Olympic pictogram Athletics - colored" src="https://upload.wikimedia.org/wikipedia/commons/f/f6/Olympic_pictogram_Athletics_-_colored.svg"></a></div>
                 <div class="popup__text">
-                    <h1>Week 2 Tasks</h1>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer ex velit, viverra non vulputate vitae, blandit vitae nisl. Nullam fermentum orci et erat viverra bibendum. Aliquam sed varius nibh, vitae mattis purus. Mauris elementum sapien non
-                    ullamcorper vulputate. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Sed eget felis sit amet eros viverra pulvinar.</p>
+                    <h1>Welcome to the offline activity of Session 2</h1>
+                    <p>Like self-management, being aware of your and others’ emotion needs practice, but continuous work over this, not only will make you aware of your and others’ feeling but make you able to take decisions effectively and handle the situations efficiently. So keep practising the things all through</p>
+                    <ul>
+                        <li>Keep track of your emotions by recognizing them and understanding them.</li>
+                        <li>Try to understand others’ emotion by putting yourself into others’ shoe.</li>
+                        <li>Try to gain better control over your emotional reactions</li>
+                    </ul>
                 </div>
                 <a class="popup__close" href="#" onclick="location.reload();">X</a>
             </div>
         </div>
     </template>
     <template id="offline-content-3">
+        <h3>Welcome to Session 3</h3>
+        <ol>
+            <li>Plan your day:  Take a piece of paper and write down the things you have to do each day. Make a list of thing to be done.<br><br>
+
+            Write down 5 important things which you have to do.
+            </li><br>
+            <li>Prioritize: After you make the list of each day's tasks that must be completed, put them in order by importance, by deadline, by preference, or by whatever manner as you may feel so.<br><br>
+
+            Now Arrange the five things as per your preference.
+            </li><br>
+            <li>Divide the time for doing the things in such a manner so that they can be finished well in time with a scope of emergency (if it arises unfortunately) that can disturb your schedule.<br><br>
+
+            Write down the amount of time to be taken for each task.
+            </li><br>
+            <li>While doing the tasks/things, try to avoid distractions (for ex. If the television is not allowing you to concentrate on your studies, turn it off).<br><br>
+
+            Write down the distractions you have faced and how did you dealt with them.
+            </li><br>
+            <li>Check mark the things which you complete (on the same piece of paper where you have written the things to be done) as per your schedule and award yourself whenever you do good.<br><br>
+
+            See whether you have finished all the five things on schedule (If done on schedule treat yourself). 
+            </li>
+        </ol>
         <a class="button" href="#popup">Open Offline Tasks</a>
         <div class="popup" id="popup">
             <div class="popup-inner">
                 <div class="popup__photo"><a title="Parutakupiu, Tomtheman5, JBarta [Public domain], via Wikimedia Commons" href="https://commons.wikimedia.org/wiki/File:Olympic_pictogram_Athletics_-_colored.svg"><img alt="Olympic pictogram Athletics - colored" src="https://upload.wikimedia.org/wikipedia/commons/f/f6/Olympic_pictogram_Athletics_-_colored.svg"></a></div>
                 <div class="popup__text">
-                    <h1>Week 3 Tasks</h1>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer ex velit, viverra non vulputate vitae, blandit vitae nisl. Nullam fermentum orci et erat viverra bibendum. Aliquam sed varius nibh, vitae mattis purus. Mauris elementum sapien non
-                    ullamcorper vulputate. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Sed eget felis sit amet eros viverra pulvinar.</p>
+                    <h1>Welcome to the offline activity of Session 3</h1>
+                    <p>Instruction- you have to do the following activities for the rest of the week</p>
+                    <ul>
+                        <li>Put up the activity schedule in your room and mark everytime you complete any activity</li>
+                        <li>Take feedback from your previous day and plan your next day</li>
+                        <li>Plan your activities a day or week ahead including deadlines or other important events</li>
+                        <li>Try rewarding yourself when you get things done as you planned, especially the important ones</li>
+                    </ul>
                 </div>
                 <a class="popup__close" href="#" onclick="location.reload();">X</a>
             </div>
         </div>
     </template>
     <template id="offline-content-4">
+        <h3>Welcome to Session 4</h3>
+        <ol>
+            <li>Whenever you are feeling tensed/stressed/helpless or otherwise, divert your attention and concentrate on your breathing pattern.<br><br>
+
+            Think of any annoying/stressful situation and do deep breathing exercise and write down what happened after you did that.
+            </li><br>
+            <li>You have to think about your achievements/awards/honours etc. where you had a feeling that you are on top of the world.<br><br>
+
+            Think and write about your achievements and how did it feel?
+            </li><br>
+            <li>Try to think about the most cherish-able moments of your life where you  have  had the happiest thoughts of your life. As you know happy thoughts leads to happy emotions.<br><br>
+
+            Think and write about the happy thoughts and how did they helped you overcome stress.
+            </li><br>
+            <li>Focus on problem that is acting as stressor and think of alternative solution to deal with it.<br><br>
+
+            Think about the alternative solutions and write how it helped becoming happy.
+            </li>
+        </ol>
         <a class="button" href="#popup">Open Offline Tasks</a>
         <div class="popup" id="popup">
             <div class="popup-inner">
                 <div class="popup__photo"><a title="Parutakupiu, Tomtheman5, JBarta [Public domain], via Wikimedia Commons" href="https://commons.wikimedia.org/wiki/File:Olympic_pictogram_Athletics_-_colored.svg"><img alt="Olympic pictogram Athletics - colored" src="https://upload.wikimedia.org/wikipedia/commons/f/f6/Olympic_pictogram_Athletics_-_colored.svg"></a></div>
                 <div class="popup__text">
-                    <h1>Week 4 Tasks</h1>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer ex velit, viverra non vulputate vitae, blandit vitae nisl. Nullam fermentum orci et erat viverra bibendum. Aliquam sed varius nibh, vitae mattis purus. Mauris elementum sapien non
-                    ullamcorper vulputate. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Sed eget felis sit amet eros viverra pulvinar.</p>
+                    <h1>Welcome to the offline activity of Session 4</h1>
+                    <ul>
+                        <li>Get involved in humour, entertainment and positive social interaction.</li>
+                        <li>Play games which you like.</li>
+                        <li>Listen good music of your choice.</li>
+                        <li>Enjoy your performance and success.</li>
+                    </ul>
                 </div>
                 <a class="popup__close" href="#" onclick="location.reload();">X</a>
             </div>
         </div>
     </template>
+    <script src="{% static '/js/cities.js' %}" type="text/javascript"></script>
     <script src="{% static '/js/jquery.min.js' %}" type="text/javascript"></script>
     <script src="{% static '/js/logged.js' %}" type="text/javascript"></script>
 </body>

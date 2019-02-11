@@ -71,7 +71,7 @@ def prepos_details(request):
         dat = []
         for q in qlist:
             if q.q_format=="mcq":
-                dat.append({"format":"mcq","pk":q.pk,"text":q.text,"choice1":q.choice1,"choice2":q.choice2,"choice3":q.choice3,"choice4":q.choice4})
+                dat.append({"format":"mcq","pk":q.pk,"text":q.text,"choice1":q.choice1,"choice2":q.choice2,"choice3":q.choice3,"choice4":q.choice4,"choice5":q.choice5,"choice6":q.choice6,"choice7":q.choice7})
             else:
                 dat.append({"format":"openended","pk":q.pk,"text":q.text})
 
@@ -171,32 +171,32 @@ def admin_page_details(request):
         pass
 
     try:
-        q.choice2 = data['choice1']
+        q.choice2 = data['choice2']
     except KeyError:
         pass
 
     try:
-        q.choice3 = data['choice1']
+        q.choice3 = data['choice3']
     except KeyError:
         pass
 
     try:
-        q.choice4 = data['choice1']
+        q.choice4 = data['choice4']
     except KeyError:
         pass
 
     try:
-        q.choice5 = data['choice1']
+        q.choice5 = data['choice5']
     except KeyError:
         pass
 
     try:
-        q.choice6 = data['choice1']
+        q.choice6 = data['choice6']
     except KeyError:
         pass
 
     try:
-        q.choice7 = data['choice1']
+        q.choice7 = data['choice7']
     except KeyError:
         pass
 
