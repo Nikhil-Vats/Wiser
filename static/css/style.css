@@ -944,7 +944,7 @@ form {
 .levels-container {
     overflow: auto !important;
 }
-#exp-form::-webkit-scrollbar-track,.levels-container::-webkit-scrollbar-track
+#exp-form::-webkit-scrollbar-track,.levels-container::-webkit-scrollbar-track,.details::-webkit-scrollbar-track,#contact-us::-webkit-scrollbar-track
 {
     -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
     box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
@@ -952,15 +952,16 @@ form {
     border: 0.5px solid #1565c0;
 }
 
-#exp-form::-webkit-scrollbar,.levels-container::-webkit-scrollbar
+#exp-form::-webkit-scrollbar,.levels-container::-webkit-scrollbar,.details::-webkit-scrollbar,#contact-us::-webkit-scrollbar
 {
     width: 3px;
+    height: 1px;
     background-color: #fff;
     border-radius: 5px;
     border: 2px solid #1565c0;
 }
 
-#exp-form::-webkit-scrollbar-thumb,.levels-container::-webkit-scrollbar-thumb
+#exp-form::-webkit-scrollbar-thumb,.levels-container::-webkit-scrollbar-thumb,.details::-webkit-scrollbar-thumb,#contact-us::-webkit-scrollbar-thumb
 {
     background-color: #1565c0;
     /* border: 0.5px solid #fff; */
@@ -1773,7 +1774,7 @@ h1.ml8 {
     cursor: pointer;
 }
 .contact-div {
-    position: fixed;
+    position: absolute;
     top: 50vh;
     left: 0;
     width: 100vw;
@@ -1785,6 +1786,7 @@ h1.ml8 {
     background: #eaeaea;
     font-size: 40px;
     font-weight: bold;
+    overflow: auto;
 }
 .contact-map {
     display: inline-block;
@@ -1803,6 +1805,7 @@ h1.ml8 {
 }
 .infoWrap {
     margin: 20px;
+    overflow: auto;
 }
 .details .infoWrap ul {
     padding-left: 0;
@@ -1922,12 +1925,19 @@ h1.ml8 {
     z-index: 10;
     cursor: pointer;
 }
+#tnc > p {
+    font-size: 15px;
+    margin: 20px 0 20px 1em;
+}
 
 /* MEDIA QUERIES */
 
 @media (min-width: 800px) {
+    #tnc > p {
+        font-size: 20px;
+    }
     .details {
-        width: 50vw;
+        width: 33.1vw;
     }
     .contact-map {
         width: 49.5vw;
