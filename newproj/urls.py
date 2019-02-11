@@ -23,6 +23,14 @@ from django.contrib.auth import views as auth_views
 urlpatterns = [
 
     url(r'^$',views.main,name='main'),
+    url(r'^logout_view/',views.logout_view,name='logout_view'),
+
+    url(r'^admin_page/',views.admin_page,name='admin_page'),
+
+    url(r'^admin_page_details/',views.admin_page_details,name='admin_page_details'),
+
+    url(r'^admin_db/',views.admin_db,name='admin_db'),
+
     url(r'^proceed/',views.proceed,name='proceed'),
     url(r'^accounts/', include('allauth.urls')),
     url(r'^admin/', admin.site.urls),

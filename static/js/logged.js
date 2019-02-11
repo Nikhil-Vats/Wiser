@@ -863,4 +863,5 @@ var animationOnterval = setInterval(function() {
 
 function logout() {
   // Logout Function
+  window.location.href = '/logout_view/';
 }
