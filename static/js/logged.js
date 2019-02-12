@@ -270,7 +270,7 @@ function goToLevel(category, context) {
   } else {
     // Display Loading Screen
     document.getElementsByClassName('ques-loading')[0].style.display='flex';
-    document.getElementById('info-btn').setAttribute('onclick', 'showInfo('+category+')');
+    document.getElementById('info-btn').setAttribute('onclick', 'showModInfo('+category+')');
     var xhttp = new XMLHttpRequest();
     var url = '/pre_cat/';
     xhttp.open('POST', url, true);
@@ -306,7 +306,7 @@ function goToWeek(week_num, context) {
     // Do Nothing
   } else {
     week = week_num;
-    document.getElementById('info-btn').setAttribute('onclick', 'showInfo('+week+')');
+    document.getElementById('info-btn').setAttribute('onclick', 'showModInfo('+week+')');
     // Display Loading Screen
     document.getElementsByClassName('ques-loading')[0].style.display='flex';
     var xhttp = new XMLHttpRequest();
@@ -319,7 +319,7 @@ function goToWeek(week_num, context) {
         var jsonData = JSON.parse(xhttp.responseText);
         console.log('sending req for getting ques of category' + week_num);
         console.log(jsonData);
-        getQuestion();
+        getExpQuestion();
         document.getElementsByClassName('menu')[0].style.zIndex='-1';
       }
     };
@@ -342,7 +342,7 @@ function goToPostLevel(category, context) {
   if (context.parentElement.getElementsByTagName('p')[0].classList.contains('locked')) {
     // Do Nothing
   } else {
-    document.getElementById('info-btn').setAttribute('onclick', 'showInfo('+category+')');
+    document.getElementById('info-btn').setAttribute('onclick', 'showModInfo('+category+')');
     // Display Loading Screen
     document.getElementsByClassName('ques-loading')[0].style.display='flex';
     var xhttp = new XMLHttpRequest();
@@ -496,7 +496,7 @@ function getExpQuestion() {
   // Display Loading Screen
   document.getElementsByClassName('ques-loading')[0].style.display='flex';
   var xhttp = new XMLHttpRequest();
-  var url = '/exp_details/';
+  var url = '/prepos_details/';
   xhttp.open('POST', url, true);
   xhttp.setRequestHeader("Content-type", "application/json");
   xhttp.setRequestHeader("X-CSRFToken", csrf_token);
@@ -511,7 +511,7 @@ function getExpQuestion() {
         document.getElementsByClassName('container')[0].removeChild(document.getElementsByClassName('container')[0].getElementsByClassName('questions')[0]);
         document.getElementsByClassName('container')[0].removeChild(document.getElementsByClassName('container')[0].getElementsByClassName('back')[0]);
       }
-      if (jsonData.format == "mcq") {
+      if (jsonData.data.format == "mcq") {
         var pre_assess_form = document.getElementById('exp');
         var temp = pre_assess_form.content.cloneNode(true);
         container.appendChild(temp);
@@ -576,7 +576,7 @@ function getExpQuestion() {
 
 function submitExpAns() {
   var answer;
-  if (document.getElementById('1-checked')) {
+  if (document.getElementById('1-option')) {
     for(let i=1; i<=7; i++) {
       if(document.getElementById(i+'-option').checked) {
         answer = document.getElementById(i+'-option').value;
@@ -710,7 +710,7 @@ function getPostQuestion() {
   // Display Loading Screen
   document.getElementsByClassName('ques-loading')[0].style.display='flex';
   var xhttp = new XMLHttpRequest();
-  var url = '/post_details/';
+  var url = '/prepos_details/';
   xhttp.open('POST', url, true);
   xhttp.setRequestHeader("Content-type", "application/json");
   xhttp.setRequestHeader("X-CSRFToken", csrf_token);
@@ -1057,8 +1057,8 @@ function logout() {
 
 //Show info
 
-function showInfo(num) {
-  var infoElement = document.getElementById('info-'+num);
+function showModInfo(num) {
+  var infoElement = document.getElementById('info-'+num+'');
   infoElement.style.transform = 'translateX(0) translateY(0) scale(1)';
   document.getElementById('info-btn').style.display = 'none';
   document.getElementsByClassName('menu')[0].style.zIndex='-1';
@@ -1066,8 +1066,8 @@ function showInfo(num) {
 
 //Close info
 
-function closeInfo(num) {
-  var infoElement = document.getElementById('info-'+num);
+function closeModInfo(num) {
+  var infoElement = document.getElementById('info-'+num+'');
   infoElement.style.transform = 'translateX(100vw) translateY(-100vh) scale(0)';
   document.getElementById('info-btn').style.display = 'block';
   document.getElementsByClassName('menu')[0].style.zIndex='-1';

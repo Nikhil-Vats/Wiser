@@ -7,6 +7,7 @@ import json
 from django.contrib.auth.models import User
 import datetime as dt
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import logout
 
 def main(request):
     return render(request, 'index.html',)
@@ -73,7 +74,7 @@ def prepos_details(request):
             if q.q_format=="mcq":
                 dat.append({"format":"mcq","pk":q.pk,"text":q.text,"choice1":q.choice1,"choice2":q.choice2,"choice3":q.choice3,"choice4":q.choice4,"choice5":q.choice5,"choice6":q.choice6,"choice7":q.choice7})
             else:
-                dat.append({"format":"openended","pk":q.pk,"text":q.text})
+                dat.append({"format":"openended","pk":q.pk,"text":q.text,"hint":q.choice1})
 
         print(dat)
         print(ud.q_no)
