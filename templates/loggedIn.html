@@ -310,7 +310,7 @@
                     <input type="number" name="age" id="age" placeholder="Age" required>
                 </fieldset>
                 <fieldset required>
-                    <input type="number" name="phone" id="phone" placeholder="Phone" required>
+                    <input type="number" name="phone" id="phone" placeholder="Phone" required max="9999999999">
                 </fieldset>
                 <fieldset required class="gender">
                     <label>Gender: </label>
@@ -482,6 +482,7 @@
         </div>
     </template>
     <template id="placebo">
+        <div class="back" onclick="goExpBack()"><img src="{% static '/images/back.svg' %}"></div>
         <div class="questions">
             <div class="progress">
                 <div class="start"></div>
@@ -490,7 +491,7 @@
             </div>
             <h1 class="question">What do you like the most?</h1>
             <input type="text" name="hint" class="hint-text" disabled="disabled" value="Hint Text Here...">
-            <textarea name="food" placeholder="Start typing...." autofocus id="placebo-ans"></textarea>
+            <textarea name="food" placeholder="Start typing...." autofocus id="placebo-ans" maxlength="250"></textarea>
             <button type="button" onclick="submitPlaceboAns()">Submit</button>
         </div>
     </template>

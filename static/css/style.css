@@ -432,7 +432,7 @@ button {
     align-items: center;
     justify-content: center;
     padding: 0 10px;
-    height: 90px;
+    height: 50px;
     font-size: 20px;
     position: absolute;
     transform: translateX(-50%);
@@ -727,6 +727,7 @@ option:hover {
     width: 90%;
     color: #777;
     overflow: visible;
+    font-size: 20px;
 }
 
 .hint-text {
@@ -1277,6 +1278,8 @@ h1.ml8 {
     z-index: 2;
     transition: color 200ms ease-in;
     overflow: hidden;
+    font-size: 15px;
+    padding-right: 60px;
 }
 #exp-form .inputGroup label:before {
     width: 10px;
@@ -1346,6 +1349,7 @@ h1.ml8 {
     font-weight: 600;
     line-height: 36px;
     width: 90%;
+    max-height: 45vh;
 }
 
 /*------ Desktop Nav -------*/
@@ -1940,6 +1944,9 @@ h1.ml8 {
 /* MEDIA QUERIES */
 
 @media (min-width: 800px) {
+    #exp-form {
+        max-height: 50vh;
+    }
     #tnc > p {
         font-size: 20px;
     }
