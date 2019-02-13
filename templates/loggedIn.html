@@ -91,6 +91,7 @@
                 <li>You have read our Terms of agreement and accepted them.</li>
                 <li>I understand that if I complete the information and click on the continue button below that I give way my consent to participate in the above program without any objections.</li>
                 <li>I can understand that there is no risk associated with this intervention program and if I am already suffering from any sort of psychological problems, the researchers are not to be responsible for my condition in any way.</li>
+                <span><input type="checkbox" name="checkbox" id="checkbox-tnc"> I agree to the terms and conditions</span>
             </ul>
             <button onclick="GetBasicInfo()" id="basic-info-btn">Next</button>
         </div>
@@ -199,8 +200,8 @@
         <div class="devs-loading">
             <h1 class="ml8">
                 <span class="letters-container">
-                    <span class="letters letters-left">Wise<sup>&reg;</sup></span>
-                    <span class="letters bang">!</span>
+                    <!-- <span class="letters letters-left">Wise<sup>&reg;</sup></span> -->
+                    <!-- <span class="letters bang">!</span> -->
                 </span>
                 <span class="circle circle-white"></span>
                 <span class="circle circle-dark"></span>
@@ -226,6 +227,11 @@
             <img src="{% static '/images/contact_img.jpg' %}">
             <div class="name">Nikhil Vats</div>
             <div class="work">Frontend Developer</div>
+        </div>
+        <div class="dev-4 dev">
+            <img src="{% static '/images/contact_img.jpg' %}">
+            <div class="name">Akarshit Jain</div>
+            <div class="work">Project Leader</div>
         </div>
     </div>
     <div id="panda"><img src="{% static '/images/panda 1-01.svg' %}" id="panda_img"></div>
@@ -271,25 +277,25 @@
                 <ul>
                     <li>
                         <a onclick="goToWeek(1, this)">
-                        <h2>Week #1</h2>
+                        <h2>Self Management</h2>
                         <p>Text Content #1</p>
                         </a>
                     </li>
                     <li>
                         <a onclick="goToWeek(2, this)">
-                        <h2>Week #2</h2>
+                        <h2>Emotional Intelligence</h2>
                         <p class="locked"><i class="fa fa-lock"></i></p>
                         </a>
                     </li>
                     <li>
                         <a onclick="goToWeek(3, this)">
-                        <h2>Week #3</h2>
+                        <h2>Time Management</h2>
                         <p class="locked"><i class="fa fa-lock"></i></p>
                         </a>
                     </li>
                     <li>
                         <a onclick="goToWeek(4, this)">
-                        <h2>Week #4</h2>
+                        <h2>Stress Management</h2>
                         <p class="locked"><i class="fa fa-lock"></i></p>
                         </a>
                     </li>
@@ -481,6 +487,25 @@
             <button type="button" form="exp-form" onclick="submitExpAns()">Submit</button>
         </div>
     </template>
+    <template id="dartboard">
+        <div class="back" onclick="goExpBack()"><img src="{% static '/images/back.svg' %}"></div>
+        <div class="questions">
+            <div class="progress">
+                <div class="start"></div>
+                <div class="progress-bar"></div>
+                <div class="end"></div>
+            </div>
+            <h1 class="question">What do you like the most?</h1>
+            <div id="dartboard-wrapper">
+                <div class="dart-1" onclick="submitRadioExpAns(1)"></div>
+                <div class="dart-2" onclick="submitRadioExpAns(2)"></div>
+                <div class="dart-3" onclick="submitRadioExpAns(3)"></div>
+                <div class="dart-4" onclick="submitRadioExpAns(4)"></div>
+                <div class="dart-5" onclick="submitRadioExpAns(5)"></div>
+            </div>
+            <!-- <button type="button" onclick="submitPlaceboAns()" id="placebo-btn">Submit</button> -->
+        </div>
+    </template>
     <template id="placebo">
         <div class="back" onclick="goExpBack()"><img src="{% static '/images/back.svg' %}"></div>
         <div class="questions">
@@ -491,8 +516,8 @@
             </div>
             <h1 class="question">What do you like the most?</h1>
             <input type="text" name="hint" class="hint-text" disabled="disabled" value="Hint Text Here...">
-            <textarea name="food" placeholder="Start typing...." autofocus id="placebo-ans" maxlength="250"></textarea>
-            <button type="button" onclick="submitPlaceboAns()">Submit</button>
+            <textarea name="food" placeholder="Start typing...." autofocus id="placebo-ans" maxlength="250" style="overflow: auto; word-wrap: break-word; resize: none; max-height: 325px;"></textarea>
+            <button type="button" onclick="submitPlaceboAns()" id="placebo-btn">Submit</button>
         </div>
     </template>
     <template id="control">

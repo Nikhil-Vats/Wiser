@@ -177,13 +177,18 @@ icon.addEventListener('click', (e) => {
 // Basic info function
 
 function GetBasicInfo() {
-  var TnC = document.getElementById('termsAndConditions');
-  var container = document.getElementsByClassName('container')[0];
-  var profileDiv = document.getElementById('profile-template');
-  container.removeChild(TnC);
-  container.appendChild(profileDiv.content.cloneNode(true));
-  // Initializes the States
-  print_state("states");
+  if (document.getElementById('checkbox-tnc').checked) {
+    var TnC = document.getElementById('termsAndConditions');
+    var container = document.getElementsByClassName('container')[0];
+    var profileDiv = document.getElementById('profile-template');
+    container.removeChild(TnC);
+    container.appendChild(profileDiv.content.cloneNode(true));
+    // Initializes the States
+    print_state("states");
+  } else {
+    document.getElementById('basic-info-btn').innerHTML = 'Please agree to the terms and conditions';
+    document.getElementById('basic-info-btn').style.fontSize = '15px';
+  }
 }
 
 // Pre Assessment
@@ -321,6 +326,8 @@ function goToWeek(week_num, context) {
         console.log(jsonData);
         getExpQuestion();
         document.getElementsByClassName('menu')[0].style.zIndex='-1';
+        // Show Info of the Week Number after 500 ms
+        setTimeout(function(){showModInfo(week);},500);
       }
     };
     xhttp.send(JSON.stringify(data));
@@ -511,68 +518,102 @@ function getExpQuestion() {
         document.getElementsByClassName('container')[0].removeChild(document.getElementsByClassName('container')[0].getElementsByClassName('questions')[0]);
         document.getElementsByClassName('container')[0].removeChild(document.getElementsByClassName('container')[0].getElementsByClassName('back')[0]);
       }
-      if (jsonData.data.format == "mcq") {
-        var pre_assess_form = document.getElementById('exp');
-        var temp = pre_assess_form.content.cloneNode(true);
-        container.appendChild(temp);
-        document.getElementsByClassName('container')[0].getElementsByClassName('back')[0].setAttribute('onclick', 'goExpBack()');
-        document.getElementById('exp_ques').innerHTML = jsonData.qno + ') ' + jsonData.data.text;
-        document.getElementById('f-label').innerHTML = jsonData.data.choice1;
-        document.getElementById('s-label').innerHTML = jsonData.data.choice2;
-        document.getElementById('t-label').innerHTML = jsonData.data.choice3;
-        document.getElementById('fo-label').innerHTML = jsonData.data.choice4;
-        document.getElementById('fi-label').innerHTML = jsonData.data.choice5;
-        document.getElementById('si-label').innerHTML = jsonData.data.choice6;
-        document.getElementById('se-label').innerHTML = jsonData.data.choice7;
-        document.getElementById('1-option').value = jsonData.data.choice1;
-        document.getElementById('2-option').value = jsonData.data.choice2;
-        document.getElementById('3-option').value = jsonData.data.choice3;
-        document.getElementById('4-option').value = jsonData.data.choice4;
-        document.getElementById('5-option').value = jsonData.data.choice5;
-        document.getElementById('6-option').value = jsonData.data.choice6;
-        document.getElementById('7-option').value = jsonData.data.choice7;
-        if (jsonData.data.choice1 == 'wsr') {
-          document.getElementById('1-option').parentElement.style.display = 'none';
-        }
-        if (jsonData.data.choice2 == 'wsr') {
-          document.getElementById('2-option').parentElement.style.display = 'none';
-        }
-        if (jsonData.data.choice3 == 'wsr') {
-          document.getElementById('3-option').parentElement.style.display = 'none';
-        }
-        if (jsonData.data.choice4 == 'wsr') {
-          document.getElementById('4-option').parentElement.style.display = 'none';
-        }
-        if (jsonData.data.choice5 == 'wsr') {
-          document.getElementById('5-option').parentElement.style.display = 'none';
-        }
-        if (jsonData.data.choice6 == 'wsr') {
-          document.getElementById('6-option').parentElement.style.display = 'none';
-        }
-        if (jsonData.data.choice7 == 'wsr') {
-          document.getElementById('7-option').parentElement.style.display = 'none';
-        }
-      } else {
-        preAssess = document.getElementById('placebo');
-        container.appendChild(preAssess.content.cloneNode(true));
-        if (jsonData.hint) {
-          document.getElementsByClassName('container')[0].getElementsByClassName('hint-text')[0].setAttribute('value',jsonData.hint);
+      if (jsonData.data != -1) {
+        // Question Exists
+        if (jsonData.data.format == "mcq") {
+          var pre_assess_form = document.getElementById('exp');
+          var temp = pre_assess_form.content.cloneNode(true);
+          container.appendChild(temp);
+          document.getElementsByClassName('container')[0].getElementsByClassName('back')[0].setAttribute('onclick', 'goExpBack()');
+          if (jsonData.qno > jsonData.rqno && jsonData.qno <= jsonData.eqno)
+            document.getElementById('exp_ques').innerHTML = jsonData.qno-jsonData.rqno + ') ' + jsonData.data.text;
+          else if (jsonData.qno <= jsonData.rqno)
+            document.getElementById('exp_ques').innerHTML = jsonData.qno + ') ' + " (Review of Previous Session) " + jsonData.data.text;
+          else
+            document.getElementById('exp_ques').innerHTML = jsonData.qno-jsonData.eqno + ') ' + " (Exercises to Do) " + jsonData.data.text;
+          document.getElementById('f-label').innerHTML = jsonData.data.choice1;
+          document.getElementById('s-label').innerHTML = jsonData.data.choice2;
+          document.getElementById('t-label').innerHTML = jsonData.data.choice3;
+          document.getElementById('fo-label').innerHTML = jsonData.data.choice4;
+          document.getElementById('fi-label').innerHTML = jsonData.data.choice5;
+          document.getElementById('si-label').innerHTML = jsonData.data.choice6;
+          document.getElementById('se-label').innerHTML = jsonData.data.choice7;
+          document.getElementById('1-option').value = jsonData.data.choice1;
+          document.getElementById('2-option').value = jsonData.data.choice2;
+          document.getElementById('3-option').value = jsonData.data.choice3;
+          document.getElementById('4-option').value = jsonData.data.choice4;
+          document.getElementById('5-option').value = jsonData.data.choice5;
+          document.getElementById('6-option').value = jsonData.data.choice6;
+          document.getElementById('7-option').value = jsonData.data.choice7;
+          if (jsonData.data.choice1 == 'wsr') {
+            document.getElementById('1-option').parentElement.style.display = 'none';
+          }
+          if (jsonData.data.choice2 == 'wsr') {
+            document.getElementById('2-option').parentElement.style.display = 'none';
+          }
+          if (jsonData.data.choice3 == 'wsr') {
+            document.getElementById('3-option').parentElement.style.display = 'none';
+          }
+          if (jsonData.data.choice4 == 'wsr') {
+            document.getElementById('4-option').parentElement.style.display = 'none';
+          }
+          if (jsonData.data.choice5 == 'wsr') {
+            document.getElementById('5-option').parentElement.style.display = 'none';
+          }
+          if (jsonData.data.choice6 == 'wsr') {
+            document.getElementById('6-option').parentElement.style.display = 'none';
+          }
+          if (jsonData.data.choice7 == 'wsr') {
+            document.getElementById('7-option').parentElement.style.display = 'none';
+          }
+        } else if (jsonData.data.format == 'openended') {
+          preAssess = document.getElementById('placebo');
+          container.appendChild(preAssess.content.cloneNode(true));
+          document.getElementById('placebo-btn').setAttribute('onclick', 'submitExpAns()');
+          if (jsonData.hint) {
+            document.getElementsByClassName('container')[0].getElementsByClassName('hint-text')[0].setAttribute('value',jsonData.hint);
+          } else {
+            document.getElementsByClassName('container')[0].getElementsByClassName('hint-text')[0].style.display = 'none';
+          }
+          if (jsonData.qno > jsonData.rqno && jsonData.qno <= jsonData.eqno)
+            document.getElementsByClassName('container')[0].getElementsByClassName('question')[0].innerHTML = jsonData.qno-jsonData.rqno + ') ' + jsonData.data.text;
+          else if (jsonData.qno <= jsonData.rqno)
+            document.getElementsByClassName('container')[0].getElementsByClassName('question')[0].innerHTML = jsonData.qno + ') ' + " (Review of Previous Session) " + jsonData.data.text;
+          else
+            document.getElementsByClassName('container')[0].getElementsByClassName('question')[0].innerHTML = jsonData.qno-jsonData.eqno + ') ' + " (Exercises to Do) " + jsonData.data.text;
         } else {
-          document.getElementsByClassName('container')[0].getElementsByClassName('hint-text')[0].style.display = 'none';
+          // Radio Button Content
+          preAssess = document.getElementById('dartboard');
+          container.appendChild(preAssess.content.cloneNode(true));
         }
-        document.getElementsByClassName('container')[0].getElementsByClassName('question')[0].innerHTML = jsonData.qno + ') ' + jsonData.data.text;
+        pk = jsonData.data.pk;
+        // Hide Loader Screen after 2s
+        setTimeout(function(){document.getElementsByClassName('ques-loading')[0].style.display='none';},500);
+        // Reset Progress Bar
+        expBarWidth = 0;
+        document.getElementsByClassName('progress-bar')[0].style.width = 0;
+        for (var i = 1; i < jsonData.qno; i++) {
+          increaseExpProgress();
+        }
+        if (document.getElementById('experiment-assessment'))
+          container.removeChild(document.getElementById('experiment-assessment'));
+      } else {
+        var TnC = document.getElementById('termsAndConditions');
+        var control = document.getElementById('control');
+        var container = document.getElementsByClassName('container')[0];
+        if (document.getElementsByClassName('container')[0].getElementsByClassName('questions')[0]) {
+          document.getElementsByClassName('container')[0].removeChild(document.getElementsByClassName('container')[0].getElementsByClassName('questions')[0]);
+          document.getElementsByClassName('container')[0].removeChild(document.getElementsByClassName('container')[0].getElementsByClassName('back')[0]);
+        }
+        if (TnC) {
+          container.removeChild(TnC);
+        }
+        container.appendChild(control.content.cloneNode(true));
+        if (document.getElementById('experiment-assessment'))
+          container.removeChild(document.getElementById('experiment-assessment'));
+        // Hide Loader Screen after 2s
+        setTimeout(function(){document.getElementsByClassName('ques-loading')[0].style.display='none';},500);
       }
-      pk = jsonData.data.pk;
-      // Hide Loader Screen after 2s
-      setTimeout(function(){document.getElementsByClassName('ques-loading')[0].style.display='none';},500);
-      // Reset Progress Bar
-      expBarWidth = 0;
-      document.getElementsByClassName('progress-bar')[0].style.width = 0;
-      for (var i = 1; i < jsonData.qno; i++) {
-        increaseExpProgress();
-      }
-      if (document.getElementById('experiment-assessment'))
-        container.removeChild(document.getElementById('experiment-assessment'));
     }
   };
   xhttp.send(JSON.stringify(data));
@@ -592,6 +633,41 @@ function submitExpAns() {
   var data = {
     "pk": pk,
     "ans": answer,
+    "csrftoken": []
+  };
+  var csrf_token = getCookie('csrftoken');
+  data["csrftoken"].push({
+    "csrfmiddlewaretoken": csrf_token
+  });
+  console.log(csrf_token);
+  console.log(data);
+  // Display Loading Screen
+  document.getElementsByClassName('ques-loading')[0].style.display='flex';
+  var xhttp = new XMLHttpRequest();
+  var url = '/ans_ques/';
+  xhttp.open('POST', url, true);
+  xhttp.setRequestHeader("Content-type", "application/json");
+  xhttp.setRequestHeader("X-CSRFToken", csrf_token);
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      var jsonData = JSON.parse(xhttp.responseText);
+      console.log(jsonData);
+      if (jsonData.next == 1) {
+        // Close this Week and lock it
+        // Display Offline Tasks
+        displayOffline(week);
+      } else {
+        // setTimeout(function(){increaseExpProgress();},2500);
+        getExpQuestion();
+      }
+    }
+  };
+  xhttp.send(JSON.stringify(data));
+}
+function submitRadioExpAns(sel) {
+  var data = {
+    "pk": pk,
+    "ans": sel,
     "csrftoken": []
   };
   var csrf_token = getCookie('csrftoken');

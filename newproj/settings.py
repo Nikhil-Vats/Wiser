@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     #'allauth.socialaccount.providers.facebook',
     'allauth.socialaccount.providers.google',
+    'import_export',
     #'allauth.socialaccount.providers.twitter',
 ]
 

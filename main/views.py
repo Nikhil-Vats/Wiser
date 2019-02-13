@@ -59,26 +59,54 @@ def prepos_details(request):
         ud = Userdata.objects.get(user_id = request.user)
 
         qlist = Question.objects.none()
+        r = -1
 
         if ud.status == 1: 
             qlist = Question.objects.filter(q_category=ud.category,q_type='prepos')
-        elif ud.status == 2 and ud.email_date<=dt.date.today():
-            qlist = Question.objects.filter(q_category=ud.category,q_type='experiment')
+
+        elif ud.status == 2:
+            if ud.email_date <= dt.date.today():
+                if ud.category != 1:
+                    qlist = Question.objects.filter(q_category=ud.category-1,q_type='experiment')
+                    r = qlist.count()
+
+                print(qlist)
+                qlist |= Question.objects.filter(q_category=ud.category,q_type='experiment',q_format="mcq")
+                eqno = qlist.count()
+                qlist |= Question.objects.filter(q_category=ud.category,q_type='experiment',q_format="radio")
+                qlist |= Question.objects.filter(q_category=ud.category,q_type='experiment',q_format="openended")
+
+            else:
+                return JsonResponse({"data":-1,"qno":-1,"totq":-1,"rqno":-1})
+
         elif ud.status == 3:
-            qlist = Question.objects.filter(q_type='placebo')
-        elif ud.status == 5 and ud.email_date<=dt.date.today(): 
-            qlist = Question.objects.filter(q_category=ud.category,q_type='prepos')
+            if ud.email_date<=dt.date.today():
+                qlist = Question.objects.filter(q_category=ud.category,q_type='placebo')
+            else:
+                return JsonResponse({"data":-1,"qno":-1,"totq":-1,"rqno":-1})
+
+        elif ud.status == 5:
+            if ud.email_date<=dt.date.today():
+                if ud.category == 1:
+                    qlist = Question.objects.filter(q_category=4,q_type='experiment')
+                    r = qlist.count()
+                qlist |= Question.objects.filter(q_category=ud.category,q_type='prepos')
+            else:
+                return JsonResponse({"data":-1,"qno":-1,"totq":-1,"rqno":-1})
         
+        print(qlist)
         dat = []
         for q in qlist:
             if q.q_format=="mcq":
                 dat.append({"format":"mcq","pk":q.pk,"text":q.text,"choice1":q.choice1,"choice2":q.choice2,"choice3":q.choice3,"choice4":q.choice4,"choice5":q.choice5,"choice6":q.choice6,"choice7":q.choice7})
-            else:
+            elif q.q_format=="openended":
                 dat.append({"format":"openended","pk":q.pk,"text":q.text,"hint":q.choice1})
+            else:
+                dat.append({"format":"radio","pk":q.pk,"text":q.text,"hint":q.choice1})
 
         print(dat)
         print(ud.q_no)
-        return JsonResponse({"data":dat[ud.q_no-1],"qno":ud.q_no,"totq":qlist.count()})
+        return JsonResponse({"data":dat[ud.q_no-1],"qno":ud.q_no,"totq":qlist.count(),"rqno":r,"eqno":eqno})
 
 @login_required(login_url='/')
 def ans_ques(request):
@@ -103,17 +131,48 @@ def ans_ques(request):
                 iid = ud.pk%10
                 if iid>0 and iid<5:
                     ud.status = 2  #experiment
+                    ud.group = "experiment"
                 elif iid>4 and iid<8:
                     ud.status = 3  #placebo
+                    ud.group = "placebo"
                 else:
                     ud.status = 4  #control
+                    ud.group = "control"
                 ud.email_date = dt.date.today()
                 ud.category = 1
                 ud.save()
                 next = 1
 
         if ud.status == 2:
-            if ud.q_no == Question.objects.filter(q_category=ud.category,q_type='experiment').count():
+            if ud.category !=1:
+                if ud.q_no == Question.objects.filter(q_category=ud.category,q_type='experiment').count()+Question.objects.filter(q_category=ud.category-1,q_type='experiment').count():
+                    ud.category+=1
+                    ud.email_date += dt.timedelta(days=7)
+                    ud.q_no = 1
+                    ud.save()
+                    next = 1
+
+                if ud.category == 5:
+                    ud.status = 5
+                    ud.category = 1
+                    ud.save()
+                    next = 1
+            else:
+                if ud.q_no == Question.objects.filter(q_category=ud.category,q_type='experiment').count():
+                    ud.category+=1
+                    ud.email_date += dt.timedelta(days=7)
+                    ud.q_no = 1
+                    ud.save()
+                    next = 1
+
+                if ud.category == 5:
+                    ud.status = 5
+                    ud.category = 1
+                    ud.save()
+                    next = 1
+
+        if ud.status == 3:
+            if ud.q_no == Question.objects.filter(q_category=ud.category,q_type='placebo').count():
                 ud.category+=1
                 ud.email_date += dt.timedelta(days=7)
                 ud.q_no = 1
@@ -126,23 +185,30 @@ def ans_ques(request):
                 ud.save()
                 next = 1
 
-        if ud.status == 3:
-            if ud.q_no == Question.objects.filter(q_type='placebo').count():
-                ud.status = 5
-                ud.save()
-                next = 1
 
         if ud.status == 5:
-            if ud.q_no == Question.objects.filter(q_category=ud.category,q_type='prepos').count():
-                ud.category+=1
-                ud.q_no = 1
-                ud.save()
-                next = 1
+            if ud.group == "experiment" and ud.category == 1:
+                if ud.q_no == Question.objects.filter(q_category=ud.category,q_type='prepos').count()+Question.objects.filter(q_category=4,q_type='experiment').count():
+                    ud.category+=1
+                    ud.q_no = 1
+                    ud.save()
+                    next = 1
 
-            if ud.category == 5:
-                ud.status = 6
-                ud.save()
-                next = 1
+                if ud.category == 5:
+                    ud.status = 6
+                    ud.save()
+                    next = 1
+            else:
+                if ud.q_no == Question.objects.filter(q_category=ud.category,q_type='prepos').count():
+                    ud.category+=1
+                    ud.q_no = 1
+                    ud.save()
+                    next = 1
+
+                if ud.category == 5:
+                    ud.status = 6
+                    ud.save()
+                    next = 1
 
         return JsonResponse({"next":next})
 

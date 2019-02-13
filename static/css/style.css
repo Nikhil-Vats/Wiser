@@ -395,6 +395,7 @@ html, body {
     transform:  skewY(-30deg) rotate(60deg);
     overflow: hidden;  /*To hide the overflowing content of hexagons*/
     transition: 0.3s ease-in-out;
+    font-size: 1.9vh;
 }
 
 #grid li .hexagon:hover {
@@ -714,7 +715,7 @@ option:hover {
     flex-direction: column;
     align-items: center;
     width: 100vw;
-    height: 80vh;
+    height: 85vh;
     position: relative;
     top: 10vh;
     left: 0;
@@ -728,6 +729,7 @@ option:hover {
     color: #777;
     overflow: visible;
     font-size: 20px;
+    max-width: 700px;
 }
 
 .hint-text {
@@ -950,7 +952,7 @@ form {
 .levels-container {
     overflow: auto !important;
 }
-#exp-form::-webkit-scrollbar-track,.levels-container::-webkit-scrollbar-track,.details::-webkit-scrollbar-track,#contact-us::-webkit-scrollbar-track
+#exp-form::-webkit-scrollbar-track,.levels-container::-webkit-scrollbar-track,.details::-webkit-scrollbar-track,#contact-us::-webkit-scrollbar-track,#placebo-ans::-webkit-scrollbar-track
 {
     -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
     box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
@@ -958,7 +960,7 @@ form {
     border: 0.5px solid #1565c0;
 }
 
-#exp-form::-webkit-scrollbar,.levels-container::-webkit-scrollbar,.details::-webkit-scrollbar,#contact-us::-webkit-scrollbar
+#exp-form::-webkit-scrollbar,.levels-container::-webkit-scrollbar,.details::-webkit-scrollbar,#contact-us::-webkit-scrollbar,#placebo-ans::-webkit-scrollbar
 {
     width: 3px;
     height: 1px;
@@ -967,7 +969,7 @@ form {
     border: 2px solid #1565c0;
 }
 
-#exp-form::-webkit-scrollbar-thumb,.levels-container::-webkit-scrollbar-thumb,.details::-webkit-scrollbar-thumb,#contact-us::-webkit-scrollbar-thumb
+#exp-form::-webkit-scrollbar-thumb,.levels-container::-webkit-scrollbar-thumb,.details::-webkit-scrollbar-thumb,#contact-us::-webkit-scrollbar-thumb,#placebo-ans::-webkit-scrollbar-thumb
 {
     background-color: #1565c0;
     /* border: 0.5px solid #fff; */
@@ -1927,6 +1929,13 @@ h1.ml8 {
     transform: translate(-30%,37.5%);
 }
 
+.dev-4 {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}
+
 .devs-close-btn {
     position: fixed;
     top: 5vh;
@@ -1941,9 +1950,107 @@ h1.ml8 {
     margin: 20px 0 20px 1em;
 }
 
+#checkbox-tnc {
+    width: unset;
+}
+
+#tnc > span {
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+}
+
+#dartboard-wrapper {
+    width: 100vw;
+    height: 80vh;
+    text-align: center;
+}
+
+.dart-1,.dart-2,.dart-3,.dart-4,.dart-5 {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    cursor: url('/static/images/dart.png'), auto;
+}
+
+.dart-1 {
+    width: 60vmin;
+    height: 60vmin;
+    background-color: #c1392b;
+    z-index: 3;
+}
+
+.dart-2 {
+    width: 50vmin;
+    height: 50vmin;
+    background-color: #16a086;
+    z-index: 4;
+}
+
+.dart-3 {
+    width: 40vmin;
+    height: 40vmin;
+    background-color: #2dcc70;
+    z-index: 5;
+}
+
+.dart-4 {
+    width: 30vmin;
+    height: 30vmin;
+    background-color: #987bd5;
+    z-index: 6;
+}
+
+.dart-5 {
+    width: 20vmin;
+    height: 20vmin;
+    background-color: #3598db;
+    z-index: 7;
+}
+
+#placebo-ans {
+    max-width:500px;
+    overflow:hidden;
+    background-color:#FFF;
+    color:#222;
+    font-family:Courier, monospace;
+    font-weight:normal;
+    font-size:24px;
+    resize:none;
+    line-height:40px;
+    padding-left:100px;
+    padding-top:45px;
+    padding-bottom:34px;
+    background-image:url(/static/images/lines.png), url(/static/images/paper.png);
+    background-repeat:repeat-y, repeat;
+    -webkit-border-radius:12px;
+    border-radius:12px;
+    -webkit-box-shadow: 0px 2px 14px #000;
+    box-shadow: 0px 2px 14px #000;
+    border-top:1px solid #FFF;
+    border-bottom:1px solid #FFF;
+}
+
 /* MEDIA QUERIES */
 
+@media (max-width: 700px) {
+    #placebo-ans {
+        max-width: calc(100vmin - 130px);
+    }
+}
+
 @media (min-width: 800px) {
+    .questions {
+        height: 88vh;
+    }
+    #placebo-ans {
+        padding-right:100px;
+    }
+    #grid li .hexagon {
+        font-size: 2.3vh;
+    }
     #exp-form {
         max-height: 50vh;
     }

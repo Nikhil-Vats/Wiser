@@ -29,7 +29,6 @@ class Userdata(models.Model):
     category=models.IntegerField(default=-1)
     status=models.IntegerField(default=1)
     email_date= models.DateField(default=date.today())
-    post_date = models.DateField(default=date.today())
     q_no = models.IntegerField(default=1)
 
     def __str__(self):
