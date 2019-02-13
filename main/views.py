@@ -82,6 +82,7 @@ def prepos_details(request):
         elif ud.status == 3:
             if ud.email_date<=dt.date.today():
                 qlist = Question.objects.filter(q_category=ud.category,q_type='placebo')
+                eqno = qlist.count()
             else:
                 return JsonResponse({"data":-1,"qno":-1,"totq":-1,"rqno":-1})
 
@@ -91,6 +92,7 @@ def prepos_details(request):
                     qlist = Question.objects.filter(q_category=4,q_type='experiment')
                     r = qlist.count()
                 qlist |= Question.objects.filter(q_category=ud.category,q_type='prepos')
+                eqno = qlist.count()
             else:
                 return JsonResponse({"data":-1,"qno":-1,"totq":-1,"rqno":-1})
         

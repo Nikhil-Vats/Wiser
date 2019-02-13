@@ -734,6 +734,8 @@ option:hover {
 
 .hint-text {
     padding: 10px;
+    width: 90%;
+    max-width: 680px;
 }
 
 .questions ul {

@@ -570,8 +570,8 @@ function getExpQuestion() {
           preAssess = document.getElementById('placebo');
           container.appendChild(preAssess.content.cloneNode(true));
           document.getElementById('placebo-btn').setAttribute('onclick', 'submitExpAns()');
-          if (jsonData.hint) {
-            document.getElementsByClassName('container')[0].getElementsByClassName('hint-text')[0].setAttribute('value',jsonData.hint);
+          if (jsonData.data.hint != 'wsr') {
+            document.getElementsByClassName('container')[0].getElementsByClassName('hint-text')[0].setAttribute('value',jsonData.data.hint);
           } else {
             document.getElementsByClassName('container')[0].getElementsByClassName('hint-text')[0].style.display = 'none';
           }
@@ -728,8 +728,12 @@ function getPlaceboQuestion() {
       if (document.getElementsByClassName('container')[0].getElementsByClassName('back')[0]) {
         document.getElementsByClassName('container')[0].removeChild(document.getElementsByClassName('container')[0].getElementsByClassName('back')[0]);
       }
-      document.getElementsByClassName('container')[0].getElementsByClassName('hint-text')[0].setAttribute('value',jsonData.hint);
+      if (jsonData.data.hint != 'wsr')
+        document.getElementsByClassName('container')[0].getElementsByClassName('hint-text')[0].setAttribute('value',jsonData.data.hint);
+      else
+        document.getElementsByClassName('container')[0].getElementsByClassName('hint-text')[0].style.display = 'none';
       document.getElementsByClassName('container')[0].getElementsByClassName('question')[0].innerHTML = jsonData.qno + ') ' + jsonData.data.text;
+      pk = jsonData.data.pk;
       // Hide Loader Screen after 2s
       setTimeout(function(){document.getElementsByClassName('ques-loading')[0].style.display='none';},500);
       // Reset Progress Bar
