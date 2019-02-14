@@ -19,6 +19,10 @@
     <div class="loading">
         <div class="loader"></div>
     </div>
+    <div class="week-schedule">
+        <div class="devs-close-btn" onclick="closeWeeks()">&times;</div>
+        <img src="{% static '/images/week.png' %}" class="shadow1 box" id="week-schedule-img">
+    </div>
     <div class="open-btn"></div>
     <div id="sidenav-bg"></div>
     <div id="sidenav-content">
@@ -44,6 +48,18 @@
 
             Regards<br>
             Research Team-WiseR</p>
+        </div>
+        <div id="info-exer">
+            <div onclick="closeExerInfo()" style="cursor:pointer;">
+                <div class="close-btn"></div>
+                <div class="close-btn"></div>
+            </div>
+            <div class="exer-popup">
+                <div class="tick-div">&#10004;</div>
+                <div class="exer-heading">Exercises</div>
+                <div class="exer-desc">Welcome to the Exercises Section, the next couple of questions are targetted to be done as an exercise and come back to fill the answers later</div>
+                <a href="#" class="btn-gradient red small" onclick="closeExerInfo()">Okay</a>
+            </div>
         </div>
         <div id="info-1">
             <div onclick="closeModInfo(1)" style="cursor:pointer;">
@@ -518,7 +534,7 @@
                     </li>
                 </ul> -->
             </form>
-            <button type="button" form="exp-form" onclick="submitExpAns()">Submit</button>
+            <button type="button" form="exp-form" id="exp-btn" onclick="submitExpAns()">Submit</button>
         </div>
     </template>
     <template id="dartboard">
