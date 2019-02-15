@@ -1,60 +1,508 @@
 <!DOCTYPE html>
 <html>
 <head>
+{% load static %}
 	<title>WiseR</title>
 	<style type="text/css">
-		html, body {
-			margin: 0;
-			padding: 0;
-			width: 100%;
-		}
-		body * {
-			margin: 0;
-			padding: 0;
-			width: 99%;
-		}
-		body {
-			padding-left: 0.5%;
-		}
+		* {
+  margin: 0;
+  padding: 0;
+  color: inherit;
+  box-sizing: inherit;
+}
+*:focus {
+  outline: none;
+}
+
+html {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #ecf0f1;
+  font-family: 'Open Sans', sans-serif;
+  overflow: hidden;
+}
+
+h1, h2, h3, h4, h5 {
+  font-weight: normal;
+}
+
+form {
+  display: block;
+}
+
+label,
+input {
+  display: block;
+}
+
+.animate, .btn, .btn span, .overlay .overlay-content, .overlay .overlay-content .overlay-close, .overlay .overlay-content .signup-form input {
+  transition: all 0.3s;
+}
+
+main {
+  display: block;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 10;
+}
+
+.main-heading {
+  line-height: 100%;
+  font-weight: 600;
+  font-size: 28px;
+  text-transform: uppercase;
+}
+
+.btn {
+  display: block;
+  height: 50px;
+  line-height: 50px;
+  border: 0;
+  text-align: center;
+  cursor: pointer;
+  border-radius: 5px;
+}
+.submit-btn {
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+}
+select {
+  margin-bottom: 1em;
+  padding: .25em;
+  border: 0;
+  border-bottom: 2px solid currentcolor;
+  font-weight: bold;
+  letter-spacing: .15em;
+  border-radius: 0;
+  width: 100%;
+}
+select:focus, select:active {
+  outline: 0;
+  border-bottom-color: red;
+}
+.btn span {
+  font-weight: 600;
+  font-size: 14px;
+  text-transform: uppercase;
+}
+.btn span .fa {
+  margin-left: 8px;
+  font-size: 18px;
+  vertical-align: middle;
+}
+.btn:not(.btn-outline) {
+  background-color: #fff;
+}
+.btn:not(.btn-outline) span {
+  color: #666;
+}
+.btn:not(.btn-outline):hover {
+  background-color: #f7f7f7;
+}
+.btn.btn-outline {
+  background-color: transparent;
+  border: 1px solid #fff;
+}
+.btn.btn-outline span {
+  color: #fff;
+}
+.btn.btn-outline:hover {
+  background-color: #fff;
+}
+.btn.btn-outline:hover span {
+  color: #666;
+}
+
+.popup-trigger {
+  width: 175px;
+  margin: auto;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  box-shadow: 0 0 25px 0 rgba(0, 0, 0, 0.05);
+}
+
+.overlay {
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  float: left;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 5;
+  opacity: 0;
+  -webkit-transform: translateY(200px);
+          transform: translateY(200px);
+  transition: opacity 0.5s, z-index 0s 0.5s, -webkit-transform 0.5s;
+  transition: opacity 0.5s, transform 0.5s, z-index 0s 0.5s;
+  transition: opacity 0.5s, transform 0.5s, z-index 0s 0.5s, -webkit-transform 0.5s;
+}
+.overlay .overlay-background {
+  background-color: rgba(44, 62, 80, 0.8);
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 5;
+}
+.overlay .overlay-content {
+  width: 100%;
+  max-width: 530px;
+  margin: 100px auto 0;
+  padding: 0 15px;
+  color: #fff;
+  position: relative;
+  z-index: 10;
+}
+.overlay .overlay-content .overlay-close {
+  display: block;
+  font-size: 35px;
+  cursor: pointer;
+  position: absolute;
+  top: 0;
+  right: 15px;
+}
+.overlay .overlay-content .overlay-close:hover {
+  opacity: .8;
+}
+.overlay .overlay-content .blurb {
+  margin-top: 35px;
+  line-height: 100%;
+  font-weight: 600;
+  font-size: 18px;
+}
+.overlay .overlay-content .blurb-tagline {
+  display: block;
+  margin-top: 10px;
+  line-height: 100%;
+  font-size: 14px;
+}
+.overlay .overlay-content .signup-form {
+  margin-top: 35px;
+}
+.overlay .overlay-content .signup-form label {
+  line-height: 100%;
+  margin-bottom: 5px;
+  font-size: 14px;
+}
+.overlay .overlay-content .signup-form input {
+  background-color: transparent;
+  width: 100%;
+  height: 30px;
+  margin-bottom: 20px;
+  padding: 0 8px;
+  border: 1px solid rgba(254, 254, 254, 0.3);
+  border-radius: 5px;
+}
+.overlay .overlay-content .signup-form input:hover, .overlay .overlay-content .signup-form input:focus {
+  border-color: #fff;
+}
+.overlay .overlay-content .signup-form .submit-btn {
+  width: 150px;
+}
+.overlay.open {
+  z-index: 15;
+  opacity: 1;
+  -webkit-transform: translateY(0);
+          transform: translateY(0);
+  transition: opacity 0.5s, z-index 0s, -webkit-transform 0.5s;
+  transition: opacity 0.5s, transform 0.5s, z-index 0s;
+  transition: opacity 0.5s, transform 0.5s, z-index 0s, -webkit-transform 0.5s;
+}
+.overlay.short .overlay-content {
+  margin: 30px auto;
+}
+
+@media (max-width: 600px) {
+  .overlay .overlay-content {
+    margin: 25px auto;
+  }
+}
+a {
+  text-decoration: none;
+  line-height: 80px;
+  color: black;
+}
+@media (min-width: 600px) {
+  .wrap {
+    width: 50%;
+    float: left;
+  }
+}
+[class^="btn-"] {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  width: 100%;
+  height: 80px;
+  max-width: 250px;
+  margin: 1rem auto;
+  text-transform: uppercase;
+  border: 1px solid currentColor;
+}
+
+.btn-0 {
+  color: #b0b434;
+}
+.btn-0:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: #61640a;
+  -webkit-transform: translateX(-100%);
+          transform: translateX(-100%);
+}
+.btn-0:hover {
+  color: #e8e9c3;
+}
+.btn-0:hover:before {
+  -webkit-transform: translateX(0);
+          transform: translateX(0);
+}
+@-webkit-keyframes criss-cross-left {
+  0% {
+    left: -20px;
+  }
+  50% {
+    left: 50%;
+    width: 20px;
+    height: 20px;
+  }
+  100% {
+    left: 50%;
+    width: 375px;
+    height: 375px;
+  }
+}
+
+@keyframes criss-cross-left {
+  0% {
+    left: -20px;
+  }
+  50% {
+    left: 50%;
+    width: 20px;
+    height: 20px;
+  }
+  100% {
+    left: 50%;
+    width: 375px;
+    height: 375px;
+  }
+}
+@-webkit-keyframes criss-cross-right {
+  0% {
+    right: -20px;
+  }
+  50% {
+    right: 50%;
+    width: 20px;
+    height: 20px;
+  }
+  100% {
+    right: 50%;
+    width: 375px;
+    height: 375px;
+  }
+}
+@keyframes criss-cross-right {
+  0% {
+    right: -20px;
+  }
+  50% {
+    right: 50%;
+    width: 20px;
+    height: 20px;
+  }
+  100% {
+    right: 50%;
+    width: 375px;
+    height: 375px;
+  }
+}
+.btn-11 {
+  position: relative;
+  color: #c458b8;
+}
+.btn-11:before, .btn-11:after {
+  position: absolute;
+  top: 50%;
+  content: '';
+  width: 20px;
+  height: 20px;
+  background-color: #ba3aac;
+  border-radius: 50%;
+}
+.btn-11:before {
+  left: -20px;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+}
+.btn-11:after {
+  right: -20px;
+  -webkit-transform: translate(50%, -50%);
+          transform: translate(50%, -50%);
+}
+.btn-11:hover {
+  color: #eeceea;
+}
+.btn-11:hover:before {
+  -webkit-animation: criss-cross-left 0.8s both;
+          animation: criss-cross-left 0.8s both;
+  -webkit-animation-direction: alternate;
+          animation-direction: alternate;
+}
+.btn-11:hover:after {
+  -webkit-animation: criss-cross-right 0.8s both;
+          animation: criss-cross-right 0.8s both;
+  -webkit-animation-direction: alternate;
+          animation-direction: alternate;
+}
+html {
+  padding-top: 50px;
+  font-family: 'Open Sans', Helvetica, arial, sans-serif;
+  text-align: center;
+  background-color: #eeeeee;
+}
+html *,
+html *:before,
+html *:after {
+  box-sizing: border-box;
+  transition: 0.5s ease-in-out;
+}
+html i, html em,
+html b, html strong,
+html span {
+  transition: none;
+}
+
+*:before,
+*:after {
+  z-index: -1;
+}
+
+h1,
+h4 {
+  font-family: 'Raleway', 'Open Sans', sans-serif;
+  margin: 0;
+  line-height: 1;
+}
 	</style>
 </head>
 <body>
+<main role="main">
+  <button class="popup-trigger btn" id="popup-trigger"><span>Add Question<i class="fa fa-plus-square-o"></i></span></button>
+  <div class="wrap">
+    <a class="btn-0" href="#" target="_blank">Download Pre Stats</a>
+    <a class="btn-0" href="#" target="_blank">Download Experiment Stats</a>
+    <a class="btn-0" href="#" target="_blank">Download Pacebo Stats</a>
+    <a class="btn-0" href="#" target="_blank">Download Control Stats</a>
+    <a class="btn-0" href="#" target="_blank">Download Post Stats</a>
+    <a class="btn-0" href="#" target="_blank">Download Everything</a>
+  </div>
+</main>
+<div class="overlay" id="overlay">
+  <div class="overlay-background" id="overlay-background"></div>
+  <div class="overlay-content" id="overlay-content">
+    <div class="fa fa-times fa-lg overlay-close" id="overlay-close"></div>
+    <h1 class="main-heading">Add Question</h1>
+    <form class="signup-form">
+    <label for="q_text">Question</label>
+    <input type="text" name="text" id="q_text" placeholder="Enter Question" required><br>
+    <label for="q_type">Question Type</label>
+    <select id="q_type" name="q_type">
+      <option value="PREPOS">PREPOS</option>
+      <option value="EXPERIMENT">EXPERIMENT</option>
+      <option value="PLACEBO">PLACEBO</option>
+    </select><br>
+    <label for="q_format">Question Format</label>
+    <select id="q_format" name="q_format">
+      <option value="mcq">MCQ</option>
+      <option value="openended">Open Ended</option>
+    </select><br>
+    <label for="q_category">Question Category</label>
+    <select id="q_category" name="q_category">
+      <option value="1">Category 1</option>
+      <option value="2">Category 2</option>
+      <option value="3">Category 3</option>
+      <option value="4">Category 4</option>
+    </select><br>
+    <label for="choice1">Choice 1</label>
+    <input type="text" name="choice1" id="choice1" placeholder="Option 1 if MCQ and Hint Text if Open Ended Question"><br>
+    <label for="choice2">Choice 2</label>
+    <input type="text" name="choice2" id="choice2" placeholder="Option 2 if MCQ"><br>
+    <label for="choice3">Choice 3</label>
+    <input type="text" name="choice3" id="choice3" placeholder="Option 3 if MCQ"><br>
+    <label for="choice4">Choice 4</label>
+    <input type="text" name="choice4" id="choice4" placeholder="Option 4 if MCQ"><br>
+    <label for="choice5">Choice 5</label>
+    <input type="text" name="choice5" id="choice5" placeholder="Option 5 if MCQ"><br>
+    <label for="choice6">Choice 6</label>
+    <input type="text" name="choice6" id="choice6" placeholder="Option 6 if MCQ"><br>
+    <label for="choice7">Choice 7</label>
+    <input type="text" name="choice7" id="choice7" placeholder="Option 7 if MCQ"><br>
+    <button class="btn btn-outline submit-btn" type="button" onclick="submitQuestion()" id="submit_btn">Submit</button>
+    </form>
+  </div>
+</div>
 	<!-- Admin Page -->
-	<form id="ques_form">
-		<input type="text" name="text" id="q_text" placeholder="Enter Question" required><br>
-		<select id="q_type" name="q_type">
-			<option value="PREPOS">PREPOS</option>
-			<option value="EXPERIMENT">EXPERIMENT</option>
-			<option value="PLACEBO">PLACEBO</option>
-		</select><br>
-		<select id="q_format" name="q_format">
-			<option value="mcq">MCQ</option>
-			<option value="openended">Open Ended</option>
-		</select><br>
-		<select id="q_category" name="q_category">
-			<option value="1">Category 1</option>
-			<option value="2">Category 2</option>
-			<option value="3">Category 3</option>
-			<option value="4">Category 4</option>
-		</select><br>
-		<input type="text" name="choice1" id="choice1" placeholder="Option 1 if MCQ and Hint Text if Open Ended Question"><br>
-		<input type="text" name="choice2" id="choice2" placeholder="Option 2 if MCQ"><br>
-		<input type="text" name="choice3" id="choice3" placeholder="Option 3 if MCQ"><br>
-		<input type="text" name="choice4" id="choice4" placeholder="Option 4 if MCQ"><br>
-		<input type="text" name="choice5" id="choice5" placeholder="Option 5 if MCQ"><br>
-		<input type="text" name="choice6" id="choice6" placeholder="Option 6 if MCQ"><br>
-		<input type="text" name="choice7" id="choice7" placeholder="Option 7 if MCQ"><br>
-		<button type="button" onclick="submitQuestion()" id="submit_btn">Submit</button>
-	</form>
-	<br><br><br>
-	<a href="" target="_blank">Download Pre Stats</a><br><br>
-	<a href="" target="_blank">Download Experiment Stats</a><br><br>
-	<a href="" target="_blank">Download Pacebo Stats</a><br><br>
-	<a href="" target="_blank">Download Control Stats</a><br><br>
-	<a href="" target="_blank">Download Post Stats</a><br><br>
-	<a href="" target="_blank">Download Everything</a>
+	<!-- <form id="ques_form">
+		
+	</form> -->
 </body>
+<script type="text/javascript" src="{% static '/js/jquery.min.js' %}"></script>
 <script type="text/javascript">
+(function() {
+  var calculateHeight;
+
+  calculateHeight = function() {
+    var $content, contentHeight, finalHeight, windowHeight;
+    $content = $('#overlay-content');
+    contentHeight = parseInt($content.height()) + parseInt($content.css('margin-top')) + parseInt($content.css('margin-bottom'));
+    windowHeight = $(window).height();
+    finalHeight = windowHeight > contentHeight ? windowHeight : contentHeight;
+    return finalHeight;
+  };
+
+  $(document).ready(function() {
+    $(window).resize(function() {
+      if ($(window).height() < 560 && $(window).width() > 600) {
+        $('#overlay').addClass('short');
+      } else {
+        $('#overlay').removeClass('short');
+      }
+      return $('#overlay-background').height(calculateHeight());
+    });
+    $(window).trigger('resize');
+    
+    // open
+    $('#popup-trigger').click(function() {
+      return $('#overlay').addClass('open').find('.signup-form input:first').select();
+    });
+    
+    // close
+    return $('#overlay-background,#overlay-close').click(function() {
+      return $('#overlay').removeClass('open');
+    });
+  });
+
+}).call(this);
+
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiIiwic291cmNlUm9vdCI6IiIsInNvdXJjZXMiOlsiPGFub255bW91cz4iXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7QUFBQSxNQUFBOztFQUFBLGVBQUEsR0FBa0IsUUFBQSxDQUFBLENBQUE7QUFFakIsUUFBQSxRQUFBLEVBQUEsYUFBQSxFQUFBLFdBQUEsRUFBQTtJQUFBLFFBQUEsR0FBVyxDQUFBLENBQUUsa0JBQUY7SUFDWCxhQUFBLEdBQWdCLFFBQUEsQ0FBUyxRQUFRLENBQUMsTUFBVCxDQUFBLENBQVQsQ0FBQSxHQUE4QixRQUFBLENBQVMsUUFBUSxDQUFDLEdBQVQsQ0FBYSxZQUFiLENBQVQsQ0FBOUIsR0FBcUUsUUFBQSxDQUFTLFFBQVEsQ0FBQyxHQUFULENBQWEsZUFBYixDQUFUO0lBQ3JGLFlBQUEsR0FBZSxDQUFBLENBQUUsTUFBRixDQUFTLENBQUMsTUFBVixDQUFBO0lBRWYsV0FBQSxHQUFpQixZQUFBLEdBQWUsYUFBbEIsR0FBcUMsWUFBckMsR0FBdUQ7QUFFckUsV0FBTztFQVJVOztFQVVsQixDQUFBLENBQUUsUUFBRixDQUFXLENBQUMsS0FBWixDQUFrQixRQUFBLENBQUEsQ0FBQTtJQUVqQixDQUFBLENBQUUsTUFBRixDQUFTLENBQUMsTUFBVixDQUFpQixRQUFBLENBQUEsQ0FBQTtNQUVoQixJQUFHLENBQUEsQ0FBRSxNQUFGLENBQVMsQ0FBQyxNQUFWLENBQUEsQ0FBQSxHQUFxQixHQUFyQixJQUE2QixDQUFBLENBQUUsTUFBRixDQUFTLENBQUMsS0FBVixDQUFBLENBQUEsR0FBb0IsR0FBcEQ7UUFDQyxDQUFBLENBQUUsVUFBRixDQUFhLENBQUMsUUFBZCxDQUF1QixPQUF2QixFQUREO09BQUEsTUFBQTtRQUdDLENBQUEsQ0FBRSxVQUFGLENBQWEsQ0FBQyxXQUFkLENBQTBCLE9BQTFCLEVBSEQ7O2FBS0EsQ0FBQSxDQUFFLHFCQUFGLENBQXdCLENBQUMsTUFBekIsQ0FBZ0MsZUFBQSxDQUFBLENBQWhDO0lBUGdCLENBQWpCO0lBU0EsQ0FBQSxDQUFFLE1BQUYsQ0FBUyxDQUFDLE9BQVYsQ0FBa0IsUUFBbEIsRUFUQTs7O0lBWUEsQ0FBQSxDQUFFLGdCQUFGLENBQW1CLENBQUMsS0FBcEIsQ0FBMEIsUUFBQSxDQUFBLENBQUE7YUFDekIsQ0FBQSxDQUFFLFVBQUYsQ0FDQyxDQUFDLFFBREYsQ0FDVyxNQURYLENBRUMsQ0FBQyxJQUZGLENBRU8sMEJBRlAsQ0FFa0MsQ0FBQyxNQUZuQyxDQUFBO0lBRHlCLENBQTFCLEVBWkE7OztXQWtCQSxDQUFBLENBQUUsb0NBQUYsQ0FBdUMsQ0FBQyxLQUF4QyxDQUE4QyxRQUFBLENBQUEsQ0FBQTthQUM3QyxDQUFBLENBQUUsVUFBRixDQUFhLENBQUMsV0FBZCxDQUEwQixNQUExQjtJQUQ2QyxDQUE5QztFQXBCaUIsQ0FBbEI7QUFWQSIsInNvdXJjZXNDb250ZW50IjpbImNhbGN1bGF0ZUhlaWdodCA9IC0+XG5cdFxuXHQkY29udGVudCA9ICQoJyNvdmVybGF5LWNvbnRlbnQnKVxuXHRjb250ZW50SGVpZ2h0ID0gcGFyc2VJbnQoJGNvbnRlbnQuaGVpZ2h0KCkpICsgcGFyc2VJbnQoJGNvbnRlbnQuY3NzKCdtYXJnaW4tdG9wJykpICsgcGFyc2VJbnQoJGNvbnRlbnQuY3NzKCdtYXJnaW4tYm90dG9tJykpXG5cdHdpbmRvd0hlaWdodCA9ICQod2luZG93KS5oZWlnaHQoKVxuXHRcblx0ZmluYWxIZWlnaHQgPSBpZiB3aW5kb3dIZWlnaHQgPiBjb250ZW50SGVpZ2h0IHRoZW4gd2luZG93SGVpZ2h0IGVsc2UgY29udGVudEhlaWdodFxuXHRcblx0cmV0dXJuIGZpbmFsSGVpZ2h0XG5cbiQoZG9jdW1lbnQpLnJlYWR5IC0+XG5cdFxuXHQkKHdpbmRvdykucmVzaXplIC0+XG5cdFx0XG5cdFx0aWYgJCh3aW5kb3cpLmhlaWdodCgpIDwgNTYwIGFuZCAkKHdpbmRvdykud2lkdGgoKSA+IDYwMFxuXHRcdFx0JCgnI292ZXJsYXknKS5hZGRDbGFzcyAnc2hvcnQnXG5cdFx0ZWxzZVxuXHRcdFx0JCgnI292ZXJsYXknKS5yZW1vdmVDbGFzcyAnc2hvcnQnXG5cdFx0XG5cdFx0JCgnI292ZXJsYXktYmFja2dyb3VuZCcpLmhlaWdodCBjYWxjdWxhdGVIZWlnaHQoKVxuXHRcblx0JCh3aW5kb3cpLnRyaWdnZXIgJ3Jlc2l6ZSdcblx0XG5cdCMgb3BlblxuXHQkKCcjcG9wdXAtdHJpZ2dlcicpLmNsaWNrIC0+XG5cdFx0JCgnI292ZXJsYXknKVxuXHRcdFx0LmFkZENsYXNzICdvcGVuJ1xuXHRcdFx0LmZpbmQoJy5zaWdudXAtZm9ybSBpbnB1dDpmaXJzdCcpLnNlbGVjdCgpXG5cdFxuXHQjIGNsb3NlXG5cdCQoJyNvdmVybGF5LWJhY2tncm91bmQsI292ZXJsYXktY2xvc2UnKS5jbGljayAtPlxuXHRcdCQoJyNvdmVybGF5JykucmVtb3ZlQ2xhc3MgJ29wZW4nIl19
+//# sourceURL=coffeescript
 	function submitQuestion() {
 		var data = {
 			"text": document.getElementById('q_text').value,

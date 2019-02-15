@@ -185,6 +185,12 @@ html, body {
     transition: 0.5s ease-in-out;
 }
 
+#info-exer {
+    background: url('/static/images/exer_back.svg'), rgba(0, 0, 0, 0.95);
+    background-size: 150vmax;
+    background-position: center;
+}
+
 .heading {
     text-align: center;
     color: #fff;
@@ -724,9 +730,21 @@ option:hover {
     overflow: auto;
 }
 
+.background-wrapper {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    background: url('/static/images/puzzle.svg');
+    background-position: center;
+    filter: blur(10px);
+}
+
 .question {
     width: 90%;
-    color: #777;
+    color: #fff;
     overflow: visible;
     font-size: 20px;
     max-width: 700px;
@@ -1543,6 +1561,9 @@ h1.ml8 {
   height: 100vh;
   display: none;
   flex-direction: column;
+  background: url('/static/images/splash.svg');
+  background-size: 100vmax;
+  background-position: center;
 }
 
 .offline-content .button {
@@ -1894,10 +1915,23 @@ h1.ml8 {
     position: fixed;
     top: 0;
     left: 0;
-    background: #ffc3a0;  /* fallback for old browsers */
-    background: -webkit-linear-gradient(to right, #ffafbd, #ffc3a0);  /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to right, #ffafbd, #ffc3a0); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-    z-index: 100;
+    /*background: #4ECDC4;
+    background: -webkit-linear-gradient(to right, #556270, #4ECDC4);
+    background: linear-gradient(to right, #556270, #4ECDC4);*/
+    z-index: 5;
+}
+
+.week-schedule-background {
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    background: url('/static/images/week-schedule.svg');
+    background-position: center;
+    background-size: 60%;
+    filter: blur(10px);
 }
 
 #week-schedule-img {
@@ -1905,9 +1939,25 @@ h1.ml8 {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 80vmin;
-    height: 80vmin;
+    width: 90vmin;
+    height: 90vmin;
     border: none;
+    display: block;
+}
+
+#attribution {
+    position: fixed;
+    font-size: 10px;
+    bottom: 0px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+#background-attribution {
+    position: fixed;
+    font-size: 5px;
+    bottom: 0px;
+    left: 50%;
+    transform: translateX(-50%);
 }
 
 .shadow1, .shadow2, .shadow3,.shadow4,.shadow5,.shadow6,.shadow7,.shadow8{
@@ -2005,6 +2055,15 @@ h1.ml8 {
     right: 5vh;
     font-size: 70px;
     color: #a97ea7;
+    z-index: 10;
+    cursor: pointer;
+}
+.weeks-close-btn {
+    position: fixed;
+    top: 5vh;
+    right: 5vh;
+    font-size: 70px;
+    color: white;
     z-index: 10;
     cursor: pointer;
 }
