@@ -22,8 +22,8 @@
     <div class="week-schedule">
         <div class="week-schedule-background"></div>
         <div class="weeks-close-btn" onclick="closeWeeks()">&times;</div>
-        <a href="http://www.freepik.com" id="attribution">Designed by new7ducks / Freepik</a>
-        <img src="{% static '/images/week-schedule.svg' %}" class="shadow1 box" id="week-schedule-img">
+        <!-- <a href="http://www.freepik.com" id="attribution">Designed by new7ducks / Freepik</a> -->
+        <img src="{% static '/images/week-schedule.svg' %}" class="shadow1 box" id="week-schedule-img" onclick="closeWeeks()">
     </div>
     <div class="open-btn"></div>
     <div id="sidenav-bg"></div>
@@ -467,7 +467,7 @@
                 </ul> -->
             </form>
             <button type="button" form="exp-form" onclick="submitAns()">Submit</button>
-            <a href="https://www.freepik.com/free-photos-vectors/background" id="background-attribution">Background vector created by freepik - www.freepik.com</a>
+            <!-- <a href="https://www.freepik.com/free-photos-vectors/background" id="background-attribution">Background vector created by freepik - www.freepik.com</a> -->
         </div>
     </template>
     <template id="exp">
@@ -540,7 +540,7 @@
                 </ul> -->
             </form>
             <button type="button" form="exp-form" id="exp-btn" onclick="submitExpAns()">Submit</button>
-            <a href="https://www.freepik.com/free-photos-vectors/background" id="background-attribution">Background vector created by freepik - www.freepik.com</a>
+            <!-- <a href="https://www.freepik.com/free-photos-vectors/background" id="background-attribution">Background vector created by freepik - www.freepik.com</a> -->
         </div>
     </template>
     <template id="dartboard">
@@ -560,7 +560,7 @@
                 <div class="dart-4" onclick="submitRadioExpAns(4)"></div>
                 <div class="dart-5" onclick="submitRadioExpAns(5)"></div>
             </div>
-            <a href="https://www.freepik.com/free-photos-vectors/background" id="background-attribution">Background vector created by freepik - www.freepik.com</a>
+            <!-- <a href="https://www.freepik.com/free-photos-vectors/background" id="background-attribution">Background vector created by freepik - www.freepik.com</a> -->
             <!-- <button type="button" onclick="submitPlaceboAns()" id="placebo-btn">Submit</button> -->
         </div>
     </template>
@@ -577,12 +577,16 @@
             <input type="text" name="hint" class="hint-text" disabled="disabled" value="Hint Text Here...">
             <textarea name="food" placeholder="Start typing...." autofocus id="placebo-ans" maxlength="250" style="overflow: auto; word-wrap: break-word; resize: none; max-height: 325px;"></textarea>
             <button type="button" onclick="submitPlaceboAns()" id="placebo-btn">Submit</button>
-            <a href="https://www.freepik.com/free-photos-vectors/background" id="background-attribution">Background vector created by freepik - www.freepik.com</a>
+            <!-- <a href="https://www.freepik.com/free-photos-vectors/background" id="background-attribution">Background vector created by freepik - www.freepik.com</a> -->
         </div>
     </template>
     <template id="control">
         <!-- <div class="back" onclick="goBack()"><img src="{% static '/images/back.svg' %}"></div> -->
         <div class="center"><span>Thank you for filling, an email will be sent for further questions, Please check back later!</span><img src="{% static '/images/emoji.png' %}"></div>
+    </template>
+    <template id="complete">
+        <!-- <div class="back" onclick="goBack()"><img src="{% static '/images/back.svg' %}"></div> -->
+        <div class="center"><span>Thank you for completing the Program</span><img src="{% static '/images/emoji.png' %}"></div>
     </template>
     <template id="validation-template">
         <div class="modal">

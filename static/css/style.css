@@ -740,6 +740,7 @@ option:hover {
     background: url('/static/images/puzzle.svg');
     background-position: center;
     filter: blur(10px);
+    opacity: 0.5;
 }
 
 .question {

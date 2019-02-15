@@ -29,7 +29,13 @@ urlpatterns = [
 
     url(r'^admin_page_details/',views.admin_page_details,name='admin_page_details'),
 
-    url(r'^admin_db/',views.admin_db,name='admin_db'),
+    url(r'^admin_db_1/',views.admin_db_1,name='admin_db_1'),
+
+    url(r'^admin_db_2/',views.admin_db_2,name='admin_db_2'),
+
+    url(r'^admin_db_3/',views.admin_db_3,name='admin_db_3'),
+
+    url(r'^admin_db_4/',views.admin_db_4,name='admin_db_4'),
 
     url(r'^proceed/',views.proceed,name='proceed'),
     url(r'^accounts/', include('allauth.urls')),

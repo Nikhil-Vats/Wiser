@@ -1,13 +1,15 @@
 from __future__ import unicode_literals
 from django.shortcuts import render
 from django.views.generic import View,ListView
-from django.http import JsonResponse,HttpResponseRedirect
+from django.http import JsonResponse,HttpResponseRedirect,HttpResponse
 from main.models import Userdata,Question,Answer
 import json
 from django.contrib.auth.models import User
 import datetime as dt
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout
+import openpyxl
+from openpyxl.utils import get_column_letter
 
 def main(request):
     return render(request, 'index.html',)
@@ -61,7 +63,8 @@ def prepos_details(request):
         ud = Userdata.objects.get(user_id = request.user)
         dat = []
         qlist = Question.objects.none()
-        r = -1
+        r = 0
+        eqno = -1
 
         if ud.status == 1: 
             qlist = Question.objects.filter(q_category=ud.category,q_type='prepos')
@@ -91,13 +94,12 @@ def prepos_details(request):
                     dat.append({"format":"mcq","pk":q.pk,"text":q.text,"choice1":q.choice1,"choice2":q.choice2,"choice3":q.choice3,"choice4":q.choice4,"choice5":q.choice5,"choice6":q.choice6,"choice7":q.choice7})                   
 
 
-                eqno = qlist.count()+r
-
                 qlist = Question.objects.filter(q_category=ud.category,q_type='experiment',q_format="radio")
 
                 for q in qlist:
                     dat.append({"format":"radio","pk":q.pk,"text":q.text,"hint":q.choice1})
 
+                eqno = len(dat)
 
                 qlist = Question.objects.filter(q_category=ud.category,q_type='experiment',q_format="openended")
 
@@ -324,16 +326,14 @@ def admin_page_details(request):
     return JsonResponse({"success":1})
 
 
-def admin_db(request):
-    import openpyxl
-    from openpyxl.utils import get_column_letter
+def admin_db_1(request):
     queryset= Userdata.objects.all()
 
     response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
     response['Content-Disposition'] = 'attachment; filename=database.xlsx'
     wb = openpyxl.Workbook()
     ws = wb.get_active_sheet()
-    ws.title = data['q_type']
+    ws.title = 'prepos'
 
     row_num = 0
 
@@ -341,37 +341,37 @@ def admin_db(request):
     columns = [
         (u"ID", 15),
         (u"Name", 40),
-        (u"Email", 50),
+        # (u"Email", 50),
         (u"Age", 50),
         (u"Gender", 50),
         (u"Education_Level", 50),
         (u"Phone", 20),
 
     ]
-    for q in Question.objects.filter(q_type=data['q_type']):
+    for q in Question.objects.filter(q_type='prepos'):
         columns+=(q.text,200),
 
 
     for col_num in range(len(columns)):
         c = ws.cell(row=row_num + 1, column=col_num + 1)
         c.value = columns[col_num][0]
-        c.style.font.bold = True
         # set column width
         ws.column_dimensions[get_column_letter(col_num+1)].width = columns[col_num][1]
 
     for ud in queryset:
+        # use = User.objects.get(pk=ud.user_id)
         row_num += 1
         row = [
             ud.pk,
-            ud.user_id.name,
-            ud.user_id.email,
+            ud.name,
+            # use.email,
             ud.age,
             ud.gender,
             ud.education_level,
             ud.contactno,
         ]
 
-        for an in Answer.objects.filter(userdata_id=ud, q_no__q_type=data['q_type']):
+        for an in Answer.objects.filter(userdata_id=ud, q_no__q_type='prepos'):
             row+=an.ans
 
 
@@ -383,3 +383,171 @@ def admin_db(request):
     wb.save(response)
     return response
 
+def admin_db_2(request):
+    queryset= Userdata.objects.all()
+
+    response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+    response['Content-Disposition'] = 'attachment; filename=database.xlsx'
+    wb = openpyxl.Workbook()
+    ws = wb.get_active_sheet()
+    ws.title = 'experiment'
+
+    row_num = 0
+
+
+    columns = [
+        (u"ID", 15),
+        (u"Name", 40),
+        # (u"Email", 50),
+        (u"Age", 50),
+        (u"Gender", 50),
+        (u"Education_Level", 50),
+        (u"Phone", 20),
+
+    ]
+    for q in Question.objects.filter(q_type='experiment'):
+        columns+=(q.text,200),
+
+
+    for col_num in range(len(columns)):
+        c = ws.cell(row=row_num + 1, column=col_num + 1)
+        c.value = columns[col_num][0]
+        # set column width
+        ws.column_dimensions[get_column_letter(col_num+1)].width = columns[col_num][1]
+
+    for ud in queryset:
+        # use = User.objects.get(pk=ud.user_id)
+        row_num += 1
+        row = [
+            ud.pk,
+            ud.name,
+            # use.email,
+            ud.age,
+            ud.gender,
+            ud.education_level,
+            ud.contactno,
+        ]
+
+        for an in Answer.objects.filter(userdata_id=ud, q_no__q_type='experiment'):
+            row+=an.ans
+
+
+        for col_num in range(len(row)):
+            c = ws.cell(row=row_num + 1, column=col_num + 1)
+            c.value = row[col_num]
+                #c.style.alignment.wrap_text = True
+
+    wb.save(response)
+    return response
+
+def admin_db_3(request):
+    queryset= Userdata.objects.all()
+
+    response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+    response['Content-Disposition'] = 'attachment; filename=database.xlsx'
+    wb = openpyxl.Workbook()
+    ws = wb.get_active_sheet()
+    ws.title = 'placebo'
+
+    row_num = 0
+
+
+    columns = [
+        (u"ID", 15),
+        (u"Name", 40),
+        # (u"Email", 50),
+        (u"Age", 50),
+        (u"Gender", 50),
+        (u"Education_Level", 50),
+        (u"Phone", 20),
+
+    ]
+    for q in Question.objects.filter(q_type='placebo'):
+        columns+=(q.text,200),
+
+
+    for col_num in range(len(columns)):
+        c = ws.cell(row=row_num + 1, column=col_num + 1)
+        c.value = columns[col_num][0]
+        # set column width
+        ws.column_dimensions[get_column_letter(col_num+1)].width = columns[col_num][1]
+
+    for ud in queryset:
+        row_num += 1
+        row = [
+            ud.pk,
+            ud.name,
+            # User.objects.get(pk=ud.user_id).email,
+            ud.age,
+            ud.gender,
+            ud.education_level,
+            ud.contactno,
+        ]
+
+        for an in Answer.objects.filter(userdata_id=ud, q_no__q_type='placebo'):
+            row+=an.ans
+
+
+        for col_num in range(len(row)):
+            c = ws.cell(row=row_num + 1, column=col_num + 1)
+            c.value = row[col_num]
+                #c.style.alignment.wrap_text = True
+
+    wb.save(response)
+    return response
+
+def admin_db_4(request):
+    queryset= Userdata.objects.all()
+
+    response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+    response['Content-Disposition'] = 'attachment; filename=database.xlsx'
+    wb = openpyxl.Workbook()
+    ws = wb.get_active_sheet()
+    ws.title = 'control'
+
+    row_num = 0
+
+
+    columns = [
+        (u"ID", 15),
+        (u"Name", 40),
+        # (u"Email", 50),
+        (u"Age", 50),
+        (u"Gender", 50),
+        (u"Education_Level", 50),
+        (u"Phone", 20),
+
+    ]
+    for q in Question.objects.filter(q_type='control'):
+        columns+=(q.text,200),
+
+
+    for col_num in range(len(columns)):
+        c = ws.cell(row=row_num + 1, column=col_num + 1)
+        c.value = columns[col_num][0]
+        # set column width
+        ws.column_dimensions[get_column_letter(col_num+1)].width = columns[col_num][1]
+
+    for ud in queryset:
+        row_num += 1
+        row = [
+            ud.pk,
+            ud.name,
+            # User.objects.get(pk=ud.user_id).email,
+            ud.age,
+            ud.gender,
+            ud.education_level,
+            ud.contactno,
+        ]
+
+        for an in Answer.objects.filter(userdata_id=ud, q_no__q_type='control'):
+            row+=an.ans
+
+
+        for col_num in range(len(row)):
+            c = ws.cell(row=row_num + 1, column=col_num + 1)
+            c.value = row[col_num]
+                #c.style.alignment.wrap_text = True
+
+    wb.save(response)
+    return response
