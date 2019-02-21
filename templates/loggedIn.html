@@ -25,6 +25,18 @@
         <!-- <a href="http://www.freepik.com" id="attribution">Designed by new7ducks / Freepik</a> -->
         <img src="{% static '/images/week-schedule.svg' %}" class="shadow1 box" id="week-schedule-img" onclick="closeWeeks()">
     </div>
+    <div class="info-exer info-welcome">
+        <div onclick="closeWelcomeInfo()" style="cursor:pointer;">
+            <div class="close-btn"></div>
+            <div class="close-btn"></div>
+        </div>
+        <div class="exer-popup">
+            <div class="tick-div">&#10004;</div>
+            <div class="exer-heading">Congrats!!</div>
+            <div class="exer-desc">You have successfully entered to the main exercise now. There will be few questions in each sessions followed by some structured steps. Make sure that you answer all the questions correctly and follow the exercise.</div>
+            <a href="#" class="btn-gradient red small" onclick="closeWelcomeInfo()">Great!</a>
+        </div>
+    </div>
     <div class="open-btn"></div>
     <div id="sidenav-bg"></div>
     <div id="sidenav-content">
@@ -44,14 +56,14 @@
                 <div class="close-btn"></div>
             </div>
             <h1 class="heading">About Us</h1>
-            <p id="info-text">This is a research funded by Indian Council of Medical Research (New Delhi). The team comprises of a renowned figure in the field of positive psychology, currently serving as an Assistant professor of psychology in Birla Institute of Technology and Science, a clinical psychologist, interested in the area of psychotherapy, currently serving as a senior research fellow in  Birla Institute of Technology and Science, and two immensely talented and budding computer professionals devoted their effort in the technical part of the website. With all the diversities and expertise in their respective field, this team is dedicated to answer the pertaining question of this study which revolves around the enhancement of wellbeing among youths. With careful selection of four domains (self management, stress management, emotional intelligence and time management) this would be a novel effort to combine the individual factors of wellbeing under one roof.<br><br>
+            <p id="info-text">This research is funded by the Indian Council of Medical Research (New Delhi). The team comprises of a positive psychology enthusiast, currently serving as an Assistant professor of psychology in Birla Institute of Technology and Science, a clinical psychologist, interested in the area of psychotherapy, currently serving as a senior research fellow in  Birla Institute of Technology and Science, and two immensely talented and budding computer professionals devoted their efforts to shape the imagination. With all the diversities and expertise in their respective fields, this team is dedicated to answering the pertaining question of this study which revolves around the enhancement of wellbeing among youths. With careful selection of a few domains, this would be a novel efforts to combine the individual factors of wellbeing under one roof.<br><br>
 
-            Lastly we thank you immensely for your participation in this study. We need your support and cooperation to make this research happen.<br><br>
+            Lastly, we anticipate your participation in this research. We need your support and cooperation to make this research happen.<br><br>
 
             Regards<br>
             Research Team-WiseR</p>
         </div>
-        <div id="info-exer">
+        <div class="info-exer">
             <div onclick="closeExerInfo()" style="cursor:pointer;">
                 <div class="close-btn"></div>
                 <div class="close-btn"></div>
@@ -60,7 +72,43 @@
                 <div class="tick-div">&#10004;</div>
                 <div class="exer-heading">Exercises</div>
                 <div class="exer-desc">Welcome to the Exercises Section, the next couple of questions are targetted to be done as an exercise and come back to fill the answers later</div>
-                <a href="#" class="btn-gradient red small" onclick="closeExerInfo()">Okay</a>
+                <a href="#" class="btn-gradient red small" onclick="closeExerInfo()">Let's go to Online Tasks</a>
+            </div>
+        </div>
+        <div class="info-exer info-session">
+            <div onclick="closeSessionInfo()" style="cursor:pointer;">
+                <div class="close-btn"></div>
+                <div class="close-btn"></div>
+            </div>
+            <div class="exer-popup">
+                <div class="tick-div">&#10004;</div>
+                <div class="exer-heading">Welcome to the Session</div>
+                <div class="exer-desc">Please click okay to start the current session</div>
+                <a href="#" class="btn-gradient red small" onclick="closeSessionInfo()">Okay</a>
+            </div>
+        </div>
+        <div class="info-exer info-thankyou">
+            <div onclick="closeThankYouInfo()" style="cursor:pointer;">
+                <div class="close-btn"></div>
+                <div class="close-btn"></div>
+            </div>
+            <div class="exer-popup">
+                <div class="tick-div">&#10004;</div>
+                <div class="exer-heading">Thank You</div>
+                <div class="exer-desc">Hey, thank you for being part of the study, now let's know you a little better!</div>
+                <a href="#" class="btn-gradient red small" onclick="closeThankYouInfo()">Okay</a>
+            </div>
+        </div>
+        <div class="info-exer info-review">
+            <div onclick="closeReviewInfo()" style="cursor:pointer;">
+                <div class="close-btn"></div>
+                <div class="close-btn"></div>
+            </div>
+            <div class="exer-popup">
+                <div class="tick-div">&#10004;</div>
+                <div class="exer-heading">Review</div>
+                <div class="exer-desc">Let's quickly review that what have you done, for the previous week</div>
+                <a href="#" class="btn-gradient red small" onclick="closeReviewInfo()">Okay</a>
             </div>
         </div>
         <div id="info-1">
@@ -69,7 +117,7 @@
                 <div class="close-btn"></div>
             </div>
             <h1 class="heading">Self Management</h1>
-            <p id="info-text">Self-management represents a collection of skills that individuals can engage in order to become more self-reliant. in order to manage self, one has to have a clear understanding of self-selecting targets known as goals and also the required skills to achieve a particular target(s). overall self-management is a key to performance, health, productivity and satisfaction with your life and career.</p>
+            <p id="info-text">Self-management represents a collection of skills that individuals can engage in order to become more self-reliant. in order to manage self, one has to have a clear understanding of self-selecting targets known as goals and also the required skills to achieve particular target(s). Overall self-management is a key to performance, health, productivity and satisfaction with your life and career.</p>
         </div>
         <div id="info-2">
             <div onclick="closeModInfo(2)" style="cursor:pointer;">
@@ -85,7 +133,7 @@
                 <div class="close-btn"></div>
             </div>
             <h1 class="heading">Time Management</h1>
-            <p id="info-text">Time management means giving insight into time consuming activities, changing time expenditure and increasing efficiency by teaching people how to make a daily planning, how to prioritize task and handle unexpected tasks. this exercise is supposed to be helpful to the students in enhancing their skills for time management.</p>
+            <p id="info-text">Time management means giving insight into time consuming activities, changing time expenditure and increasing efficiency by teaching people how to make a daily planning, how to prioritize task and handle unexpected tasks. This exercise is supposed to be helpful to the students in enhancing their skills for time management.</p>
         </div>
         <div id="info-4">
             <div onclick="closeModInfo(4)" style="cursor:pointer;">
@@ -98,13 +146,13 @@
         <div id="termsAndConditions">
             <h1 class="heading">Terms and Conditions</h1>
             <ul id="tnc">
-                <p>This is an intervention study aims to enhance student wellbeing through some structures techniques. this study is funded by the Indian Council of Medical Research. The researchers are a team of psychologists, authorized to impart mental health services and software professionals. We meant to address the wellbeing and this will be only effective if you follow it all through for the stipulated time. There are no harmful consequences associated with the techniques, used on the website so far. However, if a client is suffering from some psychological disorder we will strongly recommend to consult some mental health professionals. By ticking the below box I am agreeing to give consent for the following.<br>
+                <p>This is an intervention study aims to enhance student wellbeing through some structured techniques. This study is funded by the Indian Council of Medical Research. The researchers are a team of psychologists and software professionals. We meant to address the wellbeing and this will be only effective if you follow it all through for the stipulated time. There are no harmful consequences associated with the techniques, used on the website so far. However, if a client is suffering from some psychological disorder we will strongly recommend to consult some mental health professionals. By ticking the below box I am agreeing to give consent for the following.<br>
                 By clicking next below I am agreeing to give consent for the following.
                 </p>
-                <li>Complete a pre and post-test interview schedule at the starting and preceding the termination of the above program.</li>
                 <li>Complete an internet-based wellbeing program by logging in at the requisite time intervals.</li>
+                <li>Complete a pre and post-test interview schedule at the starting and preceding the termination of the above program.</li>
                 <li>Participation in this program is voluntary and I can choose not to participate in part or all of the program or else can withdraw at any stage of the program without being penalized or disadvantaged in any manner. If one has been randomly assigned to the control condition, he may not get the benefits of the intervention as per the hypothesis.</li>
-                <li>The information provided on my behalf will remain confidential and mo information in part or whole whatsoever be provided to any person/institution/organization without my permission.</li>
+                <li>The information provided on my behalf will remain confidential and no information in part or whole whatsoever be provided to any person/institution/organization without my permission.</li>
                 <li>I understand that data from the web pages will be kept in secured storage and will be accessible only to the researcher team. Further, if any publications are out from the data my identity will be made anonymous (if at all documented) and remains disclosed.</li>
                 <li>You have read our Terms of agreement and accepted them.</li>
                 <li>I understand that if I complete the information and click on the continue button below that I give way my consent to participate in the above program without any objections.</li>
@@ -171,11 +219,15 @@
         </div>
         <div class="contact-div">
             <div class="contact-close-btn" onclick="closeContact()">&times;</div>
+            <div class="research-team">
+                <div class="research-text">Research Team</div>
+            </div>
             <div class="details">
                 <div class="infoWrap">
-                    <div class="title-text">Research Team</div>
+                    <div class="title-text">Principal Investigator</div>
                     <ul>
                         <li class="phone"><a href="#">Dr. Rajneesh Choubisa (Assistant Professor of Psychology)</a></li>
+                        <li class="phone"><a href="https://www.bits-pilani.ac.in/Pilani/rajneeshchoubisa/Profile">Profile</a></li>
                         <li class="mail"><a href="mailto:rajneesh.choubisa@pilani.bits-pilani.ac.in">rajneesh.choubisa@pilani.bits-pilani.ac.in</a> / <a href="mailto:rajneesh.choubisa@gmail.com">rajneesh.choubisa@gmail.com</a></li>
                         <li class="adr"><a href="#" target="_blank">Room no: 6168-P,<br>
                         New Academic Building,<br>
@@ -188,7 +240,7 @@
             </div>
             <div class="details details-2">
                 <div class="infoWrap">
-                    <div class="title-text">Research Team</div>
+                    <div class="title-text">Senior Research Fellow</div>
                     <ul><li class="phone"><a href="#">Ms. Ishita Chatterjee</a></li>
                         <li class="adr"><a href="#" target="_blank">Birla Institute of Technology and Science, Pilani<br>
                         Pilani-333031, Rajasthan, India
@@ -198,7 +250,7 @@
             </div>
             <div class="details details-3">
                 <div class="infoWrap">
-                    <div class="title-text">Research Team</div>
+                    <div class="title-text">Developer</div>
                     <ul><li class="phone"><a href="#">Mr. Akarshit Jain<br>
                         3rd year, B.E.(Hons) Electronics &amp; Instrumentation</a></li>
                         <li class="mail"><a href="mailto:f2016448@pilani.bits-pilani.ac.in">f2016448@pilani.bits-pilani.ac.in</a></li>
@@ -567,6 +619,8 @@
     <template id="placebo">
         <div class="back" onclick="goExpBack()"><img src="{% static '/images/back.svg' %}"></div>
         <div class="questions">
+            <div id="disp-clue" onclick="displayClue()"><img src="{% static '/images/open-clue.svg' %}" id="clue-img"></div>
+            <div id="hide-clue" onclick="hideClue()"><img src="{% static '/images/close-clue.svg' %}" id="hide-clue-img"></div>
             <div class="progress">
                 <div class="start"></div>
                 <div class="progress-bar"></div>
@@ -574,7 +628,8 @@
             </div>
             <div class="background-wrapper"></div>
             <h1 class="question">What do you like the most?</h1>
-            <input type="text" name="hint" class="hint-text" disabled="disabled" value="Hint Text Here...">
+            <textarea type="text" name="hint" class="hint-text" disabled="disabled" placeholder="Hint Text Here..."></textarea>
+            <textarea type="text" name="clue" class="clue-text" disabled="disabled" placeholder="Clue Text Here..."></textarea>
             <textarea name="food" placeholder="Start typing...." autofocus id="placebo-ans" maxlength="250" style="overflow: auto; word-wrap: break-word; resize: none; max-height: 325px;"></textarea>
             <button type="button" onclick="submitPlaceboAns()" id="placebo-btn">Submit</button>
             <!-- <a href="https://www.freepik.com/free-photos-vectors/background" id="background-attribution">Background vector created by freepik - www.freepik.com</a> -->
@@ -582,11 +637,15 @@
     </template>
     <template id="control">
         <!-- <div class="back" onclick="goBack()"><img src="{% static '/images/back.svg' %}"></div> -->
-        <div class="center"><span>Thank you for filling, an email will be sent for further questions, Please check back later!</span><img src="{% static '/images/emoji.png' %}"></div>
+        <div class="center"><span>Thank you for filling, an email will be sent for further questions, Please check back later after 28 days!</span><img src="{% static '/images/panda 1-01.svg' %}" class="emoji"></div>
+    </template>
+    <template id="control-7">
+        <!-- <div class="back" onclick="goBack()"><img src="{% static '/images/back.svg' %}"></div> -->
+        <div class="center"><span>Thank you for filling, an email will be sent for further questions, Please check back later after 7 days!</span><img src="{% static '/images/panda 1-01.svg' %}" class="emoji"></div>
     </template>
     <template id="complete">
         <!-- <div class="back" onclick="goBack()"><img src="{% static '/images/back.svg' %}"></div> -->
-        <div class="center"><span>Thank you for completing the Program</span><img src="{% static '/images/emoji.png' %}"></div>
+        <div class="center"><span>Thank you for completing the Program</span><img src="{% static '/images/panda 1-01.svg' %}" class="emoji"></div>
     </template>
     <template id="validation-template">
         <div class="modal">
@@ -655,7 +714,7 @@
         <a class="button" href="#popup">Open Offline Tasks</a>
         <div class="popup" id="popup">
             <div class="popup-inner">
-                <div class="popup__photo"><a title="Parutakupiu, Tomtheman5, JBarta [Public domain], via Wikimedia Commons" href="https://commons.wikimedia.org/wiki/File:Olympic_pictogram_Athletics_-_colored.svg"><img alt="Olympic pictogram Athletics - colored" src="https://upload.wikimedia.org/wikipedia/commons/f/f6/Olympic_pictogram_Athletics_-_colored.svg"></a></div>
+                <div class="popup__photo"><img src="{% static '/images/domain.svg' %}"></div>
                 <div class="popup__text">
                     <h1>Welcome to the offline activity of Session 1</h1>
                     <p>Self-management is an ongoing process and the more you practice the more you will be effective in managing your priorities. so you have to do the following activities for the rest of the week</p>
@@ -697,7 +756,7 @@
         <a class="button" href="#popup">Open Offline Tasks</a>
         <div class="popup" id="popup">
             <div class="popup-inner">
-                <div class="popup__photo"><a title="Parutakupiu, Tomtheman5, JBarta [Public domain], via Wikimedia Commons" href="https://commons.wikimedia.org/wiki/File:Olympic_pictogram_Athletics_-_colored.svg"><img alt="Olympic pictogram Athletics - colored" src="https://upload.wikimedia.org/wikipedia/commons/f/f6/Olympic_pictogram_Athletics_-_colored.svg"></a></div>
+                <div class="popup__photo"><img src="{% static '/images/domain.svg' %}"></div>
                 <div class="popup__text">
                     <h1>Welcome to the offline activity of Session 2</h1>
                     <p>Like self-management, being aware of your and others’ emotion needs practice, but continuous work over this, not only will make you aware of your and others’ feeling but make you able to take decisions effectively and handle the situations efficiently. So keep practising the things all through</p>
@@ -738,7 +797,7 @@
         <a class="button" href="#popup">Open Offline Tasks</a>
         <div class="popup" id="popup">
             <div class="popup-inner">
-                <div class="popup__photo"><a title="Parutakupiu, Tomtheman5, JBarta [Public domain], via Wikimedia Commons" href="https://commons.wikimedia.org/wiki/File:Olympic_pictogram_Athletics_-_colored.svg"><img alt="Olympic pictogram Athletics - colored" src="https://upload.wikimedia.org/wikipedia/commons/f/f6/Olympic_pictogram_Athletics_-_colored.svg"></a></div>
+                <div class="popup__photo"><img src="{% static '/images/domain.svg' %}"></div>
                 <div class="popup__text">
                     <h1>Welcome to the offline activity of Session 3</h1>
                     <p>Instruction- you have to do the following activities for the rest of the week</p>
@@ -776,7 +835,7 @@
         <a class="button" href="#popup">Open Offline Tasks</a>
         <div class="popup" id="popup">
             <div class="popup-inner">
-                <div class="popup__photo"><a title="Parutakupiu, Tomtheman5, JBarta [Public domain], via Wikimedia Commons" href="https://commons.wikimedia.org/wiki/File:Olympic_pictogram_Athletics_-_colored.svg"><img alt="Olympic pictogram Athletics - colored" src="https://upload.wikimedia.org/wikipedia/commons/f/f6/Olympic_pictogram_Athletics_-_colored.svg"></a></div>
+                <div class="popup__photo"><img src="{% static '/images/domain.svg' %}"></div>
                 <div class="popup__text">
                     <h1>Welcome to the offline activity of Session 4</h1>
                     <ul>

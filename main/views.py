@@ -73,9 +73,9 @@ def prepos_details(request):
                 if q.q_format=="mcq":
                     dat.append({"format":"mcq","pk":q.pk,"text":q.text,"choice1":q.choice1,"choice2":q.choice2,"choice3":q.choice3,"choice4":q.choice4,"choice5":q.choice5,"choice6":q.choice6,"choice7":q.choice7})
                 elif q.q_format=="openended":
-                    dat.append({"format":"openended","pk":q.pk,"text":q.text,"hint":q.choice1})
+                    dat.append({"format":"openended","pk":q.pk,"text":q.text,"hint":q.choice1,"clue":q.choice2})
                 else:
-                    dat.append({"format":"radio","pk":q.pk,"text":q.text,"hint":q.choice1})
+                    dat.append({"format":"radio","pk":q.pk,"text":q.text,"hint":q.choice1,"clue":q.choice2})
 
 
         elif ud.status == 2:
@@ -97,14 +97,14 @@ def prepos_details(request):
                 qlist = Question.objects.filter(q_category=ud.category,q_type='experiment',q_format="radio")
 
                 for q in qlist:
-                    dat.append({"format":"radio","pk":q.pk,"text":q.text,"hint":q.choice1})
+                    dat.append({"format":"radio","pk":q.pk,"text":q.text,"hint":q.choice1,"clue":q.choice2})
 
                 eqno = len(dat)
 
                 qlist = Question.objects.filter(q_category=ud.category,q_type='experiment',q_format="openended")
 
                 for q in qlist:
-                    dat.append({"format":"openended","pk":q.pk,"text":q.text,"hint":q.choice1})
+                    dat.append({"format":"openended","pk":q.pk,"text":q.text,"hint":q.choice1,"clue":q.choice2})
                     
             else:
                 return JsonResponse({"data":-1,"qno":-1,"totq":-1,"rqno":-1})
@@ -118,9 +118,9 @@ def prepos_details(request):
                     if q.q_format=="mcq":
                         dat.append({"format":"mcq","pk":q.pk,"text":q.text,"choice1":q.choice1,"choice2":q.choice2,"choice3":q.choice3,"choice4":q.choice4,"choice5":q.choice5,"choice6":q.choice6,"choice7":q.choice7})
                     elif q.q_format=="openended":
-                        dat.append({"format":"openended","pk":q.pk,"text":q.text,"hint":q.choice1})
+                        dat.append({"format":"openended","pk":q.pk,"text":q.text,"hint":q.choice1,"clue":q.choice2})
                     else:
-                        dat.append({"format":"radio","pk":q.pk,"text":q.text,"hint":q.choice1})
+                        dat.append({"format":"radio","pk":q.pk,"text":q.text,"hint":q.choice1,"clue":q.choice2})
 
             else:
                 return JsonResponse({"data":-1,"qno":-1,"totq":-1,"rqno":-1})
@@ -142,9 +142,9 @@ def prepos_details(request):
                     if q.q_format=="mcq":
                         dat.append({"format":"mcq","pk":q.pk,"text":q.text,"choice1":q.choice1,"choice2":q.choice2,"choice3":q.choice3,"choice4":q.choice4,"choice5":q.choice5,"choice6":q.choice6,"choice7":q.choice7})
                     elif q.q_format=="openended":
-                        dat.append({"format":"openended","pk":q.pk,"text":q.text,"hint":q.choice1})
+                        dat.append({"format":"openended","pk":q.pk,"text":q.text,"hint":q.choice1,"clue":q.choice2})
                     else:
-                        dat.append({"format":"radio","pk":q.pk,"text":q.text,"hint":q.choice1})
+                        dat.append({"format":"radio","pk":q.pk,"text":q.text,"hint":q.choice1,"clue":q.choice2})
 
                 eqno = qlist.count()+r
 
@@ -187,7 +187,7 @@ def ans_ques(request):
                 if iid>0 and iid<5:
                     ud.status = 2  #experiment
                     ud.group = "experiment"
-                elif iid>4 and iid<8:
+                elif iid>4 and iid<9:
                     ud.status = 3  #placebo
                     ud.group = "placebo"
                 else:

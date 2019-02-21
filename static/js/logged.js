@@ -57,6 +57,7 @@ window.onload = function() {
         if (jsonData.category == 0) {
           // Lock Everything
           lockAllWeeks();
+          showWelcomeInfo();
         } else if (jsonData.category == 1) {
           // Lock everything then unlock week 1
           lockAllWeeks();
@@ -91,6 +92,8 @@ window.onload = function() {
         if (jsonData.category == 0) {
           // Lock Everything
           lockAllWeeks();
+          document.getElementsByClassName('info-welcome')[0].getElementsByClassName('exer-desc')[0].innerHTML = 'You have successfully entered to the main exercise now.';
+          showWelcomeInfo();
         } else if (jsonData.category == 1) {
           // Lock everything then unlock week 1
           lockAllWeeks();
@@ -261,6 +264,7 @@ function GetBasicInfo() {
     container.appendChild(profileDiv.content.cloneNode(true));
     // Initializes the States
     print_state("states");
+    showThankYouInfo();
   } else {
     document.getElementById('basic-info-btn').innerHTML = 'Please agree to the terms and conditions';
     document.getElementById('basic-info-btn').style.fontSize = '15px';
@@ -450,6 +454,7 @@ function goToPlaceboWeek(week_num, context) {
     xhttp.send(JSON.stringify(data));
   }
 }
+var postLevel=1;
 function goToPostLevel(category, context) {
   // var crown = document.getElementsByClassName('crown')[0];
   // var preAssess = document.getElementById('pre-assessment');
@@ -459,6 +464,7 @@ function goToPostLevel(category, context) {
     "category": category,
     "csrftoken": []
   };
+  postLevel = category;
   var csrf_token = getCookie('csrftoken');
   data["csrftoken"].push({
     "csrfmiddlewaretoken": csrf_token
@@ -639,9 +645,21 @@ function getExpQuestion() {
       }
       if (jsonData.data != -1) {
         // Question Exists
-        if (jsonData.qno == jsonData.eqno+1) {
+        if (jsonData.qno == 1 && jsonData.rqno>0) {
+          // Display Welcome to Review Questions
+          showReviewInfo();
+        }
+        if (week == 1 && (jsonData.qno == jsonData.eqno+1-4)) {
           // Display Welcome to Exercises
           showExerInfo();
+        }
+        if (jsonData.qno == jsonData.eqno+1 && week != 1) {
+          // Display Welcome to Exercises
+          showExerInfo();
+        }
+        if (jsonData.qno == jsonData.rqno+1) {
+          // Display welcome to session
+          showSessionInfo();
         }
         if (jsonData.data.format == "mcq") {
           var pre_assess_form = document.getElementById('exp');
@@ -693,14 +711,21 @@ function getExpQuestion() {
           if (jsonData.data.choice7 == 'wsr') {
             document.getElementById('7-option').parentElement.style.display = 'none';
           }
-        } else if (jsonData.data.format == 'openended') {
+        } else if (jsonData.data.format == 'openended' && week != 1) {
           preAssess = document.getElementById('placebo');
           container.appendChild(preAssess.content.cloneNode(true));
           document.getElementById('placebo-btn').setAttribute('onclick', 'submitExpAns()');
           if (jsonData.data.hint != 'wsr') {
-            document.getElementsByClassName('container')[0].getElementsByClassName('hint-text')[0].setAttribute('value',jsonData.data.hint);
+            document.getElementsByClassName('container')[0].getElementsByClassName('hint-text')[0].setAttribute('placeholder',jsonData.data.hint);
           } else {
             document.getElementsByClassName('container')[0].getElementsByClassName('hint-text')[0].style.display = 'none';
+          }
+          if (jsonData.data.clue != 'wsr') {
+            document.getElementsByClassName('container')[0].getElementsByClassName('clue-text')[0].setAttribute('placeholder',jsonData.data.clue);
+            document.getElementsByClassName('container')[0].getElementsByClassName('clue-text')[0].style.display = 'none';
+            document.getElementById('disp-clue').style.display = 'unset';
+          } else {
+            document.getElementsByClassName('container')[0].getElementsByClassName('clue-text')[0].style.display = 'none';
           }
           if (jsonData.qno > jsonData.rqno && jsonData.qno <= jsonData.eqno) {
             if (jsonData.rqno != -1)
@@ -712,11 +737,37 @@ function getExpQuestion() {
             document.getElementsByClassName('container')[0].getElementsByClassName('question')[0].innerHTML = "Review of Previous Session<br><br>" + jsonData.qno + ') ' + jsonData.data.text;
           else
             document.getElementsByClassName('container')[0].getElementsByClassName('question')[0].innerHTML = "Exercises to Do<br><br>" + (jsonData.qno-jsonData.eqno) + ') ' + jsonData.data.text;
+        } else if (jsonData.data.format == 'openended' && week == 1) {
+          preAssess = document.getElementById('placebo');
+          container.appendChild(preAssess.content.cloneNode(true));
+          document.getElementById('placebo-btn').setAttribute('onclick', 'submitExpAns()');
+          if (jsonData.data.hint != 'wsr') {
+            document.getElementsByClassName('container')[0].getElementsByClassName('hint-text')[0].setAttribute('placeholder',jsonData.data.hint);
+          } else {
+            document.getElementsByClassName('container')[0].getElementsByClassName('hint-text')[0].style.display = 'none';
+          }
+          if (jsonData.data.clue != 'wsr') {
+            document.getElementsByClassName('container')[0].getElementsByClassName('clue-text')[0].setAttribute('placeholder',jsonData.data.clue);
+            document.getElementsByClassName('container')[0].getElementsByClassName('clue-text')[0].style.display = 'none';
+            document.getElementById('disp-clue').style.display = 'unset';
+          } else {
+            document.getElementsByClassName('container')[0].getElementsByClassName('clue-text')[0].style.display = 'none';
+          }
+          if (jsonData.qno > jsonData.rqno && jsonData.qno <= jsonData.eqno) {
+            if (jsonData.rqno != -1)
+              document.getElementsByClassName('container')[0].getElementsByClassName('question')[0].innerHTML = (jsonData.qno-jsonData.rqno-4) + ') ' + jsonData.data.text;
+            else
+              document.getElementsByClassName('container')[0].getElementsByClassName('question')[0].innerHTML = jsonData.qno + ') ' + jsonData.data.text;
+          }
+          else if (jsonData.qno <= jsonData.rqno)
+            document.getElementsByClassName('container')[0].getElementsByClassName('question')[0].innerHTML = "Review of Previous Session<br><br>" + jsonData.qno + ') ' + jsonData.data.text;
+          else
+            document.getElementsByClassName('container')[0].getElementsByClassName('question')[0].innerHTML = "Exercises to Do<br><br>" + (jsonData.qno-jsonData.eqno) + ') ' + jsonData.data.text;
         } else {
           // Radio Button Content
           preAssess = document.getElementById('dartboard');
           container.appendChild(preAssess.content.cloneNode(true));
-          document.getElementsByClassName('container')[0].getElementsByClassName('question')[0].innerHTML = jsonData.data.text;
+          document.getElementsByClassName('container')[0].getElementsByClassName('question')[0].innerHTML = "Exercises to Do<br><br>" + jsonData.data.text;
         }
         pk = jsonData.data.pk;
         // Hide Loader Screen after 2s
@@ -724,14 +775,74 @@ function getExpQuestion() {
         // Reset Progress Bar
         expBarWidth = 0;
         document.getElementsByClassName('progress-bar')[0].style.width = 0;
-        for (var i = 1; i < jsonData.qno; i++) {
-          increaseExpProgress();
+        if (week != 1) {
+          if (jsonData.qno <= jsonData.rqno) {
+            num_ques_exp = jsonData.rqno;
+            for (var i = 1; i < jsonData.qno; i++) {
+              increaseExpProgress();
+            }
+          } else if (jsonData.qno > jsonData.rqno && jsonData.qno <= jsonData.eqno) {
+            var start = 1;
+            if (jsonData.eqno != -1 && jsonData.rqno != -1) {
+              num_ques_exp = (jsonData.eqno-jsonData.rqno);
+            } else if (jsonData.eqno != -1) {
+              num_ques_exp = (jsonData.eqno-0);
+            } else {
+              num_ques_exp = (0);
+            }
+            for (var i = start; i < jsonData.qno - jsonData.rqno ; i++) {
+              increaseExpProgress();
+            }
+          } else {
+            var start = 1;
+            if (jsonData.eqno != -1 && jsonData.rqno != -1) {
+              num_ques_exp = (jsonData.totq-jsonData.eqno);
+            } else if (jsonData.eqno != -1) {
+              num_ques_exp = (jsonData.totq-jsonData.eqno);
+            } else {
+              num_ques_exp = (jsonData.totq);
+            }
+            for (var i = start; i < jsonData.qno - jsonData.eqno; i++) {
+              increaseExpProgress();
+            }
+          }
+        } else {
+          if (jsonData.qno <= jsonData.rqno) {
+            num_ques_exp = jsonData.rqno;
+            for (var i = 1; i < jsonData.qno; i++) {
+              increaseExpProgress();
+            }
+          } else if (jsonData.qno > jsonData.rqno && jsonData.qno <= (jsonData.eqno - 4)) {
+            var start = 1;
+            if (jsonData.eqno != -1 && jsonData.rqno != -1) {
+              num_ques_exp = (jsonData.eqno-jsonData.rqno-4);
+            } else if (jsonData.eqno != -1) {
+              num_ques_exp = (jsonData.eqno-4);
+            } else {
+              num_ques_exp = (0);
+            }
+            for (var i = start; i < jsonData.qno-jsonData.rqno ; i++) {
+              increaseExpProgress();
+            }
+          } else {
+            var start = 1;
+            if (jsonData.eqno != -1 && jsonData.rqno != -1) {
+              num_ques_exp = (jsonData.totq-jsonData.eqno)+4;
+            } else if (jsonData.eqno != -1) {
+              num_ques_exp = (jsonData.totq-jsonData.eqno)+4;
+            } else {
+              num_ques_exp = (jsonData.totq);
+            }
+            for (var i = start; i < (jsonData.qno - jsonData.eqno) + 4; i++) {
+              increaseExpProgress();
+            }
+          }
         }
         if (document.getElementById('experiment-assessment'))
           container.removeChild(document.getElementById('experiment-assessment'));
       } else {
         var TnC = document.getElementById('termsAndConditions');
-        var control = document.getElementById('control');
+        var control = document.getElementById('control-7');
         var container = document.getElementsByClassName('container')[0];
         if (document.getElementsByClassName('container')[0].getElementsByClassName('questions')[0]) {
           document.getElementsByClassName('container')[0].removeChild(document.getElementsByClassName('container')[0].getElementsByClassName('questions')[0]);
@@ -937,9 +1048,16 @@ function getPlaceboQuestion() {
           document.getElementsByClassName('container')[0].getElementsByClassName('back')[0].setAttribute('onclick', 'goPlaceboBack()');
           document.getElementById('placebo-btn').setAttribute('onclick', 'submitPlaceboAns()');
           if (jsonData.data.hint != 'wsr') {
-            document.getElementsByClassName('container')[0].getElementsByClassName('hint-text')[0].setAttribute('value',jsonData.data.hint);
+            document.getElementsByClassName('container')[0].getElementsByClassName('hint-text')[0].setAttribute('placeholder',jsonData.data.hint);
           } else {
             document.getElementsByClassName('container')[0].getElementsByClassName('hint-text')[0].style.display = 'none';
+          }
+          if (jsonData.data.clue != 'wsr') {
+            document.getElementsByClassName('container')[0].getElementsByClassName('clue-text')[0].setAttribute('placeholder',jsonData.data.clue);
+            document.getElementsByClassName('container')[0].getElementsByClassName('clue-text')[0].style.display = 'none';
+            document.getElementById('disp-clue').style.display = 'unset';
+          } else {
+            document.getElementsByClassName('container')[0].getElementsByClassName('clue-text')[0].style.display = 'none';
           }
           if (jsonData.qno > jsonData.rqno && jsonData.qno <= jsonData.eqno) {
             if (jsonData.rqno != -1)
@@ -955,7 +1073,7 @@ function getPlaceboQuestion() {
           // Radio Button Content
           preAssess = document.getElementById('dartboard');
           container.appendChild(preAssess.content.cloneNode(true));
-          document.getElementsByClassName('container')[0].getElementsByClassName('question')[0].innerHTML = jsonData.data.text;
+          document.getElementsByClassName('container')[0].getElementsByClassName('question')[0].innerHTML = "Exercises to Do<br><br>" + jsonData.data.text;
         }
         pk = jsonData.data.pk;
         // Hide Loader Screen after 2s
@@ -970,7 +1088,7 @@ function getPlaceboQuestion() {
           container.removeChild(document.getElementById('placebo-assessment'));
       } else {
         var TnC = document.getElementById('termsAndConditions');
-        var control = document.getElementById('control');
+        var control = document.getElementById('control-7');
         var container = document.getElementsByClassName('container')[0];
         if (document.getElementsByClassName('container')[0].getElementsByClassName('questions')[0]) {
           document.getElementsByClassName('container')[0].removeChild(document.getElementsByClassName('container')[0].getElementsByClassName('questions')[0]);
@@ -1058,6 +1176,15 @@ function getPostQuestion() {
       }
       if (jsonData.data != -1) {
         // Question Exists
+        if (jsonData.qno == 1 && jsonData.rqno>0) {
+          // Display Welcome to Review Questions
+          showReviewInfo();
+        }
+        if (jsonData.qno == jsonData.rqno+1 && jsonData.rqno != 0 && postLevel == 1) {
+          // Display welcome to session
+          showSessionInfo();
+          document.getElementsByClassName('exer-desc')[1].innerHTML = 'Welcome to Post Assessment!';
+        }
         if (jsonData.data.format == "mcq") {
           var pre_assess_form = document.getElementById('exp');
           var temp = pre_assess_form.content.cloneNode(true);
@@ -1114,9 +1241,16 @@ function getPostQuestion() {
           container.appendChild(preAssess.content.cloneNode(true));
           document.getElementById('placebo-btn').setAttribute('onclick', 'submitPostAns()');
           if (jsonData.data.hint != 'wsr') {
-            document.getElementsByClassName('container')[0].getElementsByClassName('hint-text')[0].setAttribute('value',jsonData.data.hint);
+            document.getElementsByClassName('container')[0].getElementsByClassName('hint-text')[0].setAttribute('placeholder',jsonData.data.hint);
           } else {
             document.getElementsByClassName('container')[0].getElementsByClassName('hint-text')[0].style.display = 'none';
+          }
+          if (jsonData.data.clue != 'wsr') {
+            document.getElementsByClassName('container')[0].getElementsByClassName('clue-text')[0].setAttribute('placeholder',jsonData.data.clue);
+            document.getElementsByClassName('container')[0].getElementsByClassName('clue-text')[0].style.display = 'none';
+            document.getElementById('disp-clue').style.display = '';
+          } else {
+            document.getElementsByClassName('container')[0].getElementsByClassName('clue-text')[0].style.display = 'none';
           }
           if (jsonData.qno > jsonData.rqno && jsonData.qno <= jsonData.eqno) {
             if (jsonData.rqno != -1)
@@ -1132,7 +1266,7 @@ function getPostQuestion() {
           // Radio Button Content
           preAssess = document.getElementById('dartboard');
           container.appendChild(preAssess.content.cloneNode(true));
-          document.getElementsByClassName('container')[0].getElementsByClassName('question')[0].innerHTML = jsonData.data.text;
+          document.getElementsByClassName('container')[0].getElementsByClassName('question')[0].innerHTML = "Exercises to Do<br><br>" + jsonData.data.text;
         }
         pk = jsonData.data.pk;
         // Hide Loader Screen after 2s
@@ -1140,14 +1274,41 @@ function getPostQuestion() {
         // Reset Progress Bar
         postBarWidth = 0;
         document.getElementsByClassName('progress-bar')[0].style.width = 0;
-        for (var i = 1; i < jsonData.qno; i++) {
-          increasePostProgress();
+        if (jsonData.qno <= jsonData.rqno) {
+          num_ques_post = jsonData.rqno;
+          for (var i = 1; i < jsonData.qno; i++) {
+            increasePostProgress();
+          }
+        } else if (jsonData.qno > jsonData.rqno && jsonData.qno <= jsonData.eqno) {
+          var start = 1;
+          if (jsonData.eqno != -1 && jsonData.rqno != -1) {
+            num_ques_post = (jsonData.eqno-jsonData.rqno);
+          } else if (jsonData.eqno != -1) {
+            num_ques_post = (jsonData.eqno-0);
+          } else {
+            num_ques_post = (0);
+          }
+          for (var i = start; i < jsonData.qno - jsonData.rqno ; i++) {
+            increasePostProgress();
+          }
+        } else {
+          var start = 1;
+          if (jsonData.eqno != -1 && jsonData.rqno != -1) {
+            num_ques_post = (jsonData.totq-jsonData.eqno);
+          } else if (jsonData.eqno != -1) {
+            num_ques_post = (jsonData.totq-jsonData.eqno);
+          } else {
+            num_ques_post = (jsonData.totq);
+          }
+          for (var i = start; i < jsonData.qno - jsonData.eqno; i++) {
+            increasePostProgress();
+          }
         }
         if (document.getElementById('post-assessment'))
           container.removeChild(document.getElementById('post-assessment'));
       } else {
         var TnC = document.getElementById('termsAndConditions');
-        var control = document.getElementById('control');
+        var control = document.getElementById('control-7');
         var container = document.getElementsByClassName('container')[0];
         if (document.getElementsByClassName('container')[0].getElementsByClassName('questions')[0]) {
           document.getElementsByClassName('container')[0].removeChild(document.getElementsByClassName('container')[0].getElementsByClassName('questions')[0]);
@@ -1476,7 +1637,7 @@ function closeModInfo(num) {
 //Show Exer Info
 
 function showExerInfo() {
-  var infoElement = document.getElementById('info-exer');
+  var infoElement = document.getElementsByClassName('info-exer')[1];
   infoElement.style.transform = 'translateX(0) translateY(0) scale(1)';
   document.getElementById('info-btn').style.display = 'none';
   document.getElementsByClassName('menu')[0].style.zIndex='-1';
@@ -1485,7 +1646,93 @@ function showExerInfo() {
 //Close Exer Info
 
 function closeExerInfo() {
-  var infoElement = document.getElementById('info-exer');
+  var infoElement = document.getElementsByClassName('info-exer')[1];
+  infoElement.style.transform = 'translateX(100vw) translateY(-100vh) scale(0)';
+  document.getElementById('info-btn').style.display = 'block';
+  document.getElementsByClassName('menu')[0].style.zIndex='-1';
+}
+
+//Show Session Info
+
+function showSessionInfo() {
+  var infoElement = document.getElementsByClassName('info-session')[0];
+  infoElement.style.transform = 'translateX(0) translateY(0) scale(1)';
+  document.getElementById('info-btn').style.display = 'none';
+  document.getElementsByClassName('menu')[0].style.zIndex='-1';
+}
+
+//Close Exer Info
+
+function closeSessionInfo() {
+  var infoElement = document.getElementsByClassName('info-session')[0];
+  infoElement.style.transform = 'translateX(100vw) translateY(-100vh) scale(0)';
+  document.getElementById('info-btn').style.display = 'block';
+  document.getElementsByClassName('menu')[0].style.zIndex='-1';
+}
+
+function showThankYouInfo() {
+  var infoElement = document.getElementsByClassName('info-thankyou')[0];
+  infoElement.style.transform = 'translateX(0) translateY(0) scale(1)';
+  document.getElementById('info-btn').style.display = 'none';
+  document.getElementsByClassName('menu')[0].style.zIndex='-1';
+}
+
+function closeThankYouInfo() {
+  var infoElement = document.getElementsByClassName('info-thankyou')[0];
+  infoElement.style.transform = 'translateX(100vw) translateY(-100vh) scale(0)';
+  document.getElementById('info-btn').style.display = 'block';
+  document.getElementsByClassName('menu')[0].style.zIndex='-1';
+}
+
+function displayClue() {
+  document.getElementsByClassName('container')[0].getElementsByClassName('clue-text')[0].style.display = 'unset';
+  document.getElementsByClassName('container')[0].getElementsByClassName('clue-text')[0].classList.remove('fade-clue-out');
+  document.getElementsByClassName('container')[0].getElementsByClassName('clue-text')[0].classList.add('fade-clue-in');
+  document.getElementById('hide-clue').style.display = 'unset';
+  document.getElementById('disp-clue').style.display = 'none';
+}
+
+function hideClue() {
+  document.getElementsByClassName('container')[0].getElementsByClassName('clue-text')[0].classList.remove('fade-clue-in');
+  document.getElementsByClassName('container')[0].getElementsByClassName('clue-text')[0].classList.add('fade-clue-out');
+  document.getElementById('disp-clue').style.display = 'unset';
+  document.getElementById('hide-clue').style.display = 'none';
+  setTimeout(function(){
+    document.getElementsByClassName('container')[0].getElementsByClassName('clue-text')[0].style.display = 'none';
+  }, 1000);
+}
+
+//Show Welcome Info
+
+function showWelcomeInfo() {
+  var infoElement = document.getElementsByClassName('info-welcome')[0];
+  infoElement.style.transform = 'translateX(0) translateY(0) scale(1)';
+  document.getElementById('info-btn').style.display = 'none';
+  document.getElementsByClassName('menu')[0].style.zIndex='-1';
+}
+
+//Close Welcome Info
+
+function closeWelcomeInfo() {
+  var infoElement = document.getElementsByClassName('info-welcome')[0];
+  infoElement.style.transform = 'translateX(100vw) translateY(-100vh) scale(0)';
+  document.getElementById('info-btn').style.display = 'block';
+  document.getElementsByClassName('menu')[0].style.zIndex='-1';
+}
+
+//Show Review Info
+
+function showReviewInfo() {
+  var infoElement = document.getElementsByClassName('info-review')[0];
+  infoElement.style.transform = 'translateX(0) translateY(0) scale(1)';
+  document.getElementById('info-btn').style.display = 'none';
+  document.getElementsByClassName('menu')[0].style.zIndex='-1';
+}
+
+//Close Review Info
+
+function closeReviewInfo() {
+  var infoElement = document.getElementsByClassName('info-review')[0];
   infoElement.style.transform = 'translateX(100vw) translateY(-100vh) scale(0)';
   document.getElementById('info-btn').style.display = 'block';
   document.getElementsByClassName('menu')[0].style.zIndex='-1';
