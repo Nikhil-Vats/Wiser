@@ -104,7 +104,7 @@ def prepos_details(request):
                 qlist = Question.objects.filter(q_category=ud.category,q_type='experiment',q_format="openended")
 
                 for q in qlist:
-                    dat.append({"format":"openended","pk":q.pk,"text":q.text,"hint":q.choice1,"clue":q.choice2})
+                    dat.append({"format":"openended","pk":q.pk,"text":q.text,"hint":q.choice1,"clue":q.choice2,"download":q.choice3})
                     
             else:
                 return JsonResponse({"data":-1,"qno":-1,"totq":-1,"rqno":-1})

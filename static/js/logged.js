@@ -52,7 +52,7 @@ window.onload = function() {
         var container = document.getElementsByClassName('container')[0];
         container.removeChild(TnC);
         container.appendChild(expAssess.content.cloneNode(true));
-        document.getElementById('experiment-assess-heading').innerHTML = 'Weekly Continuous Evaluation';
+        document.getElementById('experiment-assess-heading').innerHTML = 'Welcome to the Main Program';
         var weeks = document.getElementsByClassName('container')[0].getElementsByClassName('levels-container')[0].getElementsByTagName('li');
         if (jsonData.category == 0) {
           // Lock Everything
@@ -87,7 +87,7 @@ window.onload = function() {
         var container = document.getElementsByClassName('container')[0];
         container.removeChild(TnC);
         container.appendChild(expAssess.content.cloneNode(true));
-        document.getElementById('placebo-assess-heading').innerHTML = 'Placebo Weekly Continuous Evaluation';
+        document.getElementById('placebo-assess-heading').innerHTML = 'Welcome to the Main Program';
         var weeks = document.getElementsByClassName('container')[0].getElementsByClassName('levels-container')[0].getElementsByTagName('li');
         if (jsonData.category == 0) {
           // Lock Everything
@@ -753,6 +753,11 @@ function getExpQuestion() {
           } else {
             document.getElementsByClassName('container')[0].getElementsByClassName('clue-text')[0].style.display = 'none';
           }
+          if (jsonData.data.download != 'wsr') {
+            document.getElementById('download_tt').style.display = 'unset';
+          } else {
+            document.getElementById('download_tt').style.display = 'none';
+          }
           if (jsonData.qno > jsonData.rqno && jsonData.qno <= jsonData.eqno) {
             if (jsonData.rqno != -1)
               document.getElementsByClassName('container')[0].getElementsByClassName('question')[0].innerHTML = (jsonData.qno-jsonData.rqno-4) + ') ' + jsonData.data.text;
@@ -762,12 +767,20 @@ function getExpQuestion() {
           else if (jsonData.qno <= jsonData.rqno)
             document.getElementsByClassName('container')[0].getElementsByClassName('question')[0].innerHTML = "Review of Previous Session<br><br>" + jsonData.qno + ') ' + jsonData.data.text;
           else
-            document.getElementsByClassName('container')[0].getElementsByClassName('question')[0].innerHTML = "Exercises to Do<br><br>" + (jsonData.qno-jsonData.eqno) + ') ' + jsonData.data.text;
+            document.getElementsByClassName('container')[0].getElementsByClassName('question')[0].innerHTML = "Exercises to Do<br><br>" + ((jsonData.qno-jsonData.eqno)+1) + ') ' + jsonData.data.text;
         } else {
           // Radio Button Content
           preAssess = document.getElementById('dartboard');
           container.appendChild(preAssess.content.cloneNode(true));
-          document.getElementsByClassName('container')[0].getElementsByClassName('question')[0].innerHTML = "Exercises to Do<br><br>" + jsonData.data.text;
+          var q_char = 'a'
+          if (jsonData.qno == (jsonData.eqno - 2))
+            q_char = 'b';
+          else if (jsonData.qno == (jsonData.eqno - 1))
+            q_char = 'c';
+          else if (jsonData.qno == (jsonData.eqno))
+            q_char = 'd';
+          document.getElementsByClassName('container')[0].getElementsByClassName('question')[0].innerHTML = "Exercises to Do<br><br>" + '1' + q_char + ') ' + jsonData.data.text;
+          document.getElementsByClassName('container')[0].getElementsByClassName('question')[0].classList.add('dart_ques');
         }
         pk = jsonData.data.pk;
         // Hide Loader Screen after 2s

@@ -185,9 +185,14 @@ html, body {
     transition: 0.5s ease-in-out;
 }
 
-.info-exer, .info-session, .info-thankyou {
+.info-session, .info-thankyou {
     background: url('/static/images/exer_back.svg');
     background-size: 150vmax;
+    background-position: center;
+}
+.info-exer {
+    background: url('/static/images/splash.svg');
+    background-size: 100vmax;
     background-position: center;
 }
 .info-welcome, .info-review {
@@ -2171,7 +2176,7 @@ h1.ml8 {
 
 .dart-1,.dart-2,.dart-3,.dart-4,.dart-5 {
     position: absolute;
-    top: 50%;
+    top: 65%;
     left: 50%;
     transform: translate(-50%, -50%);
     border-radius: 50%;
@@ -2606,7 +2611,308 @@ input[class*="btn"],
 .btn-gradient.purple:active {background: #BD8EB7;}
 .btn-gradient.yellow:active {background: #DBC05B;}
 .info-exer .btn-gradient.green:active  {background: #72B08E;}
+#download_tt .btn-gradient {
+    margin: 5px;
+}
+#download_tt a[class*="btn"] {text-decoration: none;}
+input[class*="btn"], 
+#download_tt button[class*="btn"] {border: 0;}
 
+/* Here you can change the button sizes */
+#download_tt .btn.large, 
+#download_tt .btn-two.large, 
+#download_tt .btn-effect.large {
+  padding: 20px 40px; 
+  font-size: 22px;
+}
+#download_tt .btn.small, 
+#download_tt .btn-two.small, 
+#download_tt .btn-gradient.small, 
+#download_tt .btn-effect.small {
+  padding: 8px 18px;  
+  font-size: 14px;
+}
+#download_tt .btn.mini, 
+#download_tt .btn-two.mini, 
+#download_tt .btn-gradient.mini, 
+#download_tt .btn-effect.mini {
+  padding: 4px 12px;  
+  font-size: 12px;
+}
+#download_tt .btn.block, 
+#download_tt .btn-two.block, 
+#download_tt .btn-gradient.block, 
+#download_tt .btn-effect.block {
+  display: block;
+  width: 60%;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+#download_tt .btn-gradient.large {
+  padding: 15px 45px; 
+  font-size: 22px;
+}
+
+/* Colors for .btn and .btn-two */
+#download_tt .btn.blue,#download_tt  .btn-two.blue     {background-color: #7fb1bf;}
+#download_tt .btn.green,#download_tt  .btn-two.green   {background-color: #9abf7f;}
+#download_tt .btn.red,#download_tt  .btn-two.red       {background-color: #fa5a5a;}
+#download_tt .btn.purple,#download_tt  .btn-two.purple {background-color: #cb99c5;}
+#download_tt .btn.cyan,#download_tt  .btn-two.cyan     {background-color: #7fccde;}
+#download_tt .btn.yellow,#download_tt  .btn-two.yellow {background-color: #f0d264;}
+
+#download_tt .rounded {
+  border-radius: 10px;
+}
+
+/* default button style */
+#download_tt .btn {
+    position: relative;
+    border: 0;
+    padding: 15px 25px;
+    display: inline-block;
+    text-align: center;
+    color: white;
+}
+#download_tt .btn:active {
+    top: 4px;   
+}
+
+/* color classes for .btn */
+#download_tt .btn.blue {box-shadow: 0px 4px #74a3b0;}
+#download_tt .btn.blue:active {box-shadow: 0 0 #74a3b0; background-color: #709CA8;}
+
+#download_tt .btn.green {box-shadow: 0px 4px 0px #87a86f;}
+#download_tt .btn.green:active {box-shadow: 0 0 #87a86f; background-color: #87a86f;}
+
+#download_tt .btn.red {box-shadow:0px 4px 0px #E04342;}
+#download_tt .btn.red:active {box-shadow: 0 0 #ff4c4b; background-color: #ff4c4b;}
+
+#download_tt .btn.purple {box-shadow:0px 4px 0px #AD83A8;}
+#download_tt .btn.purple:active {box-shadow: 0 0 #BA8CB5; background-color: #BA8CB5;}
+
+#download_tt .btn.cyan {box-shadow:0px 4px 0px #73B9C9;}
+#download_tt .btn.cyan:active {box-shadow: 0 0 #73B9C9; background-color: #70B4C4;}
+
+#download_tt .btn.yellow {box-shadow:0px 4px 0px #D1B757;}
+#download_tt .btn.yellow:active {box-shadow: 0 0 #ff4c4b; background-color: #D6BB59;}
+
+/* Button two - I have no creativity for names */
+#download_tt .btn-two {
+    color: white;   
+    padding: 15px 25px;
+    display: inline-block;
+    border: 1px solid rgba(0,0,0,0.21);
+    border-bottom-color: rgba(0,0,0,0.34);
+    text-shadow:0 1px 0 rgba(0,0,0,0.15);
+    box-shadow: 0 1px 0 rgba(255,255,255,0.34) inset, 
+                      0 2px 0 -1px rgba(0,0,0,0.13), 
+                      0 3px 0 -1px rgba(0,0,0,0.08), 
+                      0 3px 13px -1px rgba(0,0,0,0.21);
+}
+#download_tt .btn-two:active {
+    top: 1px;
+    border-color: rgba(0,0,0,0.34) rgba(0,0,0,0.21) rgba(0,0,0,0.21);
+    box-shadow: 0 1px 0 rgba(255,255,255,0.89),0 1px rgba(0,0,0,0.05) inset;
+    position: relative;
+}
+/* 3D Button */
+#download_tt .btn-3d {
+    position: relative;
+    display: inline-block;
+    font-size: 22px;
+    padding: 20px 60px;
+    color: white;
+    margin: 20px 10px 10px;
+    border-radius: 6px;
+    text-align: center;
+    transition: top .01s linear;
+    text-shadow: 0 1px 0 rgba(0,0,0,0.15);
+}
+#download_tt .btn-3d.red:hover    {background-color: #e74c3c;}
+#download_tt .btn-3d.blue:hover   {background-color: #699DD1;}
+#download_tt .btn-3d.green:hover  {background-color: #80C49D;}
+#download_tt .btn-3d.purple:hover {background-color: #D19ECB;}
+#download_tt .btn-3d.yellow:hover {background-color: #F0D264;}
+#download_tt .btn-3d.cyan:hover   {background-color: #82D1E3;}
+
+#download_tt .btn-3d:active {
+    top: 9px;
+}
+
+/* 3D button colors */
+#download_tt .btn-3d.red {
+    background-color: #e74c3c;
+    box-shadow: 0 0 0 1px #c63702 inset,
+        0 0 0 2px rgba(255,255,255,0.15) inset,
+        0 8px 0 0 #C24032,
+        0 8px 0 1px rgba(0,0,0,0.4),
+                0 8px 8px 1px rgba(0,0,0,0.5);
+}
+#download_tt .btn-3d.red:active {
+    box-shadow: 0 0 0 1px #c63702 inset,
+                0 0 0 2px rgba(255,255,255,0.15) inset,
+                0 0 0 1px rgba(0,0,0,0.4);
+}
+
+#download_tt .btn-3d.blue {
+    background-color: #6DA2D9;
+    box-shadow: 0 0 0 1px #6698cb inset,
+                0 0 0 2px rgba(255,255,255,0.15) inset,
+                0 8px 0 0 rgba(110, 164, 219, .7),
+                0 8px 0 1px rgba(0,0,0,.4),
+                0 8px 8px 1px rgba(0,0,0,0.5);
+}
+.btn-3d.blue:active {
+    box-shadow: 0 0 0 1px #6191C2 inset,
+                0 0 0 2px rgba(255,255,255,0.15) inset,
+                0 0 0 1px rgba(0,0,0,0.4);
+}
+
+#download_tt .btn-3d.green {
+    background-color: #82c8a0;
+    box-shadow: 0 0 0 1px #82c8a0 inset,
+                0 0 0 2px rgba(255,255,255,0.15) inset,
+                0 8px 0 0 rgba(126, 194, 155, .7),
+                0 8px 0 1px rgba(0,0,0,.4),
+                0 8px 8px 1px rgba(0,0,0,0.5);
+}
+#download_tt .btn-3d.green:active {
+    box-shadow: 0 0 0 1px #82c8a0 inset,
+                0 0 0 2px rgba(255,255,255,0.15) inset,
+                0 0 0 1px rgba(0,0,0,0.4);
+}
+
+.btn-3d.purple {
+    background-color: #cb99c5;
+    box-shadow: 0 0 0 1px #cb99c5 inset,
+                0 0 0 2px rgba(255,255,255,0.15) inset,
+                0 8px 0 0 rgba(189, 142, 183, .7),
+                0 8px 0 1px rgba(0,0,0,.4),
+                0 8px 8px 1px rgba(0,0,0,0.5);
+}
+.btn-3d.purple:active {
+    box-shadow: 0 0 0 1px #cb99c5 inset,
+                0 0 0 2px rgba(255,255,255,0.15) inset,
+                0 0 0 1px rgba(0,0,0,0.4);
+}
+
+.btn-3d.cyan {
+    background-color: #7fccde;
+    box-shadow: 0 0 0 1px #7fccde inset,
+                0 0 0 2px rgba(255,255,255,0.15) inset,
+                0 8px 0 0 rgba(102, 164, 178, .6),
+                0 8px 0 1px rgba(0,0,0,.4),
+                0 8px 8px 1px rgba(0,0,0,0.5);
+}
+.btn-3d.cyan:active {
+    box-shadow: 0 0 0 1px #7fccde inset,
+                0 0 0 2px rgba(255,255,255,0.15) inset,
+                0 0 0 1px rgba(0,0,0,0.4);
+}
+
+.btn-3d.yellow {
+    background-color: #F0D264;
+    box-shadow: 0 0 0 1px #F0D264 inset,
+                0 0 0 2px rgba(255,255,255,0.15) inset,
+                0 8px 0 0 rgba(196, 172, 83, .7),
+                0 8px 0 1px rgba(0,0,0,.4),
+                0 8px 8px 1px rgba(0,0,0,0.5);
+}
+.btn-3d.yellow:active {
+    box-shadow: 0 0 0 1px #F0D264 inset,
+                0 0 0 2px rgba(255,255,255,0.15) inset,
+                0 0 0 1px rgba(0,0,0,0.4);
+}
+
+/* Gradient buttons */
+#download_tt .btn-gradient {
+    text-decoration: none;
+    color: white;
+    padding: 10px 30px;
+    display: inline-block;
+    position: relative;
+    border: 1px solid rgba(0,0,0,0.21);
+    border-bottom: 4px solid rgba(0,0,0,0.21);
+    border-radius: 4px;
+    text-shadow: 0 1px 0 rgba(0,0,0,0.15);
+}
+/* Gradient - ugly css is ugly */
+#download_tt .btn-gradient.cyan {
+    background: rgba(27,188,194,1);
+    background: -webkit-gradient(linear, 0 0, 0 100%, from(rgba(27,188,194,1)), to(rgba(24,163,168,1)));
+    background: -webkit-linear-gradient(rgba(27,188,194,1) 0%, rgba(24,163,168,1) 100%);
+    background: -moz-linear-gradient(rgba(27,188,194,1) 0%, rgba(24,163,168,1) 100%);
+    background: -o-linear-gradient(rgba(27,188,194,1) 0%, rgba(24,163,168,1) 100%);
+    background: linear-gradient(rgba(27,188,194,1) 0%, rgba(24,163,168,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#1bbcc2', endColorstr='#18a3a8', GradientType=0);
+}
+
+#download_tt .btn-gradient.red{ 
+    background: rgba(250,90,90,1);
+    background: -webkit-gradient(linear, 0 0, 0 100%, from(rgba(250,90,90,1)), to(rgba(232,81,81,1)));
+    background: -webkit-linear-gradient(rgba(250,90,90,1) 0%, rgba(232,81,81,1) 100%);
+    background: -moz-linear-gradient(rgba(250,90,90,1) 0%, rgba(232,81,81,1) 100%);
+    background: -o-linear-gradient(rgba(250,90,90,1) 0%, rgba(232,81,81,1) 100%);
+    background: linear-gradient(rgba(250,90,90,1) 0%, rgba(232,81,81,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fa5a5a', endColorstr='#e85151', GradientType=0 );
+}
+.btn-gradient.orange {
+    background: rgba(255,105,30,1);
+    background: -webkit-gradient(linear, 0 0, 0 100%, from(rgba(255,105,30,1)), to(rgba(230,95,28,1)));
+    background: -webkit-linear-gradient(rgba(255,105,30,1) 0%, rgba(230,95,28,1) 100%);
+    background: -moz-linear-gradient(rgba(255,105,30,1) 0%, rgba(230,95,28,1) 100%);
+    background: -o-linear-gradient(rgba(255,105,30,1) 0%, rgba(230,95,28,1) 100%);
+    background: linear-gradient(rgba(255,105,30,1) 0%, rgba(230,95,28,1) 100%);
+}
+.btn-gradient.blue {
+    background: rgba(102,152,203,1);
+    background: -moz-linear-gradient(top, rgba(102,152,203,1) 0%, rgba(92,138,184,1) 100%);
+    background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(102,152,203,1)), color-stop(100%, rgba(92,138,184,1)));
+    background: -webkit-linear-gradient(top, rgba(102,152,203,1) 0%, rgba(92,138,184,1) 100%);
+    background: -o-linear-gradient(top, rgba(102,152,203,1) 0%, rgba(92,138,184,1) 100%);
+    background: -ms-linear-gradient(top, rgba(102,152,203,1) 0%, rgba(92,138,184,1) 100%);
+    background: linear-gradient(to bottom, rgba(102,152,203,1) 0%, rgba(92,138,184,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#6698cb', endColorstr='#5c8ab8', GradientType=0 );
+}
+#download_tt .btn-gradient.purple { 
+    background: rgba(203,153,197,1);
+    background: -moz-linear-gradient(top, rgba(203,153,197,1) 0%, rgba(181,134,176,1) 100%);
+    background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(203,153,197,1)), color-stop(100%, rgba(181,134,176,1)));
+    background: -webkit-linear-gradient(top, rgba(203,153,197,1) 0%, rgba(181,134,176,1) 100%);
+    background: -o-linear-gradient(top, rgba(203,153,197,1) 0%, rgba(181,134,176,1) 100%);
+    background: -ms-linear-gradient(top, rgba(203,153,197,1) 0%, rgba(181,134,176,1) 100%);
+    background: linear-gradient(to bottom, rgba(203,153,197,1) 0%, rgba(181,134,176,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#cb99c5', endColorstr='#b586b0', GradientType=0 );
+}
+.btn-gradient.yellow {
+    background: rgba(240,210,100,1);
+    background: -webkit-gradient(linear, 0 0, 0 100%, from(rgba(240,210,100,1)), to(rgba(229,201,96,1)));
+    background: -webkit-linear-gradient(rgba(240,210,100,1) 0%, rgba(229,201,96,1) 100%);
+    background: -moz-linear-gradient(rgba(240,210,100,1) 0%, rgba(229,201,96,1) 100%);
+    background: -o-linear-gradient(rgba(240,210,100,1) 0%, rgba(229,201,96,1) 100%);
+    background: linear-gradient(rgba(240,210,100,1) 0%, rgba(229,201,96,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f0d264', endColorstr='#e5c960', GradientType=0 );
+}
+#download_tt .btn-gradient.green {
+    background: rgba(130,200,160,1);
+    background: -moz-linear-gradient(top, rgba(130,200,160,1) 0%, rgba(130,199,158,1) 100%);
+    background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(130,200,160,1)), color-stop(100%, rgba(130,199,158,1)));
+    background: -webkit-linear-gradient(top, rgba(130,200,160,1) 0%, rgba(130,199,158,1) 100%);
+    background: -o-linear-gradient(top, rgba(130,200,160,1) 0%, rgba(130,199,158,1) 100%);
+    background: -ms-linear-gradient(top, rgba(130,200,160,1) 0%, rgba(130,199,158,1) 100%);
+    background: linear-gradient(to bottom, rgba(130,200,160,1) 0%, rgba(124, 185, 149, 1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#82c8a0', endColorstr='#82c79e', GradientType=0 );
+}
+
+#download_tt .btn-gradient.red:active      {background: #E35252;}
+.btn-gradient.orange:active {background: #E8601B;}
+.btn-gradient.cyan:active   {background: #169499;}
+.btn-gradient.blue:active   {background: #608FBF;}
+#download_tt .btn-gradient.purple:active {background: #BD8EB7;}
+.btn-gradient.yellow:active {background: #DBC05B;}
+.info-exer .btn-gradient.green:active  {background: #72B08E;}
 .exer-popup {
     position: absolute;
     top: 50%;
@@ -2666,6 +2972,20 @@ input[class*="btn"],
     height: 68%;
     position: relative;
     top: 16%;
+}
+
+#download_tt {
+    display: none;
+    overflow: visible;
+}
+
+.dart_ques {
+    max-height: 30vh;
+    overflow: auto;
+}
+
+.no-margin {
+    margin-top: 2px !important;
 }
 
 /* MEDIA QUERIES */
@@ -2844,6 +3164,7 @@ input[class*="btn"],
 
     .heading {
         font-size: 30px;
+        overflow: visible;
     }
 
     #tnc {
