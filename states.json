@@ -1,0 +1,570 @@
+[{
+"id": 1,
+"name": "Andaman and Nicobar Islands",
+"country": 101
+},
+{
+"id": 2,
+"name": "Andhra Pradesh",
+"country": 101
+},
+{
+"id": 3,
+"name": "Arunachal Pradesh",
+"country": 101
+},
+{
+"id": 4,
+"name": "Assam",
+"country": 101
+},
+{
+"id": 5,
+"name": "Bihar",
+"country": 101
+},
+{
+"id": 6,
+"name": "Chandigarh",
+"country": 101
+},
+{
+"id": 7,
+"name": "Chhattisgarh",
+"country": 101
+},
+{
+"id": 8,
+"name": "Dadra and Nagar Haveli",
+"country": 101
+},
+{
+"id": 9,
+"name": "Daman and Diu",
+"country": 101
+},
+{
+"id": 10,
+"name": "Delhi",
+"country": 101
+},
+{
+"id": 11,
+"name": "Goa",
+"country": 101
+},
+{
+"id": 12,
+"name": "Gujarat",
+"country": 101
+},
+{
+"id": 13,
+"name": "Haryana",
+"country": 101
+},
+{
+"id": 14,
+"name": "Himachal Pradesh",
+"country": 101
+},
+{
+"id": 15,
+"name": "Jammu and Kashmir",
+"country": 101
+},
+{
+"id": 16,
+"name": "Jharkhand",
+"country": 101
+},
+{
+"id": 17,
+"name": "Karnataka",
+"country": 101
+},
+{
+"id": 18,
+"name": "Kenmore",
+"country": 101
+},
+{
+"id": 19,
+"name": "Kerala",
+"country": 101
+},
+{
+"id": 20,
+"name": "Lakshadweep",
+"country": 101
+},
+{
+"id": 21,
+"name": "Madhya Pradesh",
+"country": 101
+},
+{
+"id": 22,
+"name": "Maharashtra",
+"country": 101
+},
+{
+"id": 23,
+"name": "Manipur",
+"country": 101
+},
+{
+"id": 24,
+"name": "Meghalaya",
+"country": 101
+},
+{
+"id": 25,
+"name": "Mizoram",
+"country": 101
+},
+{
+"id": 26,
+"name": "Nagaland",
+"country": 101
+},
+{
+"id": 27,
+"name": "Narora",
+"country": 101
+},
+{
+"id": 28,
+"name": "Natwar",
+"country": 101
+},
+{
+"id": 29,
+"name": "Odisha",
+"country": 101
+},
+{
+"id": 30,
+"name": "Paschim Medinipur",
+"country": 101
+},
+{
+"id": 31,
+"name": "Pondicherry",
+"country": 101
+},
+{
+"id": 32,
+"name": "Punjab",
+"country": 101
+},
+{
+"id": 33,
+"name": "Rajasthan",
+"country": 101
+},
+{
+"id": 34,
+"name": "Sikkim",
+"country": 101
+},
+{
+"id": 35,
+"name": "Tamil Nadu",
+"country": 101
+},
+{
+"id": 36,
+"name": "Telangana",
+"country": 101
+},
+{
+"id": 37,
+"name": "Tripura",
+"country": 101
+},
+{
+"id": 38,
+"name": "Uttar Pradesh",
+"country": 101
+},
+{
+"id": 39,
+"name": "Uttarakhand",
+"country": 101
+},
+{
+"id": 40,
+"name": "Vaishali",
+"country": 101
+},
+{
+"id": 41,
+"name": "West Bengal",
+"country": 101
+},
+{
+"id": 3919,
+"name": "Alabama",
+"country": 231
+},
+{
+"id": 3920,
+"name": "Alaska",
+"country": 231
+},
+{
+"id": 3921,
+"name": "Arizona",
+"country": 231
+},
+{
+"id": 3922,
+"name": "Arkansas",
+"country": 231
+},
+{
+"id": 3923,
+"name": "Byram",
+"country": 231
+},
+{
+"id": 3924,
+"name": "California",
+"country": 231
+},
+{
+"id": 3925,
+"name": "Cokato",
+"country": 231
+},
+{
+"id": 3926,
+"name": "Colorado",
+"country": 231
+},
+{
+"id": 3927,
+"name": "Connecticut",
+"country": 231
+},
+{
+"id": 3928,
+"name": "Delaware",
+"country": 231
+},
+{
+"id": 3929,
+"name": "District of Columbia",
+"country": 231
+},
+{
+"id": 3930,
+"name": "Florida",
+"country": 231
+},
+{
+"id": 3931,
+"name": "Georgia",
+"country": 231
+},
+{
+"id": 3932,
+"name": "Hawaii",
+"country": 231
+},
+{
+"id": 3933,
+"name": "Idaho",
+"country": 231
+},
+{
+"id": 3934,
+"name": "Illinois",
+"country": 231
+},
+{
+"id": 3935,
+"name": "Indiana",
+"country": 231
+},
+{
+"id": 3936,
+"name": "Iowa",
+"country": 231
+},
+{
+"id": 3937,
+"name": "Kansas",
+"country": 231
+},
+{
+"id": 3938,
+"name": "Kentucky",
+"country": 231
+},
+{
+"id": 3939,
+"name": "Louisiana",
+"country": 231
+},
+{
+"id": 3940,
+"name": "Lowa",
+"country": 231
+},
+{
+"id": 3941,
+"name": "Maine",
+"country": 231
+},
+{
+"id": 3942,
+"name": "Maryland",
+"country": 231
+},
+{
+"id": 3943,
+"name": "Massachusetts",
+"country": 231
+},
+{
+"id": 3944,
+"name": "Medfield",
+"country": 231
+},
+{
+"id": 3945,
+"name": "Michigan",
+"country": 231
+},
+{
+"id": 3946,
+"name": "Minnesota",
+"country": 231
+},
+{
+"id": 3947,
+"name": "Mississippi",
+"country": 231
+},
+{
+"id": 3948,
+"name": "Missouri",
+"country": 231
+},
+{
+"id": 3949,
+"name": "Montana",
+"country": 231
+},
+{
+"id": 3950,
+"name": "Nebraska",
+"country": 231
+},
+{
+"id": 3951,
+"name": "Nevada",
+"country": 231
+},
+{
+"id": 3952,
+"name": "New Hampshire",
+"country": 231
+},
+{
+"id": 3953,
+"name": "New Jersey",
+"country": 231
+},
+{
+"id": 3954,
+"name": "New Jersy",
+"country": 231
+},
+{
+"id": 3955,
+"name": "New Mexico",
+"country": 231
+},
+{
+"id": 3956,
+"name": "New York",
+"country": 231
+},
+{
+"id": 3957,
+"name": "North Carolina",
+"country": 231
+},
+{
+"id": 3958,
+"name": "North Dakota",
+"country": 231
+},
+{
+"id": 3959,
+"name": "Ohio",
+"country": 231
+},
+{
+"id": 3960,
+"name": "Oklahoma",
+"country": 231
+},
+{
+"id": 3961,
+"name": "Ontario",
+"country": 231
+},
+{
+"id": 3962,
+"name": "Oregon",
+"country": 231
+},
+{
+"id": 3963,
+"name": "Pennsylvania",
+"country": 231
+},
+{
+"id": 3964,
+"name": "Ramey",
+"country": 231
+},
+{
+"id": 3965,
+"name": "Rhode Island",
+"country": 231
+},
+{
+"id": 3966,
+"name": "South Carolina",
+"country": 231
+},
+{
+"id": 3967,
+"name": "South Dakota",
+"country": 231
+},
+{
+"id": 3968,
+"name": "Sublimity",
+"country": 231
+},
+{
+"id": 3969,
+"name": "Tennessee",
+"country": 231
+},
+{
+"id": 3970,
+"name": "Texas",
+"country": 231
+},
+{
+"id": 3971,
+"name": "Trimble",
+"country": 231
+},
+{
+"id": 3972,
+"name": "Utah",
+"country": 231
+},
+{
+"id": 3973,
+"name": "Vermont",
+"country": 231
+},
+{
+"id": 3974,
+"name": "Virginia",
+"country": 231
+},
+{
+"id": 3975,
+"name": "Washington",
+"country": 231
+},
+{
+"id": 3976,
+"name": "West Virginia",
+"country": 231
+},
+{
+"id": 3977,
+"name": "Wisconsin",
+"country": 231
+},
+{
+"id": 3978,
+"name": "Wyoming",
+"country": 231
+},
+{
+"id": 663,
+"name": "Alberta",
+"country": 38
+},
+{
+"id": 664,
+"name": "British Columbia",
+"country": 38
+},
+{
+"id": 665,
+"name": "Manitoba",
+"country": 38
+},
+{
+"id": 666,
+"name": "New Brunswick",
+"country": 38
+},
+{
+"id": 667,
+"name": "Newfoundland and Labrador",
+"country": 38
+},
+{
+"id": 668,
+"name": "Northwest Territories",
+"country": 38
+},
+{
+"id": 669,
+"name": "Nova Scotia",
+"country": 38
+},
+{
+"id": 670,
+"name": "Nunavut",
+"country": 38
+},
+{
+"id": 671,
+"name": "Ontario",
+"country": 38
+},
+{
+"id": 672,
+"name": "Prince Edward Island",
+"country": 38
+},
+{
+"id": 673,
+"name": "Quebec",
+"country": 38
+},
+{
+"id": 674,
+"name": "Saskatchewan",
+"country": 38
+},
+{
+"id": 675,
+"name": "Yukon",
+"country": 38
+}]
