@@ -33,6 +33,25 @@ def formdata(request):
                             city=data_get['city'])
     return JsonResponse({"success":1})
 
+
+@login_required(login_url='/')
+def countries_list(request):
+    data = [];
+    for i in Country.objects.all();
+        data.append({"pk":i.pk,"name":i.name})
+        
+    return JsonResponse({"data":data})
+
+@login_required(login_url='/')
+def state_list(request):
+    data_get = json.loads(request.body.decode('utf-8'))
+    data = []
+    for i in Country.objects.get(pk=data_get['pk'].state_set.all():
+         data.append({"pk":i.pk,"name":i.name})
+                                 
+    return JsonResponse({"data":data})
+
+
 @login_required(login_url='/')
 def pre_cat(request):
     
