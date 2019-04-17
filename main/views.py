@@ -51,6 +51,14 @@ def state_list(request):
                                  
     return JsonResponse({"data":data})
 
+@login_required(login_url='/')
+def city_list(request):
+    data_get = json.loads(request.body.decode('utf-8'))
+    data = []
+    for i in State.objects.get(pk=data_get['pk'].city_set.all():
+         data.append({"pk":i.pk,"name":i.name})
+                                 
+    return JsonResponse({"data":data})
 
 @login_required(login_url='/')
 def pre_cat(request):
