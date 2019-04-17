@@ -48,7 +48,10 @@ urlpatterns = [
     
     url(r'^formdata/', views.formdata,name='formdata'),
     url(r'^status/', views.status,name='status'),
-
+    
+    url(r'^countries_list/', views.countries_list,name='countries_list'),
+    url(r'^state_list/', views.state_list,name='state_list'),
+    url(r'^city_list/', views.city_list,name='city_list'),
 
 ]+static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
