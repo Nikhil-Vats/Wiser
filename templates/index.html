@@ -10,7 +10,7 @@
     <script src="{% static '/js/fontawesome.min.js' %}"></script>
     <!-- <script src="https://apis.google.com/js/api:client.js"></script> -->
     <script src="{% static '/js/lottie.min.js' %}"></script>
-    <title>WiseR</title>
+    <title>Wise&reg;</title>
 </head>
 <body class="home-content">
     <div class="loading">
@@ -19,7 +19,7 @@
     <div class="open-btn"></div>
     <div id="sidenav-bg"></div>
     <div id="sidenav-content">
-        <h1 class="title">WISE<sup>&reg;</sup></h1>
+        <h1 class="title">WISE<sup>R</sup></h1>
         <ul>
             <li onclick="openContact()"><img class="list-icons" src="{% static '/images/telephone.svg' %}">Contact Us</li>
             <li onclick="GoFullScreen()"><img class="list-icons" src="{% static '/images/full-screen.svg' %}">Go Full Screen</li>
@@ -35,12 +35,30 @@
                 <div class="close-btn"></div>
             </div>
             <h1 class="heading">About Us</h1>
-            <p id="info-text">This research is funded by the Indian Council of Medical Research (New Delhi). The team comprises of a positive psychology enthusiast, currently serving as an Assistant professor of psychology in Birla Institute of Technology and Science, a clinical psychologist, interested in the area of psychotherapy, currently serving as a senior research fellow in Birla Institute of Technology and Science, and one immensely talented and budding computer professional devoted his effort to shape the imagination. With all the diversities and expertise in their respective fields, this team is dedicated to answering the pertaining question of this study. The study aims to enhance the well-being of adolescence. With careful selection of a few domains, this would be a novel effort to combine the individual factors of wellbeing under one roof.<br><br>
+            <p id="info-text">WISE<sup>&reg;</sup> is an eclectic approach based intervention program funded by Indian Council of Medical Research (New Delhi). The idea of this intervention program is conceived by a positive psychology enthusiast, [currently serving as an Assistant Professor of Psychology @ BITS Pilani], a registered clinical psychologist with an interest in the area of psychotherapy [currently serving as a Senior Research Fellow @ BITS Pilani] and one immensely talented and budding computer professional who shaped the WISE imagination into what you are experiencing. <br><br>
 
-            We encourage your participation in this program and we anticipate that you would turn WISE after completing the program.<br><br>
+            With all the diversities and expertise in their respective fields, this team is dedicated to answering the question of enhancing well-being in youth. This novel effort combines carefully chosen variables that act as significant factors predicting well-being of adolescents and young adults.<br><br>
 
-            Regards<br>
-            Research Team-WiseR</p>
+            We encourage your participation in this program and we anticipate that you would move towards a state of flourishing once you successfully complete the program.<br><br>
+
+            Regards,<br>
+            Research Team-Wise<sup>&reg;</sup></p>
+        </div>
+        <div id="about-info">
+            <div onclick="closeAboutInfo()" style="cursor:pointer;">
+                <div class="close-btn"></div>
+                <div class="close-btn"></div>
+            </div>
+            <h1 class="heading">About the Program</h1>
+            <p id="info-text">WISE<sup>&reg;</sup> an intervention program which aims to address the well being of youths. The program comprises of three groups namely: experimental, control and placebo. One may be randomly allocated to any of the three groups after initial pre-assessment. The entire flow of the program is as follows:<br><br>
+
+            Pre-assessment comprises of questions that you need to answer before one can carry out the intervention exercises. 
+            If one happens to be in randomly allocated intervention group s/he will be doing certain simple online and offline exercises (tasks) that are provided. After the successful completion of each session activity you have to wait for 7 days for the next session to unlock. Meanwhile you are expected to do the offline activities. However, anyone who would be randomly allocated to the control group would not require doing any exercises. <br><br>
+            
+            Please note that in order to know how one is functioning and what affect the intervention program has exerted, we want you to be doing and completing the program as diligently as one can be. Although you can log out any time during the program, we strongly recommend you to complete what you have started. This shows your disposition and we appreciate such strong character individuals.<br><br>
+            
+            Thank you for your participation.
+            </p>
         </div>
         <div class="center-logo">
             <ul id="grid" class="clear">
@@ -200,6 +218,8 @@
             <img src="{% static '/images/contact_img.jpg' %}">
             <div class="name">Akarshit Jain</div>
             <div class="work">Project Leader</div>
+            <div class="work">+91-8290994211</div>
+            <div class="work">f2016448@pilani.bits-pilani.ac.in</div>
         </div>
     </div>
 
@@ -223,6 +243,18 @@
           </filter>
         </defs>
     </svg>
+    <a class="button" href="#info_popup" id="info_btn_new"><img src="{% static '/images/info-circle-solid.svg' %}"></a>
+    <div class="popup" id="info_popup">
+        <div class="popup-inner">
+            <div class="popup__photo"><img src="{% static '/images/splash.svg' %}"></div>
+            <div class="popup__text center">
+                <h1>Choose an option</h1>
+                <a href="#" class="btn-gradient red small auto_width" onclick="showInfo()">About Us!</a>
+                <a href="#" class="btn-gradient red small auto_width" onclick="showAboutInfo()">About the Program!</a>
+            </div>
+            <a class="popup__close" href="#">X</a>
+        </div>
+    </div>
     <script src="{% static '/js/anime.min.js' %}"></script>
     <script src="{% static '/js/index.js' %}" type="text/javascript"></script>
     <script src="{% static '/js/snowstorm.js' %}"></script>

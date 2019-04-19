@@ -1,0 +1,20 @@
+[
+{
+"id": 38,
+"sortname": "CA",
+"name": "Canada",
+"phoneCode": 1
+},
+{
+"id": 101,
+"sortname": "IN",
+"name": "India",
+"phoneCode": 91
+},
+{
+"id": 231,
+"sortname": "US",
+"name": "United States",
+"phoneCode": 1
+}
+]

@@ -45,7 +45,7 @@ window.onload = function() {
         } else {
           lockAllWeeks();
         }
-        closeWeeks();
+        // closeWeeks();
       } else if (jsonData.stage == 2) {
         var TnC = document.getElementById('termsAndConditions');
         var expAssess = document.getElementById('experiment-assessment-template');
@@ -98,26 +98,27 @@ window.onload = function() {
           // Lock everything then unlock week 1
           lockAllWeeks();
           weeks[0].getElementsByTagName('p')[0].classList = [''];
-          weeks[0].getElementsByTagName('p')[0].innerHTML = 'Please Complete Week #1';
+          weeks[0].getElementsByTagName('p')[0].innerHTML = 'Please complete the following exercises';
         } else if (jsonData.category == 2) {
           // Lock everything then unlock week 1
           lockAllWeeks();
           weeks[1].getElementsByTagName('p')[0].classList = [''];
-          weeks[1].getElementsByTagName('p')[0].innerHTML = 'There will be a short review of Week #1 followed by Questions for Week #2';
+          weeks[1].getElementsByTagName('p')[0].innerHTML = 'Please complete the following exercises';
         } else if (jsonData.category == 3) {
           // Lock everything then unlock week 1
           lockAllWeeks();
           weeks[2].getElementsByTagName('p')[0].classList = [''];
-          weeks[2].getElementsByTagName('p')[0].innerHTML = 'There will be a short review of Week #2 followed by Questions for Week #3';
+          weeks[2].getElementsByTagName('p')[0].innerHTML = 'Please complete the following exercises';
         } else if (jsonData.category == 4) {
           // Lock everything then unlock week 1
           lockAllWeeks();
           weeks[3].getElementsByTagName('p')[0].classList = [''];
-          weeks[3].getElementsByTagName('p')[0].innerHTML = 'There will be a short review of Week #3 followed by Questions for Week #4';
+          weeks[3].getElementsByTagName('p')[0].innerHTML = 'Please complete the following exercises';
         } else {
           lockAllWeeks();
         }
         // document.getElementsByClassName('menu')[0].style.zIndex='-1';
+        // document.getElementById('profile-btn').style.zIndex='-1';
         // var TnC = document.getElementById('termsAndConditions');
         // var preAssess = document.getElementById('placebo');
         // var container = document.getElementsByClassName('container')[0];
@@ -147,22 +148,22 @@ window.onload = function() {
           // Lock everything then unlock week 1
           lockAllWeeks();
           weeks[0].getElementsByTagName('p')[0].classList = [''];
-          weeks[0].getElementsByTagName('p')[0].innerHTML = 'Please Complete Week #1';
+          weeks[0].getElementsByTagName('p')[0].innerHTML = 'Please answer the following questions based on the exercises that you have practised during the last few weeks';
         } else if (jsonData.category == 2) {
           // Lock everything then unlock week 1
           lockAllWeeks();
           weeks[1].getElementsByTagName('p')[0].classList = [''];
-          weeks[1].getElementsByTagName('p')[0].innerHTML = 'There will be a short review of Week #1 followed by Questions for Week #2';
+          weeks[1].getElementsByTagName('p')[0].innerHTML = 'Please answer the following questions based on the exercises that you have practised during the last few weeks';
         } else if (jsonData.category == 3) {
           // Lock everything then unlock week 1
           lockAllWeeks();
           weeks[2].getElementsByTagName('p')[0].classList = [''];
-          weeks[2].getElementsByTagName('p')[0].innerHTML = 'There will be a short review of Week #2 followed by Questions for Week #3';
+          weeks[2].getElementsByTagName('p')[0].innerHTML = 'Please answer the following questions based on the exercises that you have practised during the last few weeks';
         } else if (jsonData.category == 4) {
           // Lock everything then unlock week 1
           lockAllWeeks();
           weeks[3].getElementsByTagName('p')[0].classList = [''];
-          weeks[3].getElementsByTagName('p')[0].innerHTML = 'There will be a short review of Week #3 followed by Questions for Week #4';
+          weeks[3].getElementsByTagName('p')[0].innerHTML = 'Please answer the following questions based on the exercises that you have practised during the last few weeks';
         } else {
           lockAllWeeks();
         }
@@ -171,7 +172,7 @@ window.onload = function() {
         // var container = document.getElementsByClassName('container')[0];
         // container.removeChild(TnC);
         // container.appendChild(preAssess.content.cloneNode(true));
-        closeWeeks();
+        // closeWeeks();
       } else {
         var TnC = document.getElementById('termsAndConditions');
         var complete = document.getElementById('complete');
@@ -205,19 +206,41 @@ function GoFullScreen() {
 //Show info
 
 function showInfo() {
-  var infoElement = document.getElementById('info');
-  infoElement.style.transform = 'translateX(0) translateY(0) scale(1)';
-  document.getElementById('info-btn').style.display = 'none';
-  document.getElementsByClassName('menu')[0].style.zIndex='-1';
+    var infoElement = document.getElementById('info');
+    infoElement.style.transform = 'translateX(0) translateY(0) scale(1)';
+    document.getElementById('info_btn_new').style.display = 'none';
+    document.getElementsByClassName('menu')[0].style.zIndex='-1';
+    document.getElementById('profile-btn').style.zIndex='-1';
 }
 
 //Close info
 
 function closeInfo() {
-  var infoElement = document.getElementById('info');
-  infoElement.style.transform = 'translateX(100vw) translateY(-100vh) scale(0)';
-  document.getElementById('info-btn').style.display = 'block';
-  document.getElementsByClassName('menu')[0].style.zIndex='1';
+    var infoElement = document.getElementById('info');
+    infoElement.style.transform = 'translateX(100vw) translateY(-100vh) scale(0)';
+    document.getElementById('info_btn_new').style.display = 'block';
+    document.getElementsByClassName('menu')[0].style.zIndex='1';
+    document.getElementById('profile-btn').style.zIndex='1';
+}
+
+//Show info
+
+function showAboutInfo() {
+    var infoElement = document.getElementById('about-info');
+    infoElement.style.transform = 'translateX(0) translateY(0) scale(1)';
+    document.getElementById('info_btn_new').style.display = 'none';
+    document.getElementsByClassName('menu')[0].style.zIndex='-1';
+    document.getElementById('profile-btn').style.zIndex='-1';
+}
+
+//Close info
+
+function closeAboutInfo() {
+    var infoElement = document.getElementById('about-info');
+    infoElement.style.transform = 'translateX(100vw) translateY(-100vh) scale(0)';
+    document.getElementById('info_btn_new').style.display = 'block';
+    document.getElementsByClassName('menu')[0].style.zIndex='1';
+    document.getElementById('profile-btn').style.zIndex='1';
 }
 
 // Sidenav(mobile)
@@ -262,8 +285,8 @@ function GetBasicInfo() {
     var profileDiv = document.getElementById('profile-template');
     container.removeChild(TnC);
     container.appendChild(profileDiv.content.cloneNode(true));
-    // Initializes the States
-    print_state("states");
+    // Initializes the Country
+    print_country("country");
     showThankYouInfo();
   } else {
     document.getElementById('basic-info-btn').innerHTML = 'Please agree to the terms and conditions';
@@ -357,6 +380,8 @@ function goToLevel(category, context) {
   } else {
     // Display Loading Screen
     document.getElementsByClassName('ques-loading')[0].style.display='flex';
+    document.getElementById('info_btn_new').style.display = 'none';
+    document.getElementById('info-btn').style.display = 'block';
     document.getElementById('info-btn').setAttribute('onclick', 'showModInfo('+category+')');
     var xhttp = new XMLHttpRequest();
     var url = '/pre_cat/';
@@ -370,6 +395,7 @@ function goToLevel(category, context) {
         console.log(jsonData);
         getQuestion();
         document.getElementsByClassName('menu')[0].style.zIndex='-1';
+        document.getElementById('profile-btn').style.zIndex='-1';
       }
     };
     xhttp.send(JSON.stringify(data));
@@ -393,6 +419,8 @@ function goToWeek(week_num, context) {
     // Do Nothing
   } else {
     week = week_num;
+    document.getElementById('info_btn_new').style.display = 'none';
+    document.getElementById('info-btn').style.display = 'block';
     document.getElementById('info-btn').setAttribute('onclick', 'showModInfo('+week+')');
     // Display Loading Screen
     document.getElementsByClassName('ques-loading')[0].style.display='flex';
@@ -408,6 +436,7 @@ function goToWeek(week_num, context) {
         console.log(jsonData);
         getExpQuestion();
         document.getElementsByClassName('menu')[0].style.zIndex='-1';
+        document.getElementById('profile-btn').style.zIndex='-1';
         // Show Info of the Week Number after 500 ms
         setTimeout(function(){showModInfo(week);},500);
       }
@@ -432,6 +461,8 @@ function goToPlaceboWeek(week_num, context) {
     // Do Nothing
   } else {
     week = week_num;
+    document.getElementById('info_btn_new').style.display = 'none';
+    document.getElementById('info-btn').style.display = 'block';
     document.getElementById('info-btn').setAttribute('onclick', 'showModInfo('+week+')');
     // Display Loading Screen
     document.getElementsByClassName('ques-loading')[0].style.display='flex';
@@ -447,6 +478,7 @@ function goToPlaceboWeek(week_num, context) {
         console.log(jsonData);
         getPlaceboQuestion();
         document.getElementsByClassName('menu')[0].style.zIndex='-1';
+        document.getElementById('profile-btn').style.zIndex='-1';
         // Show Info of the Week Number after 500 ms
         setTimeout(function(){showModInfo(week);},500);
       }
@@ -472,6 +504,8 @@ function goToPostLevel(category, context) {
   if (context.parentElement.getElementsByTagName('p')[0].classList.contains('locked')) {
     // Do Nothing
   } else {
+    document.getElementById('info_btn_new').style.display = 'none';
+    document.getElementById('info-btn').style.display = 'block';
     document.getElementById('info-btn').setAttribute('onclick', 'showModInfo('+category+')');
     // Display Loading Screen
     document.getElementsByClassName('ques-loading')[0].style.display='flex';
@@ -487,6 +521,7 @@ function goToPostLevel(category, context) {
         console.log(jsonData);
         getPostQuestion();
         document.getElementsByClassName('menu')[0].style.zIndex='-1';
+        document.getElementById('profile-btn').style.zIndex='-1';
       }
     };
     xhttp.send(JSON.stringify(data));
@@ -649,13 +684,13 @@ function getExpQuestion() {
           // Display Welcome to Review Questions
           showReviewInfo();
         }
-        if (week == 1 && (jsonData.qno == jsonData.eqno+1-4)) {
+        if (week == 1 && (jsonData.qno == jsonData.eqno+1-2)) {
           // Display Welcome to Exercises
-          showExerInfo();
+          showExerInfo(week);
         }
         if (jsonData.qno == jsonData.eqno+1 && week != 1) {
           // Display Welcome to Exercises
-          showExerInfo();
+          showExerInfo(week);
         }
         if (jsonData.qno == jsonData.rqno+1) {
           // Display welcome to session
@@ -760,7 +795,7 @@ function getExpQuestion() {
           }
           if (jsonData.qno > jsonData.rqno && jsonData.qno <= jsonData.eqno) {
             if (jsonData.rqno != -1)
-              document.getElementsByClassName('container')[0].getElementsByClassName('question')[0].innerHTML = (jsonData.qno-jsonData.rqno-4) + ') ' + jsonData.data.text;
+              document.getElementsByClassName('container')[0].getElementsByClassName('question')[0].innerHTML = (jsonData.qno-jsonData.rqno-2) + ') ' + jsonData.data.text;
             else
               document.getElementsByClassName('container')[0].getElementsByClassName('question')[0].innerHTML = jsonData.qno + ') ' + jsonData.data.text;
           }
@@ -772,14 +807,18 @@ function getExpQuestion() {
           // Radio Button Content
           preAssess = document.getElementById('dartboard');
           container.appendChild(preAssess.content.cloneNode(true));
-          var q_char = 'a'
-          if (jsonData.qno == (jsonData.eqno - 2))
+          var q_char = 'a';
+          var q_no = 1;
+          if (jsonData.qno == (jsonData.eqno)) {
             q_char = 'b';
-          else if (jsonData.qno == (jsonData.eqno - 1))
-            q_char = 'c';
-          else if (jsonData.qno == (jsonData.eqno))
-            q_char = 'd';
-          document.getElementsByClassName('container')[0].getElementsByClassName('question')[0].innerHTML = "Exercises to Do<br><br>" + '1' + q_char + ') ' + jsonData.data.text;
+            q_no = 2;
+          }
+          // else if (jsonData.qno == (jsonData.eqno - 1))
+          //   q_char = 'c';
+          // else if (jsonData.qno == (jsonData.eqno))
+          //   q_char = 'd';
+          var subheading_array = ['Academic','Self Growth'];
+          document.getElementsByClassName('container')[0].getElementsByClassName('question')[0].innerHTML = "Bull\'s Eye Exercise<br><br>" + subheading_array[q_no-1] + "<br><br>" + '1' + q_char + ') ' + jsonData.data.text;
           document.getElementsByClassName('container')[0].getElementsByClassName('question')[0].classList.add('dart_ques');
         }
         pk = jsonData.data.pk;
@@ -825,12 +864,12 @@ function getExpQuestion() {
             for (var i = 1; i < jsonData.qno; i++) {
               increaseExpProgress();
             }
-          } else if (jsonData.qno > jsonData.rqno && jsonData.qno <= (jsonData.eqno - 4)) {
+          } else if (jsonData.qno > jsonData.rqno && jsonData.qno <= (jsonData.eqno - 2)) {
             var start = 1;
             if (jsonData.eqno != -1 && jsonData.rqno != -1) {
-              num_ques_exp = (jsonData.eqno-jsonData.rqno-4);
+              num_ques_exp = (jsonData.eqno-jsonData.rqno-2);
             } else if (jsonData.eqno != -1) {
-              num_ques_exp = (jsonData.eqno-4);
+              num_ques_exp = (jsonData.eqno-2);
             } else {
               num_ques_exp = (0);
             }
@@ -840,13 +879,13 @@ function getExpQuestion() {
           } else {
             var start = 1;
             if (jsonData.eqno != -1 && jsonData.rqno != -1) {
-              num_ques_exp = (jsonData.totq-jsonData.eqno)+4;
+              num_ques_exp = (jsonData.totq-jsonData.eqno)+2;
             } else if (jsonData.eqno != -1) {
-              num_ques_exp = (jsonData.totq-jsonData.eqno)+4;
+              num_ques_exp = (jsonData.totq-jsonData.eqno)+2;
             } else {
               num_ques_exp = (jsonData.totq);
             }
-            for (var i = start; i < (jsonData.qno - jsonData.eqno) + 4; i++) {
+            for (var i = start; i < (jsonData.qno - jsonData.eqno) + 2; i++) {
               increaseExpProgress();
             }
           }
@@ -1099,6 +1138,7 @@ function getPlaceboQuestion() {
         }
         if (document.getElementById('placebo-assessment'))
           container.removeChild(document.getElementById('placebo-assessment'));
+        document.getElementsByClassName('progress')[0].style.display='none';
       } else {
         var TnC = document.getElementById('termsAndConditions');
         var control = document.getElementById('control-7');
@@ -1404,6 +1444,7 @@ function goBack() {
   // // Hide Loader Screen after 2s
   // setTimeout(function(){document.getElementsByClassName('ques-loading')[0].style.display='none';},500);
   // document.getElementsByClassName('menu')[0].style.zIndex='1';
+  // document.getElementById('profile-btn').style.zIndex='1';
   location.reload();
 }
 function goExpBack() {
@@ -1421,6 +1462,7 @@ function goExpBack() {
   // // Hide Loader Screen after 2s
   // setTimeout(function(){document.getElementsByClassName('ques-loading')[0].style.display='none';},500);
   // document.getElementsByClassName('menu')[0].style.zIndex='1';
+  // document.getElementById('profile-btn').style.zIndex='1';
   location.reload();
 }
 function goPlaceboBack() {
@@ -1441,6 +1483,7 @@ function goPostBack() {
   // // Hide Loader Screen after 2s
   // setTimeout(function(){document.getElementsByClassName('ques-loading')[0].style.display='none';},500);
   // document.getElementsByClassName('menu')[0].style.zIndex='1';
+  // document.getElementById('profile-btn').style.zIndex='1';
   location.reload();
 }
 var initialWidth;
@@ -1636,6 +1679,7 @@ function showModInfo(num) {
   infoElement.style.transform = 'translateX(0) translateY(0) scale(1)';
   document.getElementById('info-btn').style.display = 'none';
   document.getElementsByClassName('menu')[0].style.zIndex='-1';
+  document.getElementById('profile-btn').style.zIndex='-1';
 }
 
 //Close info
@@ -1645,15 +1689,19 @@ function closeModInfo(num) {
   infoElement.style.transform = 'translateX(100vw) translateY(-100vh) scale(0)';
   document.getElementById('info-btn').style.display = 'block';
   document.getElementsByClassName('menu')[0].style.zIndex='-1';
+  document.getElementById('profile-btn').style.zIndex='-1';
 }
 
 //Show Exer Info
 
-function showExerInfo() {
+function showExerInfo(week_num) {
+  var array = ['Self Management', 'Emotional Intelligence', 'Time Management', 'Stress Management'];
   var infoElement = document.getElementsByClassName('info-exer')[1];
+  infoElement.getElementsByClassName('exer-desc')[0].innerHTML = 'Now there are a couple of exercises targeting ' + array[week_num-1] + '. You may start doing the exercises right now!';
   infoElement.style.transform = 'translateX(0) translateY(0) scale(1)';
   document.getElementById('info-btn').style.display = 'none';
   document.getElementsByClassName('menu')[0].style.zIndex='-1';
+  document.getElementById('profile-btn').style.zIndex='-1';
 }
 
 //Close Exer Info
@@ -1663,6 +1711,7 @@ function closeExerInfo() {
   infoElement.style.transform = 'translateX(100vw) translateY(-100vh) scale(0)';
   document.getElementById('info-btn').style.display = 'block';
   document.getElementsByClassName('menu')[0].style.zIndex='-1';
+  document.getElementById('profile-btn').style.zIndex='-1';
 }
 
 //Show Session Info
@@ -1672,6 +1721,7 @@ function showSessionInfo() {
   infoElement.style.transform = 'translateX(0) translateY(0) scale(1)';
   document.getElementById('info-btn').style.display = 'none';
   document.getElementsByClassName('menu')[0].style.zIndex='-1';
+  document.getElementById('profile-btn').style.zIndex='-1';
 }
 
 //Close Exer Info
@@ -1681,6 +1731,7 @@ function closeSessionInfo() {
   infoElement.style.transform = 'translateX(100vw) translateY(-100vh) scale(0)';
   document.getElementById('info-btn').style.display = 'block';
   document.getElementsByClassName('menu')[0].style.zIndex='-1';
+  document.getElementById('profile-btn').style.zIndex='-1';
 }
 
 function showThankYouInfo() {
@@ -1688,6 +1739,7 @@ function showThankYouInfo() {
   infoElement.style.transform = 'translateX(0) translateY(0) scale(1)';
   document.getElementById('info-btn').style.display = 'none';
   document.getElementsByClassName('menu')[0].style.zIndex='-1';
+  document.getElementById('profile-btn').style.zIndex='-1';
 }
 
 function closeThankYouInfo() {
@@ -1695,6 +1747,7 @@ function closeThankYouInfo() {
   infoElement.style.transform = 'translateX(100vw) translateY(-100vh) scale(0)';
   document.getElementById('info-btn').style.display = 'block';
   document.getElementsByClassName('menu')[0].style.zIndex='-1';
+  document.getElementById('profile-btn').style.zIndex='-1';
 }
 
 function displayClue() {
@@ -1720,8 +1773,10 @@ function hideClue() {
 function showWelcomeInfo() {
   var infoElement = document.getElementsByClassName('info-welcome')[0];
   infoElement.style.transform = 'translateX(0) translateY(0) scale(1)';
+  document.getElementById('info_btn_new').style.display = 'none';
   document.getElementById('info-btn').style.display = 'none';
   document.getElementsByClassName('menu')[0].style.zIndex='-1';
+  document.getElementById('profile-btn').style.zIndex='-1';
 }
 
 //Close Welcome Info
@@ -1731,6 +1786,7 @@ function closeWelcomeInfo() {
   infoElement.style.transform = 'translateX(100vw) translateY(-100vh) scale(0)';
   document.getElementById('info-btn').style.display = 'block';
   document.getElementsByClassName('menu')[0].style.zIndex='-1';
+  document.getElementById('profile-btn').style.zIndex='-1';
 }
 
 //Show Review Info
@@ -1738,8 +1794,10 @@ function closeWelcomeInfo() {
 function showReviewInfo() {
   var infoElement = document.getElementsByClassName('info-review')[0];
   infoElement.style.transform = 'translateX(0) translateY(0) scale(1)';
+  document.getElementById('info_btn_new').style.display = 'none';
   document.getElementById('info-btn').style.display = 'none';
   document.getElementsByClassName('menu')[0].style.zIndex='-1';
+  document.getElementById('profile-btn').style.zIndex='-1';
 }
 
 //Close Review Info
@@ -1749,4 +1807,117 @@ function closeReviewInfo() {
   infoElement.style.transform = 'translateX(100vw) translateY(-100vh) scale(0)';
   document.getElementById('info-btn').style.display = 'block';
   document.getElementsByClassName('menu')[0].style.zIndex='-1';
+  document.getElementById('profile-btn').style.zIndex='-1';
+}
+
+//Show Review Info
+
+function showProfileInfo() {
+  var infoElement = document.getElementsByClassName('info-profile')[0];
+  infoElement.style.transform = 'translateX(0) translateY(0) scale(1)';
+  document.getElementById('info-btn').style.display = 'none';
+  document.getElementsByClassName('menu')[0].style.zIndex='-1';
+  document.getElementById('profile-btn').style.zIndex='-1';
+}
+
+//Close Review Info
+
+function closeProfileInfo() {
+  var infoElement = document.getElementsByClassName('info-profile')[0];
+  infoElement.style.transform = 'translateX(100vw) translateY(-100vh) scale(0)';
+  // document.getElementById('info-btn').style.display = 'block';
+  document.getElementsByClassName('menu')[0].style.zIndex='1';
+  document.getElementById('profile-btn').style.zIndex='1';
+}
+
+function getCookie(name) {
+  var v = document.cookie.match('(^|;) ?' + name + '=([^;]*)(;|$)');
+  return v ? v[2] : null;
+}
+
+function print_country(id) {
+  var csrf_token = getCookie('csrftoken');
+  document.getElementById(id).innerHTML='<option value="">Fetching...</option>';
+  var ourRequest = new XMLHttpRequest();
+  var url = "/countries_list/";
+  ourRequest.open("POST", url, true);
+  ourRequest.setRequestHeader("Content-type", "application/json");
+  ourRequest.setRequestHeader("X-CSRFToken", csrf_token);
+  ourRequest.onload = function () {
+    if (ourRequest.status >= 200 && ourRequest.status < 400) {
+      ourData = JSON.parse(ourRequest.responseText);
+      document.getElementById(id).innerHTML='<option value="" selected disabled>Please select</option>';
+      var data = ourData.data;
+      for (var i=0; i<data.length; i++) {
+        document.getElementById(id).innerHTML+='<option value="'+data[i].pk+'">'+data[i].name+'</option>';
+      }
+    }
+    else
+      document.getElementById(id).innerHTML='<option value="">Error, Please retry...</option>';
+  } // server sent an error after connection
+  ourRequest.onerror = function () { // error connecting to URL
+    // Print Error
+    document.getElementById(id).innerHTML='<option value="">Error, Please retry...</option>';
+  }
+  ourRequest.send(); // sending request
+  document.getElementById(id).innerHTML='<option value="">Error, Please retry...</option>';
+}
+
+function print_states(id, elem) {
+  if (elem.value != "") {
+    var csrf_token = getCookie('csrftoken');
+    document.getElementById(id).innerHTML='<option value="">Fetching...</option>';
+    var ourRequest = new XMLHttpRequest();
+    var url = "/state_list/";
+    ourRequest.open("POST", url, true);
+    ourRequest.setRequestHeader("Content-type", "application/json");
+    ourRequest.setRequestHeader("X-CSRFToken", csrf_token);
+    ourRequest.onload = function () {
+      if (ourRequest.status >= 200 && ourRequest.status < 400) {
+        ourData = JSON.parse(ourRequest.responseText);
+        document.getElementById(id).innerHTML='<option value="" selected disabled>Please select</option>';
+        var data = ourData.data;
+        for (var i=0; i<data.length; i++) {
+          document.getElementById(id).innerHTML+='<option value="'+data[i].pk+'">'+data[i].name+'</option>';
+        }
+      }
+      else
+        document.getElementById(id).innerHTML='<option value="">Error, Please retry...</option>';
+    } // server sent an error after connection
+    ourRequest.onerror = function () { // error connecting to URL
+      // Print Error
+      document.getElementById(id).innerHTML='<option value="">Error, Please retry...</option>';
+    }
+    ourRequest.send(JSON.stringify({"pk":parseInt(elem.value)})); // sending request
+    document.getElementById(id).innerHTML='<option value="">Error, Please retry...</option>';
+  }
+}
+
+function print_cities(id, elem) {
+  if (elem.value != "") {
+    var csrf_token = getCookie('csrftoken');
+    document.getElementById(id).innerHTML='<option value="">Fetching...</option>';
+    var ourRequest = new XMLHttpRequest();
+    var url = "/city_list/";
+    ourRequest.open("POST", url, true);
+    ourRequest.setRequestHeader("Content-type", "application/json");
+    ourRequest.setRequestHeader("X-CSRFToken", csrf_token);
+    ourRequest.onload = function () {
+      if (ourRequest.status >= 200 && ourRequest.status < 400) {
+        ourData = JSON.parse(ourRequest.responseText);
+        document.getElementById(id).innerHTML='<option value="" selected disabled>Please select</option>';
+        var data = ourData.data;
+        for (var i=0; i<data.length; i++) {
+          document.getElementById(id).innerHTML+='<option value="'+data[i].pk+'">'+data[i].name+'</option>';
+        }
+      }
+      else
+        document.getElementById(id).innerHTML='<option value="">Error, Please retry...</option>';
+    } // server sent an error after connection
+    ourRequest.onerror = function () { // error connecting to URL
+      // Print Error
+    }
+    ourRequest.send(JSON.stringify({"pk":parseInt(elem.value)})); // sending request
+    document.getElementById(id).innerHTML='<option value="">Error, Please retry...</option>';
+  }
 }

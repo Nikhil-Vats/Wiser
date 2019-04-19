@@ -2,7 +2,7 @@ from __future__ import unicode_literals
 from django.shortcuts import render
 from django.views.generic import View,ListView
 from django.http import JsonResponse,HttpResponseRedirect,HttpResponse
-from main.models import Userdata,Question,Answer
+from main.models import Userdata,Question,Answer,Country,State,City
 import json
 from django.contrib.auth.models import User
 import datetime as dt
@@ -36,8 +36,8 @@ def formdata(request):
 
 @login_required(login_url='/')
 def countries_list(request):
-    data = [];
-    for i in Country.objects.all();
+    data = []
+    for i in Country.objects.all():
         data.append({"pk":i.pk,"name":i.name})
         
     return JsonResponse({"data":data})
@@ -46,7 +46,7 @@ def countries_list(request):
 def state_list(request):
     data_get = json.loads(request.body.decode('utf-8'))
     data = []
-    for i in Country.objects.get(pk=data_get['pk'].state_set.all():
+    for i in Country.objects.get(pk=data_get['pk']).state_set.all():
          data.append({"pk":i.pk,"name":i.name})
                                  
     return JsonResponse({"data":data})
@@ -55,7 +55,7 @@ def state_list(request):
 def city_list(request):
     data_get = json.loads(request.body.decode('utf-8'))
     data = []
-    for i in State.objects.get(pk=data_get['pk'].city_set.all():
+    for i in State.objects.get(pk=data_get['pk']).city_set.all():
          data.append({"pk":i.pk,"name":i.name})
                                  
     return JsonResponse({"data":data})

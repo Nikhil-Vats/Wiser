@@ -46,7 +46,7 @@ direction = -direction;
 function showInfo() {
     var infoElement = document.getElementById('info');
     infoElement.style.transform = 'translateX(0) translateY(0) scale(1)';
-    document.getElementById('info-btn').style.display = 'none';
+    document.getElementById('info_btn_new').style.display = 'none';
     document.getElementsByClassName('menu')[0].style.zIndex='-1';
 }
 
@@ -55,7 +55,25 @@ function showInfo() {
 function closeInfo() {
     var infoElement = document.getElementById('info');
     infoElement.style.transform = 'translateX(100vw) translateY(-100vh) scale(0)';
-    document.getElementById('info-btn').style.display = 'block';
+    document.getElementById('info_btn_new').style.display = 'block';
+    document.getElementsByClassName('menu')[0].style.zIndex='1';
+}
+
+//Show info
+
+function showAboutInfo() {
+    var infoElement = document.getElementById('about-info');
+    infoElement.style.transform = 'translateX(0) translateY(0) scale(1)';
+    document.getElementById('info_btn_new').style.display = 'none';
+    document.getElementsByClassName('menu')[0].style.zIndex='-1';
+}
+
+//Close info
+
+function closeAboutInfo() {
+    var infoElement = document.getElementById('about-info');
+    infoElement.style.transform = 'translateX(100vw) translateY(-100vh) scale(0)';
+    document.getElementById('info_btn_new').style.display = 'block';
     document.getElementsByClassName('menu')[0].style.zIndex='1';
 }
   
