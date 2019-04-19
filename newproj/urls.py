@@ -37,7 +37,7 @@ urlpatterns = [
 
     url(r'^admin_db_4/',views.admin_db_4,name='admin_db_4'),
 
-    url(r'^proceed/',views.proceed,name='proceed'),
+    url(r'^proceed/',views.profile,name='profile'),
     url(r'^accounts/', include('allauth.urls')),
     url(r'^admin/', admin.site.urls),
 

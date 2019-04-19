@@ -23,14 +23,18 @@ def proceed(request):
 def formdata(request):
     
     data_get = json.loads(request.body.decode('utf-8'))
-    Userdata.objects.create(user_id = request.user,
+    u = Userdata.objects.create(user_id = request.user,
                             name=data_get['name'],
                             age=data_get['age'],
                             gender=data_get['gender'],
                             contactno=data_get['phone'],
                             education_level=data_get['year'],
-                            state=data_get['state'],
                             city=data_get['city'])
+
+    u.state = State.objects.get(pk=data_get['state'])
+    u.country = Country.object.get(pk=data_get['country'])
+    u.save()
+
     return JsonResponse({"success":1})
 
 
@@ -179,12 +183,6 @@ def prepos_details(request):
                 return JsonResponse({"data":-1,"qno":-1,"totq":-1,"rqno":-1})
         
         return JsonResponse({"data":dat[ud.q_no-1],"qno":ud.q_no,"totq":len(dat),"rqno":r,"eqno":eqno})
-
-
-
-
-
-
 
 
 
@@ -578,3 +576,25 @@ def admin_db_4(request):
 
     wb.save(response)
     return response
+
+
+def profile(request):
+
+    ud = Userdata.objects.get(user_id = request.user)
+    pre = "Yet to enter"
+    post = "Yet to enter"
+    main = "Yet to enter"
+
+    if ud.status == 1:
+        pre = "Incomplete"
+
+    elif ud.status == 5:
+        pre = "Completed"
+        main = "Completed"
+        post = "Incomplete"
+
+    elif ud.status>1 and ud.status<5:
+        pre = "Completed"
+        main = "Incomplete"
+
+    return render(request, 'loggedin.html', {"name":ud.name,"time":str(ud.email_date-dt.date.today()),"pre":pre,"post":post,"main":main})

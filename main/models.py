@@ -16,6 +16,29 @@ QUESTION_FORMAT = (
 )
 
 
+class Country(models.Model):
+    sortname = models.CharField(max_length=10)
+    name = models.CharField(max_length=100)
+    phoneCode = models.IntegerField()
+
+    def __str__(self):
+        return str(self.name)
+
+
+class State(models.Model):
+    name = models.CharField(max_length=100)
+    country = models.ForeignKey(Country,on_delete=models.CASCADE)
+
+    def __str__(self):
+        return str(self.name)
+
+class City(models.Model):
+    name = models.CharField(max_length=100)
+    state = models.ForeignKey(State,on_delete=models.CASCADE)
+
+    def __str__(self):
+        return str(self.name)
+
 class Userdata(models.Model):
     user_id=models.ForeignKey(User,on_delete=models.CASCADE)
     name=models.CharField(max_length=100)
@@ -23,8 +46,9 @@ class Userdata(models.Model):
     gender=models.CharField(max_length=100)
     education_level=models.CharField(max_length=100)
     contactno=models.PositiveIntegerField()
-    group=models.CharField(max_length=450,choices=QUESTION_TYPES,null=True)
-    state = models.CharField(max_length=100, default = "Bihar")
+    group = models.CharField(max_length=450,choices=QUESTION_TYPES,null=True)
+    country = models.ForeignKey(Country,on_delete=models.CASCADE)
+    state = models.ForeignKey(State,on_delete=models.CASCADE)
     city = models.CharField(max_length=100, null=True)
     category=models.IntegerField(default=-1)
     status=models.IntegerField(default=1)
@@ -59,26 +83,3 @@ class Answer(models.Model):
 
     def __str__(self):
         return str(self.userdata_id)
-
-class Country(models.Model):
-    sortname = models.CharField(max_length=10)
-    name = models.CharField(max_length=100)
-    phoneCode = models.IntegerField()
-
-    def __str__(self):
-        return str(self.name)
-
-
-class State(models.Model):
-    name = models.CharField(max_length=100)
-    country = models.ForeignKey(Country,on_delete=models.CASCADE)
-
-    def __str__(self):
-        return str(self.name)
-
-class City(models.Model):
-    name = models.CharField(max_length=100)
-    state = models.ForeignKey(State,on_delete=models.CASCADE)
-
-    def __str__(self):
-        return str(self.name)
